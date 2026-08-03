@@ -8,8 +8,6 @@
 
 <title>Gen Z Eye Challenge AI</title>
 
-<meta name="description" content="AI powered eye puzzles, reaction tests and brain challenges.">
-
 <link rel="stylesheet" href="style.css">
 
 </head>
@@ -19,32 +17,41 @@
 
 
 <div id="loading">
-    👁️ Loading Gen Z Eye Challenge...
+👁️ Initializing Eye AI...
 </div>
 
 
 
 <header class="hero">
 
+
 <h1>👁️ Gen Z Eye Challenge AI</h1>
 
-<p>Train your eyes. Test your brain. Beat the challenge.</p>
+<p>
+Train your vision • Test your brain • Become an Eye Master
+</p>
 
 
-<div class="player-panel">
+
+<div class="stats">
 
 <div>
-⭐ Score:
+⭐ Score
+<br>
 <span id="score">0</span>
 </div>
 
+
 <div>
-🔥 Streak:
+🔥 Streak
+<br>
 <span id="streak">0</span>
 </div>
 
+
 <div>
-🏆 Level:
+🏆 Level
+<br>
 <span id="level">1</span>
 </div>
 
@@ -52,13 +59,22 @@
 
 
 
-<div class="hero-buttons">
+<div class="buttons">
 
-<button id="playBtn">🎮 Start Game</button>
+<button id="playBtn">
+🎮 Start Challenge
+</button>
 
-<button id="dailyBtn">🔥 Daily Challenge</button>
 
-<button id="aiBtn">🤖 AI Coach</button>
+<button id="themeBtn">
+🌙 Dark Theme
+</button>
+
+
+<button id="shareBtn">
+📤 Share Score
+</button>
+
 
 </div>
 
@@ -71,13 +87,16 @@
 
 <nav>
 
-<a href="#games">Games</a>
-<a href="#daily">Daily</a>
-<a href="#leaderboard">Leaderboard</a>
-<a href="#achievements">Achievements</a>
-<a href="#ai">AI</a>
+<a href="#games">🎮 Games</a>
+<a href="#daily">🔥 Daily</a>
+<a href="#profile">👤 Profile</a>
+<a href="#ai">🤖 AI</a>
+<a href="#rank">🏆 Rank</a>
+<a href="#settings">⚙️ Settings</a>
 
 </nav>
+
+
 
 
 
@@ -89,65 +108,103 @@
 
 <section id="games">
 
-<h2>🎮 Eye Training Games</h2>
+<h2>🎮 Eye Training Arena</h2>
 
 
 <div class="game-grid">
 
 
 <div class="game-card">
-<h3>⚡ Reaction Speed</h3>
-<p>Test your reaction time.</p>
-<button class="gameBtn" data-game="reaction">Play</button>
+
+<h3>⚡ Reaction Master</h3>
+
+<p>Test your eye speed</p>
+
+<button class="gameBtn" data-game="reaction">
+PLAY
+</button>
+
 </div>
 
 
 
+
 <div class="game-card">
-<h3>🧠 Memory Master</h3>
-<p>Remember the hidden pattern.</p>
-<button class="gameBtn" data-game="memory">Play</button>
+
+<h3>🧠 Memory Vision</h3>
+
+<p>Remember patterns</p>
+
+<button class="gameBtn" data-game="memory">
+PLAY
+</button>
+
 </div>
 
 
 
+
+
 <div class="game-card">
-<h3>🎨 Color Vision</h3>
-<p>Find the different color.</p>
-<button class="gameBtn" data-game="color">Play</button>
+
+<h3>🎨 Color Detector</h3>
+
+<p>Find different colors</p>
+
+<button class="gameBtn" data-game="color">
+PLAY
+</button>
+
 </div>
 
 
 
+
+
 <div class="game-card">
+
 <h3>🔢 Hidden Number</h3>
-<p>Find the secret number.</p>
-<button class="gameBtn" data-game="number">Play</button>
+
+<p>Find the secret number</p>
+
+<button class="gameBtn" data-game="number">
+PLAY
+</button>
+
 </div>
+
+
 
 
 
 <div class="game-card">
-<h3>🔍 Hidden Object</h3>
-<p>Find objects quickly.</p>
-<button class="gameBtn" data-game="object">Play</button>
+
+<h3>👁️ Eye IQ Test</h3>
+
+<p>Challenge your vision</p>
+
+<button class="gameBtn" data-game="iq">
+PLAY
+</button>
+
+</div>
+
+
+
 </div>
 
 
 
-<div class="game-card">
-<h3>👁️ Eye IQ</h3>
-<p>Challenge your vision skills.</p>
-<button class="gameBtn" data-game="iq">Play</button>
-</div>
 
 
+<div id="gameArea">
+
+<h2>🎯 Game Zone</h2>
+
+<p>Select a game to begin.</p>
+
 </div>
-    
- <div id="gameArea">
-<h2>🎮 Game Area</h2>
-<p>Select a game to start your challenge.</p>
-</div>   
+
 
 </section>
 
@@ -156,28 +213,164 @@
 
 
 
+
 <section id="daily">
 
-<h2>🔥 Daily Viral Challenge</h2>
+
+<h2>🔥 Daily Viral Puzzle</h2>
 
 
-<div class="challenge-box">
+<div class="challenge">
 
-<img id="questionImage"
-src="images/question1.jpg"
-alt="Puzzle Question">
+
+<img id="questionImage" src="images/question1.jpg">
 
 
 <button id="answerBtn">
-Reveal Answer
+Show Answer
 </button>
 
 
 <div id="answerBox">
 
-<img id="answerImage"
-src="images/answer1.jpg"
-alt="Puzzle Answer">
+<img id="answerImage" src="images/answer1.jpg">
+
+</div>
+
+
+</div>
+
+
+</section>
 
 
 
+
+
+
+
+<section id="profile">
+
+
+<h2>👤 Player Profile</h2>
+
+
+<div class="profile">
+
+<p>Player: <span id="playerName">Guest</span></p>
+
+<p>Best Score: <span id="bestScore">0</span></p>
+
+<p>Badges: 🏅 Beginner</p>
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<section id="ai">
+
+
+<h2>🤖 AI Eye Coach</h2>
+
+
+<input id="aiInput"
+placeholder="Ask AI for hint...">
+
+
+<button id="askAI">
+Ask AI
+</button>
+
+
+<div id="aiResponse">
+
+AI Coach Ready 👁️
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<section id="rank">
+
+
+<h2>🏆 Leaderboard</h2>
+
+
+<div id="leaderboardList">
+
+Loading Ranking...
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<section id="settings">
+
+
+<h2>⚙️ Settings</h2>
+
+
+<button id="resetBtn">
+
+Reset Progress
+
+</button>
+
+
+</section>
+
+
+
+</main>
+
+
+
+
+
+
+
+<footer>
+
+<p>
+© 2026 Gen Z Eye Challenge AI 👁️
+</p>
+
+
+</footer>
+
+
+
+
+
+
+<script src="questions.js"></script>
+
+<script src="game.js"></script>
+
+<script src="ai.js"></script>
+
+
+</body>
+
+</html>
