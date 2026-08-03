@@ -1,4 +1,3 @@
-
 const puzzles = [
 
 {
@@ -124,3 +123,4 @@ answerBox.parentElement
 .appendChild(dailyMessage);
 
 }
+
