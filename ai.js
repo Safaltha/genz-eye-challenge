@@ -1,41 +1,58 @@
-
+ 
+const askButton = document.getElementById("askAI");
 const aiInput = document.getElementById("aiInput");
-const askAI = document.getElementById("askAI");
 const aiResponse = document.getElementById("aiResponse");
 
 
+if(askButton){
 
-function aiAnswer(message){
+askButton.onclick = function(){
+
+let question = aiInput.value.toLowerCase();
 
 
-message = message.toLowerCase();
+if(question.includes("hint")){
 
-
-
-if(
-message.includes("hint") ||
-message.includes("help")
-){
-
-return "💡 Tip: Look slowly. Many eye puzzles hide details in unexpected places.";
+aiResponse.innerHTML =
+"💡 AI Hint: Look carefully at corners, colors and small details.";
 
 }
 
+else if(question.includes("reaction")){
 
-
-if(
-message.includes("score")
-){
-
-return "🏆 Increase your score by completing challenges and keeping your streak.";
+aiResponse.innerHTML =
+"⚡ Tip: Stay focused and click as soon as the signal appears.";
 
 }
 
+else if(question.includes("memory")){
 
+aiResponse.innerHTML =
+"🧠 Tip: Remember patterns by grouping numbers together.";
 
-if(
-message.includes("reaction")
-){
+}
 
-return "⚡ For reaction games, stay focused a
-});
+else if(question.includes("score")){
+
+aiResponse.innerHTML =
+"🏆 Keep playing daily challenges to improve your score.";
+
+}
+
+else if(question.includes("hello") || question.includes("hi")){
+
+aiResponse.innerHTML =
+"🤖 Hello! I am your Eye Challenge Coach. Ask me for hints or tips.";
+
+}
+
+else{
+
+aiResponse.innerHTML =
+"🤖 I can help with: hint, reaction, memory, score, games.";
+
+}
+
+};
+
+}
