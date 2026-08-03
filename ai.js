@@ -4,55 +4,74 @@ const aiInput = document.getElementById("aiInput");
 const aiResponse = document.getElementById("aiResponse");
 
 
-if(askButton){
+const aiReplies = {
 
-askButton.onclick = function(){
+"hint":
+"💡 Look carefully. Focus on small differences and hidden patterns.",
+
+"reaction":
+"⚡ Reaction tip: Keep your eyes focused and click immediately when the signal changes.",
+
+"memory":
+"🧠 Memory tip: Create a small pattern in your mind instead of memorizing randomly.",
+
+"color":
+"🎨 Color tip: Compare brightness and shade differences carefully.",
+
+"iq":
+"👁️ IQ tip: Take your time and analyze before choosing.",
+
+"score":
+"🏆 Keep playing daily to increase your score and level.",
+
+"game":
+"🎮 Available games: Reaction, Memory, Color, Hidden Number and Eye IQ."
+
+};
+
+
+
+askButton.addEventListener("click",()=>{
+
 
 let question = aiInput.value.toLowerCase();
 
 
-if(question.includes("hint")){
+let answer =
+"🤖 I can help with: hint, reaction, memory, color, iq, score, game";
 
-aiResponse.innerHTML =
-"💡 AI Hint: Look carefully at corners, colors and small details.";
 
-}
+for(let key in aiReplies){
 
-else if(question.includes("reaction")){
+if(question.includes(key)){
 
-aiResponse.innerHTML =
-"⚡ Tip: Stay focused and click as soon as the signal appears.";
+answer = aiReplies[key];
 
-}
-
-else if(question.includes("memory")){
-
-aiResponse.innerHTML =
-"🧠 Tip: Remember patterns by grouping numbers together.";
+break;
 
 }
 
-else if(question.includes("score")){
+}
 
-aiResponse.innerHTML =
-"🏆 Keep playing daily challenges to improve your score.";
+
+
+aiResponse.innerHTML = answer;
+
+
+});
+
+
+
+
+
+aiInput.addEventListener("keypress",(e)=>{
+
+
+if(e.key==="Enter"){
+
+askButton.click();
 
 }
 
-else if(question.includes("hello") || question.includes("hi")){
 
-aiResponse.innerHTML =
-"🤖 Hello! I am your Eye Challenge Coach. Ask me for hints or tips.";
-
-}
-
-else{
-
-aiResponse.innerHTML =
-"🤖 I can help with: hint, reaction, memory, score, games.";
-
-}
-
-};
-
-}
+});
