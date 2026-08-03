@@ -1,4 +1,3 @@
-
 let correct =
 colors[Math.floor(Math.random()*colors.length)];
 
@@ -135,4 +134,5 @@ alert("Progress reset");
 
 
 });
+
 
