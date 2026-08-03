@@ -440,7 +440,270 @@ Follow us on TikTok for new questions
 
 
 </div>
+
 <script src="ai.js"></script>
+<!-- ==========================================
+ 🤖 GEN Z EYE CHALLENGE - AI SYSTEM UI
+ ========================================== -->
+ 
+ <section id="genz-ai-system">
+ 
+ <h1>🤖 Gen Z AI Game Coach</h1>
+ 
+ <div id="ai-status">
+ AI Online ✅ Ready for your challenge!
+ </div>
+ 
+ 
+ <div id="ai-chat-box">
+ 
+ <h2>💬 Ask AI</h2>
+ 
+ <input 
+ id="ai-user-input"
+ type="text"
+ placeholder="Ask about score, challenge, tips..."
+ >
+ 
+ <button onclick="aiChatSend()">
+ Send
+ </button>
+ 
+ <p id="ai-chat-result">
+ AI response will appear here.
+ </p>
+ 
+ </div>
+ 
+ 
+ 
+ <div id="ai-tools">
+ 
+ 
+ <button onclick="startAIChallenge()">
+ 🎯 Generate Challenge
+ </button>
+ 
+ 
+ <button onclick="showAITipBox()">
+ 💡 AI Tip
+ </button>
+ 
+ 
+ <button onclick="showDailyMission()">
+ 🔥 Daily Mission
+ </button>
+ 
+ 
+ <button onclick="showAIEvent()">
+ 🎲 Random Event
+ </button>
+ 
+ 
+ <button onclick="showAILevel()">
+ 🏆 My Level
+ </button>
+ 
+ 
+ </div>
+ 
+ 
+ 
+ <div id="ai-result-panel">
+ 
+ <h2>📊 AI Analysis</h2>
+ 
+ <p id="ai-analysis">
+ Finish a game to get AI feedback.
+ </p>
+ 
+ </div>
+ 
+ 
+ 
+ 
+ <div id="ai-achievement-panel">
+ 
+ <h2>🏅 Achievements</h2>
+ 
+ <p id="ai-achievements">
+ No achievements yet.
+ </p>
+ 
+ </div>
+ 
+ 
+ 
+ <div id="ai-question-panel">
+ 
+ <h2>🧠 AI Question</h2>
+ 
+ <p id="ai-question">
+ Press button for a question.
+ </p>
+ 
+ <button onclick="generateAIQuestion()">
+ Ask Me
+ </button>
+ 
+ </div>
+ 
+ 
+ 
+ </section>
+ 
+ 
+ 
+ <script>
+ 
+ // ==========================
+ // AI CHAT
+ // ==========================
+ 
+ function aiChatSend(){
+ 
+ let message =
+ document.getElementById(
+ "ai-user-input"
+ ).value;
+ 
+ 
+ let reply =
+ genZAIChat(message);
+ 
+ 
+ document.getElementById(
+ "ai-chat-result"
+ ).innerHTML =
+ reply;
+ 
+ }
+ 
+ 
+ 
+ // ==========================
+ // CHALLENGE
+ // ==========================
+ 
+ function startAIChallenge(){
+ 
+ document.getElementById(
+ "ai-result-panel"
+ ).innerHTML =
+ "<h2>🎯 Challenge</h2>"+
+ "<p>"+
+ dailyAIChallenge()
+ +"</p>";
+ 
+ }
+ 
+ 
+ 
+ // ==========================
+ // AI TIP
+ // ==========================
+ 
+ function showAITipBox(){
+ 
+ document.getElementById(
+ "ai-result-panel"
+ ).innerHTML =
+ "<h2>💡 Tip</h2>"+
+ "<p>"+
+ aiTip()
+ +"</p>";
+ 
+ }
+ 
+ 
+ 
+ // ==========================
+ // DAILY MISSION
+ // ==========================
+ 
+ function showDailyMission(){
+ 
+ document.getElementById(
+ "ai-result-panel"
+ ).innerHTML =
+ "<h2>🔥 Mission</h2>"+
+ "<p>"+
+ aiMission()
+ +"</p>";
+ 
+ }
+ 
+ 
+ 
+ // ==========================
+ // RANDOM EVENT
+ // ==========================
+ 
+ function showAIEvent(){
+ 
+ document.getElementById(
+ "ai-result-panel"
+ ).innerHTML =
+ "<h2>🎲 Event</h2>"+
+ "<p>"+
+ randomAIEvent()
+ +"</p>";
+ 
+ }
+ 
+ 
+ 
+ // ==========================
+ // LEVEL
+ // ==========================
+ 
+ function showAILevel(){
+ 
+ let report =
+ getFinalAIReport();
+ 
+ 
+ document.getElementById(
+ "ai-result-panel"
+ ).innerHTML =
+ 
+ "<h2>🏆 Profile</h2>"+
+ "<p>Games: "+
+ report.games+
+ "</p>"+
+ "<p>Highest Score: "+
+ report.highest+
+ "</p>"+
+ "<p>Style: "+
+ report.style+
+ "</p>";
+ 
+ }
+ 
+ 
+ 
+ // ==========================
+ // QUESTION GENERATOR
+ // ==========================
+ 
+ function generateAIQuestion(){
+ 
+ document.getElementById(
+ "ai-question"
+ ).innerHTML =
+ aiAskQuestion();
+ 
+ }
+ 
+ 
+ </script>
+ 
+ 
+ 
+ <!-- AI CONNECTION -->
+ 
+ <script src="ai.js"></script>-->
+ 
 </body>
 
 </html>-->
