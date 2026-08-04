@@ -59,9 +59,8 @@ answer:2
 question:"Which country has the Great Wall?",
 options:["Japan","China","India","Korea"],
 answer:1
-}
+},
 
-];
 
 {
 question:"Which organ helps humans breathe?",
