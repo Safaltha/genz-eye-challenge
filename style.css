@@ -1,30 +1,30 @@
 
-
 *{
 box-sizing:border-box;
-font-family:Arial, sans-serif;
+font-family:Arial,sans-serif;
 }
 
-
 body{
-
 margin:0;
-
 background:
 linear-gradient(
-rgba(0,0,0,0.75),
-rgba(0,0,0,0.85)
+rgba(0,0,0,.8),
+rgba(0,0,0,.9)
 ),
 url("https://images.unsplash.com/photo-1535223289827-42f1e9919769");
 
 background-size:cover;
-
 background-attachment:fixed;
 
 color:white;
-
 min-height:100vh;
+}
 
+
+
+body.light{
+background:#f5f5f5;
+color:#111;
 }
 
 
@@ -33,25 +33,21 @@ min-height:100vh;
 #loading{
 
 position:fixed;
-
 top:0;
 left:0;
 
 width:100%;
-
 height:100%;
 
+background:black;
+
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
-background:#000;
 
 font-size:25px;
 
-z-index:1000;
+z-index:999;
 
 }
 
@@ -61,10 +57,9 @@ z-index:1000;
 .hero{
 
 text-align:center;
-
 padding:40px 20px;
 
-background:rgba(10,10,20,0.7);
+background:rgba(0,0,0,.6);
 
 backdrop-filter:blur(10px);
 
@@ -78,19 +73,10 @@ font-size:45px;
 
 color:#00ffff;
 
-text-shadow:0 0 20px cyan;
+text-shadow:
+0 0 15px cyan;
 
 }
-
-
-
-.hero p{
-
-font-size:18px;
-
-}
-
-
 
 
 
@@ -104,7 +90,7 @@ gap:20px;
 
 flex-wrap:wrap;
 
-margin:30px;
+margin:25px;
 
 }
 
@@ -112,28 +98,22 @@ margin:30px;
 
 .stats div{
 
-background:rgba(255,255,255,0.1);
+background:rgba(255,255,255,.1);
 
 padding:20px;
 
 border-radius:20px;
 
-min-width:120px;
-
 border:1px solid cyan;
+
+min-width:120px;
 
 }
 
 
 
 
-
-.buttons button,
-.gameBtn,
-#askAI,
-#answerBtn,
-#resetBtn{
-
+button{
 
 background:#00ffff;
 
@@ -141,15 +121,15 @@ color:black;
 
 border:none;
 
-padding:12px 22px;
+padding:12px 25px;
 
-margin:8px;
+border-radius:30px;
 
-border-radius:25px;
+cursor:pointer;
 
 font-weight:bold;
 
-cursor:pointer;
+margin:5px;
 
 transition:.3s;
 
@@ -168,7 +148,6 @@ box-shadow:0 0 20px cyan;
 
 
 
-
 nav{
 
 display:flex;
@@ -179,9 +158,9 @@ flex-wrap:wrap;
 
 gap:15px;
 
-padding:15px;
+background:#000;
 
-background:rgba(0,0,0,.8);
+padding:15px;
 
 }
 
@@ -193,30 +172,20 @@ color:white;
 
 text-decoration:none;
 
-padding:10px;
-
 }
 
-
-
-
-main{
-
-padding:20px;
-
-}
 
 
 
 section{
 
-margin:40px auto;
-
 max-width:1100px;
 
+margin:40px auto;
+
+padding:20px;
+
 }
-
-
 
 
 
@@ -236,7 +205,9 @@ color:#00ffff;
 
 display:grid;
 
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+grid-template-columns:
+
+repeat(auto-fit,minmax(220px,1fr));
 
 gap:20px;
 
@@ -247,34 +218,33 @@ gap:20px;
 
 
 .game-card,
-.profile,
 .challenge,
+.profile,
 #gameArea,
 #aiResponse,
 #leaderboardList{
 
 
-background:rgba(255,255,255,.1);
-
-backdrop-filter:blur(10px);
+background:rgba(255,255,255,.12);
 
 padding:25px;
 
 border-radius:25px;
 
-border:1px solid rgba(0,255,255,.5);
+border:1px solid cyan;
 
 text-align:center;
+
+backdrop-filter:blur(10px);
 
 }
 
 
 
 
-
 .game-card:hover{
 
-transform:translateY(-8px);
+transform:translateY(-10px);
 
 box-shadow:0 0 25px cyan;
 
@@ -283,15 +253,11 @@ box-shadow:0 0 25px cyan;
 
 
 
-
 #gameArea{
 
-min-height:200px;
-
-margin-top:30px;
+min-height:300px;
 
 }
-
 
 
 
@@ -304,6 +270,50 @@ border-radius:20px;
 
 }
 
+
+
+#answerBox{
+
+display:none;
+
+margin-top:20px;
+
+}
+
+
+
+#answerImage{
+
+max-width:400px;
+
+}
+
+
+
+
+.progress{
+
+height:15px;
+
+background:#333;
+
+border-radius:20px;
+
+overflow:hidden;
+
+}
+
+
+
+#progressBar{
+
+height:100%;
+
+width:0%;
+
+background:cyan;
+
+}
 
 
 
@@ -324,16 +334,172 @@ border:none;
 
 
 
+/* TIC TAC TOE */
+
+
+.tic-board{
+
+display:grid;
+
+grid-template-columns:repeat(3,80px);
+
+gap:5px;
+
+justify-content:center;
+
+}
+
+
+
+.tic-cell{
+
+height:80px;
+
+background:white;
+
+color:black;
+
+font-size:40px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+cursor:pointer;
+
+}
+
+
+
+
+
+/* MEMORY */
+
+
+.memory-board{
+
+display:grid;
+
+grid-template-columns:repeat(4,80px);
+
+gap:10px;
+
+justify-content:center;
+
+}
+
+
+
+.card{
+
+height:80px;
+
+background:#00ffff;
+
+color:black;
+
+font-size:30px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+cursor:pointer;
+
+border-radius:10px;
+
+}
+
+
+
+
+/* CHESS */
+
+
+.chess-board{
+
+display:grid;
+
+grid-template-columns:repeat(8,45px);
+
+justify-content:center;
+
+}
+
+
+
+.square{
+
+height:45px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:25px;
+
+background:white;
+
+color:black;
+
+}
+
+
+
+
+.square.dark{
+
+background:#555;
+
+color:white;
+
+}
+
+
+
+
+/* LUDO */
+
+
+.ludo-board{
+
+height:300px;
+
+width:300px;
+
+margin:auto;
+
+border:3px solid cyan;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:50px;
+
+}
+
+
+
+
+
 footer{
 
 text-align:center;
 
 padding:30px;
 
-background:#000;
+background:black;
 
 }
-
 
 
 
@@ -353,5 +519,18 @@ width:100%;
 
 }
 
+
+.tic-board{
+
+grid-template-columns:repeat(3,60px);
+
+}
+
+
+.memory-board{
+
+grid-template-columns:repeat(3,70px);
+
+}
 
 }
