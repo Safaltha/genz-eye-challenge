@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenZ Text Quiz | Brain Challenge</title>
+
+    <link rel="stylesheet" href="text-quiz.css">
+</head>
+<body>
+
+<header>
+    <h1>🧠 GenZ Text Quiz</h1>
+    <p>Choose your difficulty and test your brain!</p>
+</header>
+
+<div class="container">
+
+    <!-- Difficulty Selection -->
+    <div id="difficulty-screen">
+        <h2>Select Difficulty</h2>
+
+        <button class="difficulty-btn" onclick="startQuiz('easy')">
+            🟢 Easy (100 Questions)
+        </button>
+
+        <button class="difficulty-btn" onclick="startQuiz('medium')">
+            🟡 Medium (100 Questions)
+        </button>
+
+        <button class="difficulty-btn" onclick="startQuiz('hard')">
+            🔴 Hard (100 Questions)
+        </button>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" style="display:none;">
+
+        <div class="top-bar">
+            <span id="question-number">Question 1/100</span>
+            <span id="score">Score: 0</span>
+            <span id="timer">30s</span>
+        </div>
+
+        <div id="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+
+        <div id="question" class="question">
+            Question appears here...
+        </div>
+
+        <div id="answers" class="answers"></div>
+
+        <button id="next-btn">
+            Next Question ➜
+        </button>
+
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result-screen" style="display:none;">
+        <h2>🎉 Quiz Completed!</h2>
+        <p id="final-score"></p>
+
+        <button onclick="location.reload()">
+            Play Again
+        </button>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 GenZ Eye Challenge | All Rights Reserved
+</footer>
+
+<script src="easy-questions.js"></script>
+<script src="medium-questions.js"></script>
+<script src="hard-questions.js"></script>
+<script src="text-quiz.js"></script>
+
+</body>
+</html>
