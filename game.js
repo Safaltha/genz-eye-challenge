@@ -291,3 +291,601 @@ text:
 
 
 };
+
+
+// =========================
+// GAME BUTTON CONTROLLER
+// =========================
+
+
+document.querySelectorAll(".gameBtn")
+.forEach(button=>{
+
+
+button.onclick=()=>{
+
+
+let game = button.dataset.game;
+
+
+let area =
+document.getElementById("gameArea");
+
+
+
+if(game==="eye"){
+
+area.innerHTML=`
+
+<h2>👁️ Eye Challenge</h2>
+
+<p>Click Start Challenge above and play!</p>
+
+`;
+
+}
+
+
+
+if(game==="tic"){
+
+startTicTacToe(area);
+
+}
+
+
+
+if(game==="memory"){
+
+startMemory(area);
+
+}
+
+
+
+if(game==="reaction"){
+
+startReaction(area);
+
+}
+
+
+
+if(game==="color"){
+
+startColorGame(area);
+
+}
+
+
+
+if(game==="chess"){
+
+startChess(area);
+
+}
+
+
+
+if(game==="ludo"){
+
+startLudo(area);
+
+}
+
+
+
+};
+
+
+});
+
+
+
+
+
+// =========================
+// TIC TAC TOE VS AI
+// =========================
+
+
+let ticBoard=[];
+
+
+function startTicTacToe(area){
+
+
+ticBoard=[
+"","","",
+"","","",
+"","",""
+];
+
+
+
+area.innerHTML=`
+
+<h2>❌⭕ Tic Tac Toe</h2>
+
+<div class="tic-board" id="ticBoard"></div>
+
+<p id="ticMessage"></p>
+
+`;
+
+
+
+drawTic();
+
+}
+
+
+
+function drawTic(){
+
+
+let board =
+document.getElementById("ticBoard");
+
+
+board.innerHTML="";
+
+
+
+ticBoard.forEach((cell,index)=>{
+
+
+let div =
+document.createElement("div");
+
+
+div.className="tic-cell";
+
+div.innerHTML=cell;
+
+
+div.onclick=()=>{
+
+
+if(cell===""){
+
+ticBoard[index]="X";
+
+drawTic();
+
+
+setTimeout(aiMove,500);
+
+
+}
+
+
+};
+
+
+board.appendChild(div);
+
+
+});
+
+
+}
+
+
+
+
+function aiMove(){
+
+
+let empty=[];
+
+
+ticBoard.forEach((v,i)=>{
+
+if(v==="") empty.push(i);
+
+});
+
+
+
+if(empty.length){
+
+
+let move =
+empty[Math.floor(
+Math.random()*empty.length
+)];
+
+
+ticBoard[move]="O";
+
+
+drawTic();
+
+
+}
+
+
+
+}
+
+
+
+
+
+// =========================
+// MEMORY GAME
+// =========================
+
+
+
+function startMemory(area){
+
+
+let cards=[
+"👁️","🎮",
+"🧠","🔥",
+"⭐","🎯",
+"🤖","🏆"
+];
+
+
+let gameCards =
+[...cards,...cards]
+.sort(()=>Math.random()-0.5);
+
+
+
+area.innerHTML=`
+
+<h2>🧠 Memory Match</h2>
+
+<div class="memory-board" id="memoryBoard"></div>
+
+`;
+
+
+
+let board =
+document.getElementById(
+"memoryBoard"
+);
+
+
+let first=null;
+
+
+
+gameCards.forEach(icon=>{
+
+
+let card=
+document.createElement("div");
+
+
+card.className="card";
+
+card.innerHTML="❓";
+
+
+
+card.onclick=()=>{
+
+
+card.innerHTML=icon;
+
+
+
+if(first){
+
+if(first.innerHTML===card.innerHTML){
+
+addScore(10);
+
+
+}else{
+
+setTimeout(()=>{
+
+first.innerHTML="❓";
+
+card.innerHTML="❓";
+
+},500);
+
+
+}
+
+
+first=null;
+
+
+}else{
+
+
+first=card;
+
+
+}
+
+
+
+};
+
+
+
+board.appendChild(card);
+
+
+});
+
+
+}
+
+
+
+
+
+// =========================
+// REACTION TEST
+// =========================
+
+
+
+function startReaction(area){
+
+
+area.innerHTML=`
+
+<h2>⚡ Reaction Test</h2>
+
+<button id="reactionBtn">
+
+WAIT...
+
+</button>
+
+<p id="reactionResult"></p>
+
+`;
+
+
+
+let btn=
+document.getElementById(
+"reactionBtn"
+);
+
+
+let start;
+
+
+setTimeout(()=>{
+
+
+btn.innerHTML="CLICK NOW";
+
+
+start=Date.now();
+
+
+btn.onclick=()=>{
+
+
+let time=
+Date.now()-start;
+
+
+document.getElementById(
+"reactionResult"
+)
+.innerHTML=
+"Your reaction: "
++time+
+" ms";
+
+
+addScore(5);
+
+
+};
+
+
+
+},2000);
+
+
+
+}
+
+
+// =========================
+// COLOR DETECTOR GAME
+// =========================
+
+
+function startColorGame(area){
+
+
+let colors=[
+"red",
+"blue",
+"green",
+"yellow"
+];
+
+
+let correct =
+colors[Math.floor(
+Math.random()*colors.length
+)];
+
+
+let options=[
+...colors
+].sort(()=>Math.random()-0.5);
+
+
+
+area.innerHTML=`
+
+<h2>🎨 Color Detector</h2>
+
+<p>Find the correct color:</p>
+
+<h1 style="color:${correct}">
+${correct.toUpperCase()}
+</h1>
+
+<div id="colorButtons"></div>
+
+`;
+
+
+
+let box =
+document.getElementById(
+"colorButtons"
+);
+
+
+
+options.forEach(color=>{
+
+
+let btn =
+document.createElement("button");
+
+
+btn.innerHTML=color;
+
+
+btn.onclick=()=>{
+
+
+if(color===correct){
+
+addScore(10);
+
+alert("✅ Correct!");
+
+}
+
+else{
+
+alert("❌ Wrong!");
+
+}
+
+
+};
+
+
+
+box.appendChild(btn);
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+// =========================
+// HIDDEN NUMBER GAME
+// =========================
+
+
+
+function startNumberGame(area){
+
+
+let number =
+Math.floor(Math.random()*10)+1;
+
+
+
+area.innerHTML=`
+
+<h2>🔢 Hidden Number</h2>
+
+<p>Guess number between 1-10</p>
+
+<input id="guessInput">
+
+<button id="guessBtn">
+Guess
+</button>
+
+<p id="guessResult"></p>
+
+`;
+
+
+
+document
+.getElementById("guessBtn")
+.onclick=()=>{
+
+
+let guess =
+Number(
+document.getElementById(
+"guessInput"
+).value
+);
+
+
+
+if(guess===number){
+
+document.getElementById(
+"guessResult"
+)
+.innerHTML="🎉 Correct!";
+
+
+addScore(10);
+
+
+}
+
+else{
+
+
+document.getElementById(
+"guessResult"
+)
+.innerHTML="❌ Try again";
+
+
+}
+
+
+};
+
+
+}
+
+
+
+
+
+
+
+// =========================
+// BASIC CHESS
+// =========================
+
+
+
+function startChess(area){
+
+
+let pieces=[
+"♜","♞","♝","
