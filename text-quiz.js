@@ -1,6 +1,4 @@
-let currentQuestions = [];
-
-function loadLevel(level){
+loadLevel(level){
 
     if(level === "easy"){
         currentQuestions = easyQuestions;
