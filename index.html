@@ -1,13 +1,411 @@
-<section id="quiz">
 
-<h2>👁️ Gen Z Eye Challenge</h2>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gen Z Eye Challenge AI 👁️</title>
 
 
-<div class="challenge">
+<style>
+
+*{
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
 
 
-<h3>
-Question <span id="questionNumber">1</span>/5
+body{
+
+margin:0;
+min-height:100vh;
+
+color:white;
+
+background:
+radial-gradient(circle at top,#4b0082,#050014 45%,#000);
+
+overflow-x:hidden;
+
+}
+
+
+
+/* AURA BACKGROUND */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+width:500px;
+height:500px;
+
+background:linear-gradient(
+45deg,
+cyan,
+magenta,
+purple
+);
+
+filter:blur(120px);
+
+opacity:.35;
+
+top:-150px;
+left:-100px;
+
+z-index:-1;
+
+}
+
+
+
+body::after{
+
+content:"";
+
+position:fixed;
+
+width:400px;
+height:400px;
+
+background:#00ffff;
+
+filter:blur(150px);
+
+opacity:.2;
+
+right:-100px;
+bottom:-100px;
+
+z-index:-1;
+
+}
+
+
+
+.container{
+
+max-width:900px;
+
+margin:auto;
+
+padding:20px;
+
+}
+
+
+
+/* HERO */
+
+
+.hero{
+
+text-align:center;
+
+padding:50px 20px;
+
+}
+
+
+
+.hero h1{
+
+font-size:45px;
+
+background:linear-gradient(
+90deg,
+cyan,
+magenta,
+yellow
+);
+
+-webkit-background-clip:text;
+
+color:transparent;
+
+}
+
+
+
+.hero p{
+
+font-size:18px;
+
+opacity:.9;
+
+}
+
+
+
+/* GLASS CARD */
+
+
+.card{
+
+background:rgba(255,255,255,.08);
+
+border:1px solid rgba(255,255,255,.2);
+
+backdrop-filter:blur(15px);
+
+border-radius:30px;
+
+padding:25px;
+
+margin:20px 0;
+
+box-shadow:
+0 0 30px rgba(0,255,255,.15);
+
+}
+
+
+
+/* BUTTON */
+
+
+button{
+
+border:none;
+
+padding:14px 25px;
+
+border-radius:50px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+background:linear-gradient(
+45deg,
+cyan,
+magenta
+);
+
+color:black;
+
+transition:.3s;
+
+}
+
+
+button:hover{
+
+transform:scale(1.08);
+
+box-shadow:
+0 0 25px cyan;
+
+}
+
+
+
+
+.stats{
+
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+}
+
+
+
+.stat{
+
+padding:15px;
+
+min-width:110px;
+
+text-align:center;
+
+border-radius:20px;
+
+background:rgba(255,255,255,.1);
+
+}
+
+
+
+/* IMAGE */
+
+
+.challenge-img{
+
+width:100%;
+
+max-height:450px;
+
+object-fit:contain;
+
+border-radius:25px;
+
+margin:20px 0;
+
+border:2px solid cyan;
+
+}
+
+
+
+
+.progress{
+
+height:12px;
+
+background:#222;
+
+border-radius:20px;
+
+overflow:hidden;
+
+}
+
+
+#progressBar{
+
+height:100%;
+
+width:0%;
+
+background:linear-gradient(
+90deg,
+cyan,
+magenta
+);
+
+}
+
+
+
+/* AI */
+
+
+input{
+
+width:70%;
+
+padding:15px;
+
+border-radius:30px;
+
+border:none;
+
+outline:none;
+
+}
+
+
+
+#aiResponse{
+
+margin-top:15px;
+
+padding:15px;
+
+border-radius:20px;
+
+background:rgba(0,0,0,.4);
+
+}
+
+
+
+/* MOBILE */
+
+
+@media(max-width:600px){
+
+.hero h1{
+
+font-size:32px;
+
+}
+
+
+input{
+
+width:100%;
+
+}
+
+}
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+<div class="container">
+
+
+<section class="hero">
+
+<h1>
+👁️ Gen Z Eye Challenge AI
+</h1>
+
+<p>
+Find the hidden answer. Test your vision. Earn your aura.
+</p>
+
+
+<button onclick="startGame()">
+🔥 Start Challenge
+</button>
+
+
+</section>
+
+
+
+<div class="stats">
+
+<div class="stat">
+🏆 Score
+<h2 id="score">0</h2>
+</div>
+
+
+<div class="stat">
+🔥 Streak
+<h2 id="streak">0</h2>
+</div>
+
+
+<div class="stat">
+⚡ Level
+<h2 id="level">1</h2>
+</div>
+
+
+</div>
+
+<section class="card" id="quiz">
+
+<h2>
+👁️ Eye Challenge
+</h2>
+
+
+<h3 id="questionTitle">
+Question 1 / 5
 </h3>
 
 
@@ -19,40 +417,67 @@ Question <span id="questionNumber">1</span>/5
 
 
 
-<img id="questionImage" src="question1.jpg">
+<img 
+id="questionImage"
+class="challenge-img"
+src="question1.jpg"
+>
 
 
 
-<div class="quiz-buttons">
+<div style="text-align:center;">
 
-<button id="answerBtn">
-💡 Show Answer
+
+<button onclick="showAnswer()">
+
+💡 Reveal Answer
+
 </button>
 
 
-<button id="nextBtn">
-➡️ Next Question
+
+<button onclick="nextQuestion()">
+
+➡️ Next
+
 </button>
+
 
 </div>
 
 
 
-<div id="answerBox">
 
-<img id="answerImage" src="answer1.jpg">
+<div id="answerArea" style="display:none;">
+
+
+<h3>
+✅ Answer
+</h3>
+
+
+<img
+id="answerImage"
+class="challenge-img"
+src="answer1.jpg"
+>
+
 
 </div>
 
 
 
-<p>
+
+<p style="text-align:center;">
+
 ⏱️ Time:
-<span id="timer">30</span>s
+<span id="timer">
+30
+</span>
+seconds
+
 </p>
 
-
-</div>
 
 
 </section>
@@ -61,27 +486,31 @@ Question <span id="questionNumber">1</span>/5
 
 
 
-<section id="ai">
+
+<section class="card">
+
+<h2>
+🤖 AI Eye Coach
+</h2>
 
 
-<h2>🤖 AI Eye Coach</h2>
-
-
-<input 
+<input
 id="aiInput"
-placeholder="Ask AI for hint...">
+placeholder="Ask for hint..."
+>
 
 
+<button onclick="askAI()">
 
-<button id="askAI">
 Ask AI
+
 </button>
 
 
 
 <div id="aiResponse">
 
-🤖 AI Coach Ready 👁️
+🤖 AI Ready. Ask me for a hint 👁️
 
 </div>
 
@@ -92,79 +521,28 @@ Ask AI
 
 
 
-<section id="profile">
+<section class="card" id="result" style="display:none; text-align:center;">
 
 
-<h2>👤 Player Profile</h2>
+<h2>
+🎉 Challenge Complete
+</h2>
 
 
+<h1 id="finalScore">
 
-<div class="profile">
-
-
-<p>
-Player:
-<span id="playerName">
-Guest
-</span>
-</p>
+</h1>
 
 
 <p>
-Best Score:
-<span id="bestScore">
-0
-</span>
+Your eye aura level has increased 🔥
 </p>
 
 
-<p>
-Achievements:
-<span id="badges">
-🏅 Beginner
-</span>
-</p>
 
+<button onclick="location.reload()">
 
-</div>
-
-
-</section>
-
-
-
-
-
-
-<section id="rank">
-
-
-<h2>🏆 Leaderboard</h2>
-
-
-<div id="leaderboardList">
-
-Loading Ranking...
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-<section id="settings">
-
-
-<h2>⚙️ Settings</h2>
-
-
-<button id="resetBtn">
-
-Reset Progress
+Play Again
 
 </button>
 
@@ -172,30 +550,534 @@ Reset Progress
 </section>
 
 
-
-</main>
-
-
-
-
-
-<footer>
-
-<p>
-© 2026 Gen Z Eye Challenge AI 👁️
-</p>
-
-</footer>
+</div>
 
 
 
 
 
-<script src="game.js"></script>
+<script>
 
-<script src="ai.js"></script>
+
+// =======================
+// GAME DATA
+// =======================
+
+
+let questions = [
+
+{
+q:"Find the hidden object 👀",
+image:"question1.jpg",
+answer:"answer1.jpg",
+hint:"Look at small details."
+},
+
+
+{
+q:"Find the difference 🧩",
+image:"question2.jpg",
+answer:"answer2.jpg",
+hint:"Compare every corner."
+},
+
+
+{
+q:"Test your observation 👁️",
+image:"question3.jpg",
+answer:"answer3.jpg",
+hint:"Stay patient and focused."
+},
+
+
+{
+q:"Can you solve this? 🔥",
+image:"question4.jpg",
+answer:"answer4.jpg",
+hint:"Look beyond the obvious."
+},
+
+
+{
+q:"Final eye challenge 👑",
+image:"question5.jpg",
+answer:"answer5.jpg",
+hint:"Only sharp eyes win."
+}
+
+];
+
+
+
+let current=0;
+
+let score=0;
+
+let streak=0;
+
+let level=1;
+
+let time=30;
+
+let timer;
+
+
+
+
+
+function startGame(){
+
+
+document
+.getElementById("quiz")
+.scrollIntoView();
+
+
+loadQuestion();
+
+
+startTimer();
+
+
+}
+
+
+
+
+
+
+function loadQuestion(){
+
+
+let q=questions[current];
+
+
+document.getElementById(
+"questionTitle"
+).innerHTML=
+
+"Question "+(current+1)+" / 5";
+
+
+
+document.getElementById(
+"questionImage"
+).src=q.image;
+
+
+
+document.getElementById(
+"answerImage"
+).src=q.answer;
+
+
+
+document.getElementById(
+"answerArea"
+).style.display="none";
+
+
+
+document.getElementById(
+"progressBar"
+).style.width=
+
+((current+1)/5*100)+"%";
+
+
+
+}
+
+
+
+function showAnswer(){
+
+
+document.getElementById(
+"answerArea"
+).style.display="block";
+
+
+score+=10;
+
+streak++;
+
+
+if(streak%3===0){
+
+level++;
+
+}
+
+
+updateStats();
+
+
+}
+
+
+
+
+
+
+function nextQuestion(){
+
+
+if(current<4){
+
+
+current++;
+
+loadQuestion();
+
+
+time=30;
+
+
+}
+
+
+else{
+
+
+finishGame();
+
+
+}
+
+
+}
+
+
+
+
+
+function updateStats(){
+
+
+document.getElementById(
+"score"
+).innerHTML=score;
+
+
+document.getElementById(
+"streak"
+).innerHTML=streak;
+
+
+document.getElementById(
+"level"
+).innerHTML=level;
+
+
+}
+
+
+
+
+
+
+function startTimer(){
+
+
+clearInterval(timer);
+
+
+timer=setInterval(()=>{
+
+
+time--;
+
+
+document.getElementById(
+"timer"
+).innerHTML=time;
+
+
+
+if(time<=0){
+
+
+clearInterval(timer);
+
+nextQuestion();
+
+
+}
+
+
+},1000);
+
+
+}
+
+
+
+
+
+function finishGame(){
+
+
+clearInterval(timer);
+
+
+document.getElementById(
+"quiz"
+).style.display="none";
+
+
+document.getElementById(
+"result"
+).style.display="block";
+
+
+document.getElementById(
+"finalScore"
+).innerHTML=
+
+"🏆 Aura Score: "+score;
+
+
+}
+
+// =======================
+// 🤖 AI EYE COACH
+// =======================
+
+
+function askAI(){
+
+
+let input =
+document.getElementById("aiInput")
+.value
+.toLowerCase();
+
+
+
+let answer =
+"🤖 Try asking: hint, score, level, game";
+
+
+
+if(input.includes("hint")){
+
+
+answer =
+"💡 Hint: " + questions[current].hint;
+
+
+}
+
+
+else if(input.includes("score")){
+
+
+answer =
+"🏆 Your current aura score is "+score;
+
+
+}
+
+
+else if(input.includes("level")){
+
+
+answer =
+"⚡ Your eye level is "+level;
+
+
+}
+
+
+else if(input.includes("game")){
+
+
+answer =
+"🎮 Complete all 5 eye challenges and become an Eye Legend!";
+
+
+}
+
+
+else if(input.includes("hard")){
+
+
+answer =
+"🔥 Hard mode: Focus on tiny details and don't rush.";
+
+
+}
+
+
+
+document.getElementById(
+"aiResponse"
+).innerHTML=answer;
+
+
+}
+
+
+
+
+
+// =======================
+// SAVE PROGRESS
+// =======================
+
+
+function saveData(){
+
+
+localStorage.setItem(
+"eyeScore",
+score
+);
+
+
+localStorage.setItem(
+"eyeLevel",
+level
+);
+
+
+}
+
+
+
+function loadData(){
+
+
+score =
+Number(
+localStorage.getItem("eyeScore")
+)||0;
+
+
+
+level =
+Number(
+localStorage.getItem("eyeLevel")
+)||1;
+
+
+
+updateStats();
+
+
+}
+
+
+
+loadData();
+
+
+
+
+
+// =======================
+// SHARE BUTTON
+// =======================
+
+
+function shareScore(){
+
+
+if(navigator.share){
+
+
+navigator.share({
+
+title:"Gen Z Eye Challenge",
+
+text:
+"I scored "+score+
+" aura points 👁️🔥 Can you beat me?"
+
+});
+
+
+}
+
+else{
+
+
+alert(
+"Share your score: "+score
+);
+
+
+}
+
+
+}
+
+
+
+
+
+// =======================
+// ACHIEVEMENT
+// =======================
+
+
+function achievement(){
+
+
+if(score>=50){
+
+
+return "👑 Eye Legend";
+
+
+}
+
+
+if(score>=30){
+
+
+return "🔥 Aura Observer";
+
+
+}
+
+
+return "🌱 Beginner Eye";
+
+
+}
+
+
+
+window.onload=()=>{
+
+
+let old =
+localStorage.getItem("eyeScore");
+
+
+
+if(old){
+
+
+score=Number(old);
+
+updateStats();
+
+
+}
+
+
+};
+
+
+
+
+</script>
 
 
 </body>
 
 </html>
+
