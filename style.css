@@ -534,3 +534,38 @@ grid-template-columns:repeat(3,70px);
 }
 
 }
+
+.text-quiz-button{
+    text-align:center;
+    margin:30px 0;
+}
+
+.text-quiz-button a{
+    display:inline-block;
+    padding:18px 40px;
+    font-size:24px;
+    font-weight:bold;
+    color:white;
+    text-decoration:none;
+    border-radius:50px;
+    background:linear-gradient(45deg,cyan,magenta);
+    box-shadow:0 0 25px cyan;
+    animation:pulse 1.5s infinite;
+}
+
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.08);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
