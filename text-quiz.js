@@ -43,20 +43,23 @@ function showQuestion(){
 
         btn.innerHTML=option;
 
-        btn.onclick=function(){
+        btn.onclick = function () {
 
-            if(index === q.answer){
-                score++;
-                btn.classList.add("correct");
-            }
-            else{
-                btn.classList.add("wrong");
-            }
+    document.querySelectorAll("#answers button").forEach((b, i) => {
+        b.disabled = true;
 
-            document.querySelectorAll("#answers button")
-            .forEach(b=>b.disabled=true);
+        if (i === q.answer) {
+            b.classList.add("correct");
+        }
+    });
 
-        };
+    if (index === q.answer) {
+        score++;
+    } else {
+        btn.classList.add("wrong");
+    }
+
+};
 
         answers.appendChild(btn);
 
