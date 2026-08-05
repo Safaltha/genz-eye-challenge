@@ -1,5 +1,6 @@
 // =================================
 // 🦅 EAGLE RADAR - COMPLETE VERSION
+// WITH MISSION CONNECTION
 // =================================
 
 
@@ -33,14 +34,12 @@ let sound = true;
 let targetTimer;
 let countdownTimer;
 
-let time = 20;
 let targetTime = 1500;
+let time = 20;
 
 
 
-// ===============================
 // UPDATE UI
-// ===============================
 
 function updateUI(){
 
@@ -51,15 +50,13 @@ coinsText.innerHTML = coins;
 comboText.innerHTML = combo;
 
 progressBar.style.width =
-Math.min(level,100)+"%";
+Math.min(level * 10,100)+"%";
 
 }
 
 
 
-// ===============================
 // START GAME
-// ===============================
 
 function startGame(){
 
@@ -73,7 +70,7 @@ playing = true;
 paused = false;
 
 message.innerHTML =
-"👁️ Remember the target location!";
+"🦅 Remember the target location!";
 
 updateUI();
 
@@ -83,12 +80,9 @@ spawnTarget();
 
 
 
-// ===============================
-// CREATE TARGET
-// ===============================
+// SPAWN TARGET
 
 function spawnTarget(){
-
 
 if(!playing || paused)
 return;
@@ -97,19 +91,14 @@ return;
 target.style.display="block";
 
 
-
-let maxX =
-gameArea.clientWidth - 45;
-
-let maxY =
-gameArea.clientHeight - 45;
-
-
 let x =
-Math.random()*maxX;
+Math.random() *
+(gameArea.clientWidth - 45);
+
 
 let y =
-Math.random()*maxY;
+Math.random() *
+(gameArea.clientHeight - 45);
 
 
 
@@ -121,7 +110,6 @@ target.style.top=y+"px";
 clearTimeout(targetTimer);
 
 
-
 targetTimer=setTimeout(()=>{
 
 
@@ -129,46 +117,29 @@ target.style.display="none";
 
 
 message.innerHTML =
-"🧠 Now find where it was!";
-
-
-setTimeout(()=>{
-
-
-spawnTarget();
-
-
-},800);
-
+"👁️ Find the target!";
 
 
 },targetTime);
-
 
 
 }
 
 
 
-
-// ===============================
 // HIT TARGET
-// ===============================
 
 target.onclick=function(){
-
 
 if(!playing || paused)
 return;
 
 
-
 score += 10;
 
-coins += 1;
+coins++;
 
 combo++;
-
 
 
 if(combo % 5 === 0){
@@ -183,7 +154,7 @@ message.innerHTML =
 else{
 
 message.innerHTML =
-"🎯 Perfect Eye!";
+"🎯 Great Focus!";
 
 }
 
@@ -203,7 +174,6 @@ Math.max(400,targetTime-100);
 updateUI();
 
 
-
 target.style.display="none";
 
 
@@ -214,15 +184,12 @@ spawnTarget();
 },500);
 
 
-
 };
 
 
 
 
-// ===============================
-// MISSED TARGET
-// ===============================
+// MISSED
 
 function missed(){
 
@@ -237,7 +204,7 @@ combo=0;
 
 
 message.innerHTML =
-"❌ Missed! Focus!";
+"❌ Missed Target";
 
 
 updateUI();
@@ -250,22 +217,16 @@ gameOver();
 
 }
 
-
 }
 
 
 
-// ===============================
+
 // TIMER
-// ===============================
 
 function startTimer(){
 
-
 clearInterval(countdownTimer);
-
-
-time=20;
 
 
 countdownTimer=setInterval(()=>{
@@ -275,9 +236,7 @@ if(!playing || paused)
 return;
 
 
-
 time--;
-
 
 
 if(time<=0){
@@ -291,15 +250,11 @@ time=20;
 
 },1000);
 
-
 }
 
 
 
-// ===============================
 // GAME OVER
-// ===============================
-
 
 function gameOver(){
 
@@ -319,15 +274,29 @@ message.innerHTML =
 "🎮 Game Over! Score: "+score;
 
 
+
+// 🎯 MISSION MODE CONNECTION
+
+let progress =
+Number(localStorage.getItem("mission_0")) || 0;
+
+
+localStorage.setItem(
+"mission_0",
+progress + 1
+);
+
+
+
 saveScore();
 
 
 }
 
 
-// ===============================
+
+
 // PAUSE
-// ===============================
 
 pauseBtn.onclick=function(){
 
@@ -337,48 +306,38 @@ paused=!paused;
 
 if(paused){
 
-message.innerHTML=
-"⏸ Paused";
+message.innerHTML="⏸ Paused";
 
 }
 
 else{
 
-message.innerHTML=
-"🔥 Continue";
+message.innerHTML="🔥 Continue";
 
 spawnTarget();
 
 }
 
-
 };
 
 
 
 
-// ===============================
-// SOUND BUTTON
-// ===============================
+// SOUND
 
 soundBtn.onclick=function(){
 
-
 sound=!sound;
-
 
 soundBtn.innerHTML =
 sound ? "🔊 SOUND" : "🔇 MUTED";
 
-
 };
 
 
 
 
-// ===============================
 // SAVE SCORE
-// ===============================
 
 function saveScore(){
 
@@ -391,9 +350,7 @@ score
 
 
 
-// ===============================
 // LOAD SCORE
-// ===============================
 
 let oldScore =
 localStorage.getItem("eagleScore");
@@ -401,19 +358,13 @@ localStorage.getItem("eagleScore");
 
 if(oldScore){
 
-score =
-Number(oldScore);
-
-updateUI();
+score=Number(oldScore);
 
 }
 
 
 
-
-// ===============================
 // START BUTTON
-// ===============================
 
 startBtn.onclick=function(){
 
@@ -425,6 +376,6 @@ startTimer();
 
 
 
-// Initial display
+// INIT
 
 updateUI();
