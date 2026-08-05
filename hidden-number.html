@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidden Number Challenge</title>
+
+    <link rel="stylesheet" href="hidden-number.css">
+</head>
+<body>
+
+<header>
+    <h1>👁️ Hidden Number Challenge</h1>
+    <p>Look carefully and choose the correct answer!</p>
+</header>
+
+<div class="container">
+
+    <div class="top-bar">
+        <span id="score">Score: 0</span>
+        <span id="question-count">Question 1</span>
+    </div>
+
+    <img id="question-image" src="" alt="Hidden Number">
+
+    <h2 id="question-text"></h2>
+
+    <div id="options"></div>
+
+    <p id="message"></p>
+
+    <button id="next-btn" style="display:none;">Next Question</button>
+
+</div>
+
+<script src="hidden-number-questions.js"></script>
+<script src="hidden-number.js"></script>
+
+</body>
+</html>
