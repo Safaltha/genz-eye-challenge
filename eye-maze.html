@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Eye Maze Escape 🌀</title>
+
+<link rel="stylesheet" href="eye-maze.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>🌀 Eye Maze Escape</h1>
+
+<p>
+Escape the maze using your sharp eyes 👁️🔥
+</p>
+
+
+<div class="stats">
+
+<div>
+🏆 Score
+<h2 id="score">0</h2>
+</div>
+
+
+<div>
+⚡ Level
+<h2 id="level">1</h2>
+</div>
+
+
+<div>
+⏱️ Time
+<h2 id="time">30</h2>
+</div>
+
+</div>
+
+
+
+<div id="gameArea">
+
+<canvas id="mazeCanvas" width="350" height="350"></canvas>
+
+</div>
+
+
+
+<div class="controls">
+
+
+<button onclick="movePlayer('up')">
+⬆️
+</button>
+
+
+<br>
+
+
+<button onclick="movePlayer('left')">
+⬅️
+</button>
+
+
+<button onclick="movePlayer('down')">
+⬇️
+</button>
+
+
+<button onclick="movePlayer('right')">
+➡️
+</button>
+
+
+</div>
+
+
+
+<button onclick="startGame()">
+🔥 Start Game
+</button>
+
+
+<div id="message">
+
+Press Start and Escape the Maze!
+
+</div>
+
+
+</div>
+
+
+
+
+<script src="eye-maze.js"></script>
+
+
+</body>
+
+</html>
