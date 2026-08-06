@@ -33,6 +33,13 @@ const winSound = document.getElementById("winSound");
 const drawSound = document.getElementById("drawSound");
 const buttonSound = document.getElementById("buttonSound");
 
+tapSound.src = "tap.mp3";
+
+winSound.src = "win.mp3";
+
+drawSound.src = "draw.mp3";
+
+buttonSound.src = "button.mp3";
 
 // Game Data
 
