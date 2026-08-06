@@ -25,9 +25,10 @@ font-family:Arial,Helvetica,sans-serif;
 .game-grid{
 
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 gap:20px;
 margin:40px 0;
+justify-items:center;
 
 }
 
@@ -86,12 +87,13 @@ transition:.3s;
 
 .text-quiz-button a:hover{
 
-transform:translateY(-8px);
+transform:translateY(-8px) scale(1.05);
 
 box-shadow:0 0 35px cyan;
 
-}
+border-color:cyan;
 
+}
 
     
 
