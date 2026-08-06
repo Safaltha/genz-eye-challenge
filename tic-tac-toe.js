@@ -1,10 +1,13 @@
+
 // ======================================
 // GEN Z TIC TAC TOE
-// FINAL VERSION - PART 1
+// UPDATED FINAL VERSION - PART 1
 // ======================================
 
 
-// Elements
+// ======================
+// ELEMENTS
+// ======================
 
 const cells = document.querySelectorAll(".cell");
 
@@ -24,24 +27,39 @@ const popupTitle = document.getElementById("popupTitle");
 const popupText = document.getElementById("popupText");
 const playAgainBtn = document.getElementById("playAgain");
 
+
 const xScoreText = document.getElementById("xScore");
 const oScoreText = document.getElementById("oScore");
 const drawScoreText = document.getElementById("drawScore");
 
+
+
+// ======================
+// SOUNDS
+// ======================
+
 const tapSound = document.getElementById("tapSound");
 const winSound = document.getElementById("winSound");
+const loseSound = document.getElementById("loseSound");
 const drawSound = document.getElementById("drawSound");
 const buttonSound = document.getElementById("buttonSound");
+
 
 tapSound.src = "tap.mp3";
 
 winSound.src = "win.mp3";
 
+loseSound.src = "lose.mp3";
+
 drawSound.src = "draw.mp3";
 
 buttonSound.src = "button.mp3";
 
-// Game Data
+
+
+// ======================
+// GAME DATA
+// ======================
 
 let board = [
 "",
@@ -65,7 +83,10 @@ let vsComputer = false;
 let difficulty = "easy";
 
 
-// Scores
+
+// ======================
+// SCORE DATA
+// ======================
 
 let xScore = Number(localStorage.getItem("xScore")) || 0;
 
@@ -75,7 +96,9 @@ let drawScore = Number(localStorage.getItem("drawScore")) || 0;
 
 
 
-// Winning combinations
+// ======================
+// WIN PATTERNS
+// ======================
 
 const winPatterns = [
 
@@ -93,7 +116,11 @@ const winPatterns = [
 ];
 
 
-// Update score display
+
+
+// ======================
+// UPDATE SCORES
+// ======================
 
 function updateScores(){
 
@@ -117,9 +144,13 @@ updateScores();
 
 
 
-// Start game
+
+// ======================
+// START GAME
+// ======================
 
 function startGame(){
+
 
 board = [
 "",
@@ -160,13 +191,16 @@ statusText.textContent="Player X Turn";
 
 }
 
-// ======================================
+ // ======================================
 // PART 2
 // PLAYER MOVEMENT + WIN CHECK
 // ======================================
 
 
-// Friend Mode
+
+// ======================
+// FRIEND MODE
+// ======================
 
 friendBtn.onclick = ()=>{
 
@@ -182,7 +216,11 @@ startGame();
 
 
 
-// Computer Mode
+
+
+// ======================
+// COMPUTER MODE
+// ======================
 
 computerBtn.onclick = ()=>{
 
@@ -194,15 +232,19 @@ difficultyBox.classList.remove("hidden");
 
 
 
-// Difficulty Selection
+
+
+// ======================
+// DIFFICULTY
+// ======================
 
 levelButtons.forEach(button=>{
 
-button.onclick = ()=>{
+button.onclick=()=>{
 
 playButtonSound();
 
-difficulty = button.dataset.level;
+difficulty=button.dataset.level;
 
 vsComputer=true;
 
@@ -217,7 +259,10 @@ startGame();
 
 
 
-// Cell Click
+
+// ======================
+// CELL CLICK
+// ======================
 
 cells.forEach((cell,index)=>{
 
@@ -242,7 +287,10 @@ makeMove(index,currentPlayer);
 
 
 
-// Make Move
+
+// ======================
+// MAKE MOVE
+// ======================
 
 function makeMove(index,player){
 
@@ -263,6 +311,7 @@ playTapSound();
 
 
 
+
 if(checkWinner(player)){
 
 return;
@@ -276,6 +325,7 @@ if(checkDraw()){
 return;
 
 }
+
 
 
 
@@ -319,9 +369,14 @@ statusText.textContent =
 
 
 
-// Winner Check
+
+
+// ======================
+// WINNER CHECK
+// ======================
 
 function checkWinner(player){
+
 
 
 for(let pattern of winPatterns){
@@ -335,11 +390,13 @@ let c=pattern[2];
 
 
 
+
 if(
 board[a]===player &&
 board[b]===player &&
 board[c]===player
 ){
+
 
 
 gameActive=false;
@@ -354,6 +411,38 @@ cells[c].classList.add("win");
 
 
 
+
+
+// COMPUTER LOSES PLAYER
+
+if(vsComputer && player==="O"){
+
+
+showResult(
+"😢 You Lost!",
+"🤖 Computer Wins! Try Again!"
+);
+
+
+oScore++;
+
+
+updateScores();
+
+
+playLoseSound();
+
+
+}
+
+
+
+
+// NORMAL WIN
+
+else{
+
+
 showResult(
 "🎉 Congratulations!",
 player+" Wins!"
@@ -365,7 +454,9 @@ if(player==="X"){
 
 xScore++;
 
-}else{
+}
+
+else{
 
 oScore++;
 
@@ -375,8 +466,11 @@ oScore++;
 updateScores();
 
 
-
 playWinSound();
+
+
+}
+
 
 
 return true;
@@ -388,6 +482,7 @@ return true;
 }
 
 
+
 return false;
 
 
@@ -397,7 +492,10 @@ return false;
 
 
 
-// Draw Check
+
+// ======================
+// DRAW CHECK
+// ======================
 
 function checkDraw(){
 
@@ -434,15 +532,18 @@ playDrawSound();
 return true;
 
 
-}
+}                            
 
-  // ======================================
+// ======================================
 // PART 3
 // COMPUTER AI
 // ======================================
 
 
-// Computer Move
+
+// ======================
+// COMPUTER MOVE
+// ======================
 
 function computerMove(){
 
@@ -463,7 +564,6 @@ move=randomMove();
 }
 
 
-
 else if(difficulty==="medium"){
 
 
@@ -475,7 +575,6 @@ randomMove();
 
 
 }
-
 
 
 else{
@@ -498,14 +597,16 @@ makeComputerMove(move);
 }
 
 
-
 }
 
 
 
 
 
-// Computer places move
+
+// ======================
+// COMPUTER PLACE MOVE
+// ======================
 
 function makeComputerMove(index){
 
@@ -524,11 +625,13 @@ playTapSound();
 
 
 
+
 if(checkWinner("O")){
 
 return;
 
 }
+
 
 
 
@@ -553,7 +656,10 @@ statusText.textContent="Player X Turn";
 
 
 
-// Random AI
+
+// ======================
+// RANDOM MOVE
+// ======================
 
 function randomMove(){
 
@@ -580,9 +686,7 @@ empty.push(i);
 
 if(empty.length===0){
 
-
 return -1;
-
 
 }
 
@@ -601,13 +705,15 @@ Math.floor(Math.random()*empty.length)
 
 
 
-// Smart AI
+// ======================
+// SMART AI
+// ======================
 
 function bestMove(){
 
 
 
-// Try winning move
+// Computer winning move
 
 for(let pattern of winPatterns){
 
@@ -631,14 +737,14 @@ values.indexOf("")
 }
 
 
-
 }
 
 
 
 
 
-// Block player
+
+// Block player winning move
 
 for(let pattern of winPatterns){
 
@@ -662,7 +768,6 @@ values.indexOf("")
 }
 
 
-
 }
 
 
@@ -671,7 +776,7 @@ values.indexOf("")
 
 
 
-// Center
+// Take center
 
 if(board[4]===""){
 
@@ -687,7 +792,7 @@ return 4;
 
 
 
-// Corners
+// Take corners
 
 let corners=[0,2,6,8];
 
@@ -715,16 +820,19 @@ return corner;
 return randomMove();
 
 
-
 }
 
-  // ======================================
+// ======================================
 // PART 4
-// FINAL CONTROLS + SOUND + EFFECTS
+// SOUNDS + POPUP + CONTROLS
 // ======================================
 
 
-// Sound Functions
+
+// ======================
+// SOUND FUNCTIONS
+// ======================
+
 
 function playTapSound(){
 
@@ -754,6 +862,23 @@ winSound.play().catch(()=>{});
 
 
 
+
+function playLoseSound(){
+
+if(loseSound){
+
+loseSound.currentTime=0;
+
+loseSound.play().catch(()=>{});
+
+}
+
+}
+
+
+
+
+
 function playDrawSound(){
 
 if(drawSound){
@@ -765,6 +890,7 @@ drawSound.play().catch(()=>{});
 }
 
 }
+
 
 
 
@@ -783,7 +909,12 @@ buttonSound.play().catch(()=>{});
 
 
 
-// Show Result Popup
+
+
+
+// ======================
+// SHOW RESULT
+// ======================
 
 function showResult(title,text){
 
@@ -806,7 +937,13 @@ createConfetti();
 
 
 
-// Restart Button
+
+
+
+
+// ======================
+// RESTART BUTTON
+// ======================
 
 restartBtn.onclick=()=>{
 
@@ -822,7 +959,11 @@ startGame();
 
 
 
-// Play Again Button
+
+
+// ======================
+// PLAY AGAIN
+// ======================
 
 playAgainBtn.onclick=()=>{
 
@@ -842,7 +983,11 @@ startGame();
 
 
 
-// Reset Score
+
+
+// ======================
+// RESET SCORE
+// ======================
 
 resetBtn.onclick=()=>{
 
@@ -862,9 +1007,7 @@ drawScore=0;
 updateScores();
 
 
-
 startGame();
-
 
 
 };
@@ -874,12 +1017,20 @@ startGame();
 
 
 
-// Confetti Effect
+
+
+// ======================
+// CONFETTI EFFECT
+// ======================
 
 function createConfetti(){
 
 
 let area=document.getElementById("confetti");
+
+
+if(!area) return;
+
 
 
 area.innerHTML="";
@@ -890,7 +1041,6 @@ for(let i=0;i<80;i++){
 
 
 let piece=document.createElement("div");
-
 
 
 piece.className="confetti-piece";
@@ -906,7 +1056,6 @@ Math.random()*2+"s";
 
 
 area.appendChild(piece);
-
 
 
 }
@@ -928,7 +1077,12 @@ area.innerHTML="";
 
 
 
-// Keyboard Restart
+
+
+
+// ======================
+// KEYBOARD RESTART
+// ======================
 
 document.addEventListener("keydown",(e)=>{
 
@@ -947,6 +1101,11 @@ startGame();
 
 
 
-// Initial State
+
+
+
+// ======================
+// INITIAL MESSAGE
+// ======================
 
 statusText.textContent="Choose Game Mode";
