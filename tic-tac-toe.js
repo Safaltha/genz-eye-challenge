@@ -377,19 +377,11 @@ statusText.textContent =
 
 function checkWinner(player){
 
-
-
 for(let pattern of winPatterns){
 
-
 let a=pattern[0];
-
 let b=pattern[1];
-
 let c=pattern[2];
-
-
-
 
 if(
 board[a]===player &&
@@ -397,94 +389,77 @@ board[b]===player &&
 board[c]===player
 ){
 
-
-
 gameActive=false;
 
-
-
 cells[a].classList.add("win");
-
 cells[b].classList.add("win");
-
 cells[c].classList.add("win");
 
-
-
-
-
-// COMPUTER LOSES PLAYER
-
+// 🤖 COMPUTER WINS
 if(vsComputer && player==="O"){
 
-
-showResult(
-"😢 You Lost!",
-"🤖 Computer Wins! Try Again!"
-);
-
-
 oScore++;
-
-
 updateScores();
 
+popupTitle.textContent="😢 You Lose!";
+popupText.textContent="🤖 Computer Wins! Better luck next time.";
+
+popup.classList.remove("hidden");
 
 playLoseSound();
 
+return true;
 
 }
 
-
-
-
-// NORMAL WIN
-
-else{
-
-
-showResult(
-"🎉 Congratulations!",
-player+" Wins!"
-);
-
-
-
-if(player==="X"){
+// 👤 PLAYER WINS
+if(vsComputer && player==="X"){
 
 xScore++;
-
-}
-
-else{
-
-oScore++;
-
-}
-
-
 updateScores();
 
+popupTitle.textContent="🎉 Congratulations!";
+popupText.textContent="🏆 You Beat the Computer!";
+
+popup.classList.remove("hidden");
+
+createConfetti();
 
 playWinSound();
 
+return true;
 
 }
 
+// 👥 FRIEND MODE
+if(!vsComputer){
 
+if(player==="X"){
+xScore++;
+}else{
+oScore++;
+}
+
+updateScores();
+
+popupTitle.textContent="🎉 Congratulations!";
+popupText.textContent="Player " + player + " Wins!";
+
+popup.classList.remove("hidden");
+
+createConfetti();
+
+playWinSound();
 
 return true;
 
+}
 
 }
 
-
 }
-
-
 
 return false;
-
 
 }
 
