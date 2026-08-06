@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gen Z Eye Challenge Leaderboard 🏆</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+
+body{
+
+margin:0;
+min-height:100vh;
+color:white;
+
+background:
+radial-gradient(circle at top,#4b0082,#050014 45%,#000);
+
+text-align:center;
+padding:30px;
+
+}
+
+
+.container{
+
+max-width:600px;
+margin:auto;
+
+}
+
+
+.card{
+
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.2);
+
+backdrop-filter:blur(15px);
+
+border-radius:30px;
+
+padding:30px;
+
+box-shadow:
+0 0 30px rgba(0,255,255,.2);
+
+}
+
+
+
+h1{
+
+background:linear-gradient(
+90deg,
+cyan,
+magenta,
+yellow
+);
+
+-webkit-background-clip:text;
+
+color:transparent;
+
+}
+
+
+
+input{
+
+width:80%;
+
+padding:15px;
+
+border-radius:30px;
+
+border:none;
+
+outline:none;
+
+font-size:16px;
+
+}
+
+
+
+button{
+
+margin-top:20px;
+
+padding:15px 35px;
+
+border:none;
+
+border-radius:50px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+background:linear-gradient(
+45deg,
+cyan,
+magenta
+);
+
+}
+
+
+
+.player{
+
+margin-top:20px;
+
+padding:20px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,.1);
+
+font-size:20px;
+
+}
+
+
+
+.back{
+
+display:inline-block;
+
+margin-top:25px;
+
+color:cyan;
+
+text-decoration:none;
+
+font-weight:bold;
+
+}
+
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+<div class="container">
+
+
+<div class="card">
+
+
+<h1>
+🏆 Eye Legends Leaderboard
+</h1>
+
+
+<p>
+Enter your nickname and save your best score.
+</p>
+
+
+
+<input 
+id="playerName"
+placeholder="Enter nickname"
+>
+
+
+
+<br>
+
+
+<button onclick="saveScore()">
+
+🔥 Save My Score
+
+</button>
+
+
+
+<h2>
+Top Player
+</h2>
+
+
+
+<div id="leaderboard">
+
+No player yet
+
+</div>
+
+
+
+<a class="back" href="index.html">
+
+⬅️ Back to Home
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+<script>
+
+
+function saveScore(){
+
+
+let name=
+document.getElementById("playerName").value;
+
+
+
+let score=
+localStorage.getItem("eyeScore") || 0;
+
+
+
+if(name===""){
+
+alert("Please enter nickname");
+
+return;
+
+}
+
+
+
+let player={
+
+name:name,
+
+score:Number(score)
+
+};
+
+
+
+localStorage.setItem(
+
+"leaderPlayer",
+
+JSON.stringify(player)
+
+);
+
+
+
+showLeaderboard();
+
+
+}
+
+
+
+
+function showLeaderboard(){
+
+
+let player=
+JSON.parse(
+localStorage.getItem("leaderPlayer")
+);
+
+
+
+let board=
+document.getElementById("leaderboard");
+
+
+
+if(player){
+
+
+board.innerHTML=
+
+`
+<div class="player">
+
+🥇 ${player.name}
+
+<br>
+
+🏆 Score: ${player.score}
+
+</div>
+`;
+
+}
+
+else{
+
+
+board.innerHTML=
+"No player yet";
+
+
+}
+
+
+}
+
+
+
+showLeaderboard();
+
+
+</script>
+
+
+
+</body>
+
+</html>
