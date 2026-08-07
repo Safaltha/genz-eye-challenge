@@ -1,8 +1,9 @@
 /* ==========================================
-   MEMORY FLIP CHALLENGE
+   GEN Z MEMORY FLIP CHALLENGE
    PART 1
 ========================================== */
 
+// Elements
 const gameBoard = document.getElementById("gameBoard");
 const difficulty = document.getElementById("difficulty");
 
@@ -22,16 +23,83 @@ const playAgain = document.getElementById("playAgain");
 const finalTime = document.getElementById("finalTime");
 const finalMoves = document.getElementById("finalMoves");
 
+// Icons
+const allIcons = [
+"🍎","🍌","🍇","🍓","🍉","🍒","🥝","🍍",
+"🥥","🍑","🥕","🌽","🍕","🍔","🍟","🌭",
+"🍩","🍪"
+];
+
+// Levels
+const levels = {
+    easy:8,
+    medium:10,
+    hard:18
+};
+
+// Game variables
+let firstCard = null;
+let secondCard = null;
+let lockBoard = false;
+
+let moves = 0;
+let matches = 0;
+let seconds = 0;
+
+let timerInterval = null;
+let gameStarted = false;
+
+/* ==========================================
+   GEN Z MEMORY FLIP CHALLENGE
+   PART 2
+========================================== */
+
 /* =========================
-   GAME ICONS
+   SHUFFLE ARRAY
 ========================= */
 
-const allIcons = [
-"🍎","🍌","🍇","🍓","🍉","🍒",
+function shuffle(array){
 
-  /* ==========================================
-   MEMORY FLIP CHALLENGE
-   PART 2
+    for(let i=array.length-1;i>0;i--){
+
+        const j=Math.floor(Math.random()*(i+1));
+
+        [array[i],array[j]]=[array[j],array[i]];
+
+    }
+
+    return array;
+
+}
+
+/* =========================
+   START GAME
+========================= */
+
+function startGame(){
+
+    clearInterval(timerInterval);
+
+    gameStarted=false;
+    firstCard=null;
+    secondCard=null;
+    lockBoard=false;
+
+    moves=0;
+    matches=0;
+    seconds=0;
+
+    timer.textContent="00:00";
+    movesText.textContent="0";
+    matchesText.textContent="0";
+
+    popup.classList.add("hidden");
+
+    game
+
+/* ==========================================
+   GEN Z MEMORY FLIP CHALLENGE
+   PART 3
 ========================================== */
 
 /* =========================
@@ -42,27 +110,31 @@ function flipCard(){
 
     if(lockBoard) return;
 
-    if(this === firstCard) return;
+    if(this===firstCard) return;
 
     if(this.classList.contains("matched")) return;
+
+    if(!gameStarted){
+        gameStarted=true;
+        startTimer();
+    }
 
     this.classList.add("flip");
 
     if(!firstCard){
 
-        firstCard = this;
-
+        firstCard=this;
         return;
 
     }
 
-    secondCard = this;
+    secondCard=this;
 
-    lockBoard = true;
+    lockBoard=true;
 
     moves++;
 
-    movesText.textContent = moves;
+    movesText.textContent=moves;
 
     checkMatch();
 
@@ -74,17 +146,14 @@ function flipCard(){
 
 function checkMatch(){
 
-    const matched =
-        firstCard.dataset.icon === secondCard.dataset.icon;
-
-    if(matched){
+    if(firstCard.dataset.icon===secondCard.dataset.icon){
 
         firstCard.classList.add("matched");
         secondCard.classList.add("matched");
 
         matches++;
 
-        matchesText.textContent = matches;
+        matchesText.textContent=matches;
 
         resetTurn();
 
@@ -117,37 +186,15 @@ function checkMatch(){
 
 function resetTurn(){
 
-    firstCard = null;
-
-    secondCard = null;
-
-    lockBoard = false;
+    firstCard=null;
+    secondCard=null;
+    lockBoard=false;
 
 }
 
-/* =========================
-   TIMER
-========================= */
-
-function startTimer(){
-
-    clearInterval(timerInterval);
-
-    timerInterval = setInterval(()=>{
-
-        seconds++;
-
-        const min = String(Math.floor(seconds/60)).padStart(2,"0");
-        const sec = String(seconds%60).padStart(2,"0");
-
-        timer.textContent = `${min}:${sec}`;
-
-    },1000);
-
-}
 /* ==========================================
-   MEMORY FLIP CHALLENGE
-   PART 3
+   GEN Z MEMORY FLIP CHALLENGE
+   PART 4
 ========================================== */
 
 /* =========================
@@ -172,7 +219,7 @@ function checkWin(){
 }
 
 /* =========================
-   BEST SCORE
+   SAVE BEST SCORE
 ========================= */
 
 function saveBestScore(){
@@ -186,15 +233,11 @@ function saveBestScore(){
     const oldMoves = Number(localStorage.getItem(moveKey));
 
     if(!oldTime || seconds < oldTime){
-
         localStorage.setItem(timeKey, seconds);
-
     }
 
     if(!oldMoves || moves < oldMoves){
-
         localStorage.setItem(moveKey, moves);
-
     }
 
     loadBestScore();
@@ -241,13 +284,5 @@ function loadBestScore(){
 }
 
 /* =========================
-   CHANGE DIFFICULTY
+   BUTTONS
 ========================= */
-
-difficulty.addEventListener("change", startGame);
-
-/* =========================
-   START GAME AUTOMATICALLY
-========================= */
-
-window.addEventListener("load", startGame);
