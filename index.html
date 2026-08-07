@@ -1443,33 +1443,36 @@
     let timer = 30;
     let timerInterval;
 
-    const questions = [{
-      question: "Find the hidden number in this pattern",
-      image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%23ff6b6b' font-size='40' font-family='Arial'%3E🔍 7%3C/text%3E%3C/svg%3E",
-      answer: "The hidden number is 7",
-      answerImage: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%234ecdc4' font-size='60' font-family='Arial'%3E7%3C/text%3E%3C/svg%3E"
-    }, {
-      question: "What color is the hidden shape?",
-      image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%2300ffff'/%3E%3C/svg%3E",
-      answer: "The hidden shape is cyan",
-      answerImage: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%2300ffff' font-size='40' font-family='Arial'%3E🔵 CYAN%3C/text%3E%3C/svg%3E"
-    }, {
-      question: "How many dots are there?",
-      image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ccircle cx='100' cy='100' r='20' fill='%23ffe66d'/%3E%3Ccircle cx='200' cy='100' r='20' fill='%23ffe66d'/%3E%3Ccircle cx='300' cy='100' r='20' fill='%23ffe66d'/%3E%3Ccircle cx='100' cy='200' r='20' fill='%23ffe66d'/%3E%3Ccircle cx='200' cy='200' r='20' fill='%23ffe66d'/%3E%3Ccircle cx='300' cy='200' r='20' fill='%23ffe66d'/%3E%3C/svg%3E",
-      answer: "There are 6 dots",
-      answerImage: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%23ffe66d' font-size='60' font-family='Arial'%3E6%3C/text%3E%3C/svg%3E"
-    }, {
-      question: "Find the odd one out",
-      image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ccircle cx='100' cy='150' r='40' fill='%23ff6b6b'/%3E%3Ccircle cx='200' cy='150' r='40' fill='%234ecdc4'/%3E%3Ccircle cx='300' cy='150' r='40' fill='%234ecdc4'/%3E%3C/svg%3E",
-      answer: "The odd one is the red circle",
-      answerImage: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%23ff6b6b' font-size='40' font-family='Arial'%3E🔴 RED%3C/text%3E%3C/svg%3E"
-    }, {
-      question: "What number is hidden?",
-      image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%23a29bfe' font-size='80' font-family='Arial'%3E3%3C/text%3E%3C/svg%3E",
-      answer: "The hidden number is 3",
-      answerImage: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%23a29bfe' font-size='80' font-family='Arial'%3E3%3C/text%3E%3C/svg%3E"
-    }];
-
+    
+// ============================================
+// GAME DATA - YOUR ORIGINAL QUESTIONS
+// ============================================
+const questions = [{
+  question: "Find the hidden number in this pattern",
+  image: "question1.jpg",
+  answer: "The hidden number is 7",
+  answerImage: "answer1.jpg"
+}, {
+  question: "What color is the hidden shape?",
+  image: "question2.jpg",
+  answer: "The hidden shape is cyan",
+  answerImage: "answer2.jpg"
+}, {
+  question: "How many dots are there?",
+  image: "question3.jpg",
+  answer: "There are 6 dots",
+  answerImage: "answer3.jpg"
+}, {
+  question: "Find the odd one out",
+  image: "question4.jpg",
+  answer: "The odd one is the red circle",
+  answerImage: "answer4.jpg"
+}, {
+  question: "What number is hidden?",
+  image: "question5.jpg",
+  answer: "The hidden number is 3",
+  answerImage: "answer5.jpg"
+}];
     // ============================================
     // GAME FUNCTIONS
     // ============================================
