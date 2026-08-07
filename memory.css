@@ -1,7 +1,7 @@
-/* ==========================
+/* ==========================================
    GEN Z MEMORY FLIP CHALLENGE
    PART 1
-========================== */
+========================================== */
 
 *{
     margin:0;
@@ -16,7 +16,6 @@ body{
     min-height:100vh;
     display:flex;
     justify-content:center;
-    align-items:flex-start;
     padding:25px;
 }
 
@@ -31,14 +30,15 @@ header{
 }
 
 header h1{
-    font-size:2.3rem;
+    font-size:2.4rem;
     margin-bottom:10px;
 }
 
 .subtitle{
     color:#cbd5e1;
-    font-size:1rem;
     line-height:1.6;
+    max-width:700px;
+    margin:auto;
 }
 
 /* ==========================
@@ -50,18 +50,14 @@ TOP PANEL
     justify-content:space-between;
     align-items:center;
     flex-wrap:wrap;
-    gap:18px;
+    gap:20px;
     margin-bottom:20px;
 }
 
 .difficulty-box{
     display:flex;
     align-items:center;
-    gap:12px;
-}
-
-.difficulty-box label{
-    font-weight:bold;
+    gap:10px;
 }
 
 #difficulty{
@@ -69,7 +65,7 @@ TOP PANEL
     border:none;
     border-radius:10px;
     background:#1e293b;
-    color:white;
+    color:#fff;
     font-size:15px;
     cursor:pointer;
 }
@@ -82,18 +78,18 @@ TOP PANEL
 
 .stat-card{
     background:#1e293b;
-    border-radius:15px;
+    border-radius:16px;
     padding:14px 20px;
     min-width:110px;
     text-align:center;
-    box-shadow:0 8px 20px rgba(0,0,0,.3);
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
 }
 
 .stat-title{
     display:block;
     color:#94a3b8;
-    font-size:.85rem;
     margin-bottom:6px;
+    font-size:.9rem;
 }
 
 .stat-card span:last-child{
@@ -113,9 +109,13 @@ BEST SCORE
     background:#162032;
     border-radius:15px;
     padding:15px;
-    margin-bottom:20px;
+    margin-bottom:25px;
     font-weight:bold;
 }
+/* ==========================================
+   GEN Z MEMORY FLIP CHALLENGE
+   PART 2
+========================================== */
 
 /* ==========================
 BUTTONS
@@ -133,25 +133,25 @@ BUTTONS
     padding:14px 24px;
     border:none;
     border-radius:12px;
-    cursor:pointer;
     font-size:16px;
     font-weight:bold;
+    cursor:pointer;
     transition:.25s;
 }
 
 #startBtn{
     background:#22c55e;
-    color:white;
+    color:#fff;
 }
 
 #restartBtn{
     background:#3b82f6;
-    color:white;
+    color:#fff;
 }
 
 .buttons button:hover{
     transform:translateY(-3px);
-    box-shadow:0 8px 18px rgba(0,0,0,.35);
+    box-shadow:0 8px 20px rgba(0,0,0,.35);
 }
 
 /* ==========================
@@ -160,35 +160,34 @@ GAME BOARD
 
 .game-board{
     display:grid;
-    gap:15px;
     justify-content:center;
+    gap:15px;
+    perspective:1000px;
 }
 
-/* Easy */
 .game-board.easy{
     grid-template-columns:repeat(4,85px);
 }
 
-/* Medium */
 .game-board.medium{
     grid-template-columns:repeat(5,80px);
 }
 
-/* Hard */
 .game-board.hard{
     grid-template-columns:repeat(6,70px);
 }
+
 /* ==========================
-CARD DESIGN
+CARD
 ========================== */
 
 .memory-card{
     position:relative;
     width:85px;
     height:85px;
-    cursor:pointer;
     transform-style:preserve-3d;
-    transition:transform .55s;
+    transition:transform .5s;
+    cursor:pointer;
 }
 
 .game-board.medium .memory-card{
@@ -205,10 +204,6 @@ CARD DESIGN
     transform:rotateY(180deg);
 }
 
-.memory-card.matched{
-    animation:matchedPulse .5s ease;
-}
-
 .card-face{
     position:absolute;
     width:100%;
@@ -223,7 +218,27 @@ CARD DESIGN
 }
 
 .card-front{
-    background:linear-gradient(135deg,#2563eb,#
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+    color:#fff;
+}
+
+.card-back{
+    background:#f8fafc;
+    color:#111827;
+    transform:rotateY(180deg);
+}
+
+.memory-card.matched .card-back{
+    background:#22c55e;
+    color:#fff;
+}
+
+.memory-card.wrong
+/* ==========================================
+   GEN Z MEMORY FLIP CHALLENGE
+   PART 3
+========================================== */
+
 /* ==========================
 WIN POPUP
 ========================== */
@@ -243,18 +258,18 @@ WIN POPUP
 }
 
 .popup-content{
-    background:#1e293b;
     width:90%;
     max-width:380px;
+    background:#1e293b;
     border-radius:20px;
-    text-align:center;
     padding:30px 25px;
+    text-align:center;
     box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
 .popup-content h2{
-    margin-bottom:15px;
     font-size:2rem;
+    margin-bottom:15px;
 }
 
 .popup-content p{
@@ -269,74 +284,4 @@ WIN POPUP
 
 #playAgain{
     margin-top:15px;
-    padding:14px 28px;
-    border:none;
-    border-radius:12px;
-    background:#22c55e;
-    color:#fff;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.25s;
-}
-
-#playAgain:hover{
-    transform:translateY(-2px);
-}
-
-/* ==========================
-CONFETTI PLACEHOLDER
-========================== */
-
-#confetti{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    overflow:hidden;
-    z-index:999;
-}
-
-/* ==========================
-SCROLLBAR
-========================== */
-
-::-webkit-scrollbar{
-    width:8px;
-}
-
-::-webkit-scrollbar-thumb{
-    background:#475569;
-    border-radius:20px;
-}
-
-::-webkit-scrollbar-track{
-    background:#0f172a;
-}
-
-/* ==========================
-RESPONSIVE
-========================== */
-
-@media (max-width:768px){
-
-    header h1{
-        font-size:1.8rem;
-    }
-
-    .top-panel{
-        flex-direction:column;
-    }
-
-    .stats{
-        justify-content:center;
-    }
-
-    .best-score{
-        flex-direction:column;
-        gap:10px;
-        text-align:center;
-    }
-
-    .game-board.easy{
-       
-  
+   
