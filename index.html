@@ -1055,3 +1055,68 @@
       <a href="contact.html">📩 Contact</a>
       <a href="privacy.html">🔒 Privacy</a>
       <a href
+<!-- =========================================== -->
+<script>
+  // === COOKIE MANAGEMENT ===
+  function setCookie(name, value, days = 30) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+  }
+
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
+  }
+
+  // === LOAD SAVED STATS ===
+  function loadSavedStats() {
+    const score = getCookie('userScore');
+    const streak = getCookie('userStreak');
+    const level = getCookie('userLevel');
+    
+    if (score) document.getElementById('score').innerText = score;
+    if (streak) document.getElementById('streak').innerText = streak;
+    if (level) document.getElementById('level').innerText = level;
+  }
+
+  // === SAVE STATS ===
+  function saveStats() {
+    const score = document.getElementById('score')?.innerText || '0';
+    const streak = document.getElementById('streak')?.innerText || '0';
+    const level = document.getElementById('level')?.innerText || '1';
+    
+    setCookie('userScore', score, 30);
+    setCookie('userStreak', streak, 30);
+    setCookie('userLevel', level, 30);
+  }
+
+  // === TRACK VISITS ===
+  let visitCount = parseInt(getCookie('visits') || '0') + 1;
+  setCookie('visits', visitCount, 365);
+
+  // === PAGE LOAD ===
+  window.addEventListener('DOMContentLoaded', function() {
+    loadSavedStats();
+    
+    document.querySelectorAll('.game-grid a, .text-quiz-button a, .play-button').forEach(link => {
+      link.addEventListener('click', function() {
+        const gameName = this.querySelector('.game-name')?.innerText || 'Unknown Game';
+        setCookie('lastGame', gameName, 7);
+      });
+    });
+
+    window.addEventListener('beforeunload', saveStats);
+  });
+
+  // === OVERRIDE FUNCTIONS ===
+  const originalStartGame = window.startGame;
+  window.startGame = function() {
+    if (originalStartGame) originalStartGame();
+    setTimeout(saveStats, 1000);
+  };
+
+  console.log('🍪 Cookies loaded!');
+</script>
+</body>
+</html>
+        
