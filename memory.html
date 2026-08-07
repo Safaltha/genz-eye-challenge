@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>🧠 Memory Flip Challenge | Gen Z Games</title>
-
+<title>🧠 Memory Flip Challenge</title>
 <link rel="stylesheet" href="memory.css">
 </head>
 
@@ -14,107 +11,64 @@
 
 <div class="container">
 
-<header>
-
 <h1>🧠 Memory Flip Challenge</h1>
+<p class="subtitle">Match all the cards as fast as possible!</p>
 
-<p class="subtitle">
-Flip every matching pair as fast as possible.
-Can you beat your best score?
-</p>
+<div class="top-bar">
 
-</header>
+<div class="score-box">
+<div>⏱ Time</div>
+<h2 id="timer">00:00</h2>
+</div>
 
-<div class="top-panel">
+<div class="score-box">
+<div>🎯 Moves</div>
+<h2 id="moves">0</h2>
+</div>
 
-<div class="difficulty-box">
+<div class="score-box">
+<div>🏆 Best</div>
+<h2 id="bestTime">--:--</h2>
+</div>
 
-<label for="difficulty">Difficulty</label>
+</div>
+
+<div class="controls">
 
 <select id="difficulty">
-
 <option value="easy">Easy (4×4)</option>
-
 <option value="medium">Medium (4×5)</option>
-
 <option value="hard">Hard (6×6)</option>
-
 </select>
 
-</div>
+<button id="startBtn">▶ Start Game</button>
 
-<div class="stats">
-
-<div class="stat-card">
-<span class="stat-title">⏱ Time</span>
-<span id="timer">00:00</span>
-</div>
-
-<div class="stat-card">
-<span class="stat-title">🎯 Moves</span>
-<span id="moves">0</span>
-</div>
-
-<div class="stat-card">
-<span class="stat-title">✅ Matches</span>
-<span id="matches">0</span>
-</div>
+<button id="restartBtn">🔄 Restart</button>
 
 </div>
 
-</div>
-
-<div class="best-score">
-
-<div>
-🏆 Best Time:
-<strong id="bestTime">--:--</strong>
-</div>
-
-<div>
-⭐ Best Moves:
-<strong id="bestMoves">--</strong>
-</div>
+<!-- REAL GAME BOARD -->
+<div id="gameBoard" class="game-board"></div>
 
 </div>
 
-<div class="buttons">
+<!-- WIN POPUP -->
 
-<button id="startBtn">
-▶ Start Game
-</button>
-
-<button id="restartBtn">
-🔄 Restart
-</button>
-
-</div>
-
-<div id="gameBoard" class="game-board easy">
-
-</div>
-
-</div>
-
-<div id="winPopup" class="popup hidden">
+<div id="popup" class="popup hidden">
 
 <div class="popup-content">
 
-<h2>🎉 Congratulations!</h2>
+<h2>🎉 You Win!</h2>
 
-<p>You matched every card!</p>
-
-<div class="popup-stats">
-
-<p>⏱ Time:
-<strong id="finalTime"></strong>
+<p>
+Time:
+<span id="finalTime"></span>
 </p>
 
-<p>🎯 Moves:
-<strong id="finalMoves"></strong>
+<p>
+Moves:
+<span id="finalMoves"></span>
 </p>
-
-</div>
 
 <button id="playAgain">
 Play Again
@@ -123,8 +77,6 @@ Play Again
 </div>
 
 </div>
-
-<div id="confetti"></div>
 
 <script src="memory.js"></script>
 
