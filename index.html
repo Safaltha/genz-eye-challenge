@@ -1180,6 +1180,12 @@ function askAI() {
   const lowerQuestion = question.toLowerCase();
   
   for (const [keyword, reply] of Object.entries(responses)) {
+  if (lowerQuestion.includes(keyword)) {
+    response = reply;
+    break;
+  }
+}
+// Then the rest of the function...
 
   // === PAGE LOAD ===
   window.addEventListener('DOMContentLoaded', function() {
