@@ -1115,7 +1115,44 @@
     setTimeout(saveStats, 1000);
   };
 
+       // === SEND SUGGESTION FUNCTION ===
+function sendSuggestion() {
+  const suggestionInput = document.getElementById('suggestion');
+  const suggestionMessage = document.getElementById('suggestionMessage');
+  const suggestion = suggestionInput.value.trim();
+  
+  if (suggestion === '') {
+    suggestionMessage.innerHTML = '⚠️ Please write a suggestion before submitting.';
+    suggestionMessage.style.color = '#ff6b6b';
+    return;
+  }
+  
+  // Save suggestion to cookie
+  let suggestions = JSON.parse(getCookie('userSuggestions') || '[]');
+  suggestions.push({
+    text: suggestion,
+    date: new Date().toISOString()
+  });
+  setCookie('userSuggestions', JSON.stringify(suggestions), 30);
+  
+  suggestionMessage.innerHTML = '✅ Thank you for your suggestion! We appreciate your feedback.';
+  suggestionMessage.style.color = '#4ecdc4';
+  suggestionInput.value = '';
+  console.log('💡 Suggestion saved:', suggestion);
+}
+
+// === OVERRIDE FUNCTIONS ===
+const originalStartGame = window.startGame;
+window.startGame = function() {
+  if (originalStartGame) originalStartGame();
+  setTimeout(saveStats, 1000);
+};
+
+console.log('🍪 Cookies loaded!'); 
+
   console.log('🍪 Cookies loaded!');
+
+  
 </script>
 </body>
 </html>
