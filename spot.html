@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>👀 Spot the Difference · Eye Test</title>
+  <link rel="stylesheet" href="spot-style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>👀 Spot the Difference</h1>
+    <p class="subtitle">Find all differences before time runs out!</p>
+    
+    <!-- Stats -->
+    <div class="stats">
+      <div>🎯 <span id="found">0</span>/<span id="total">5</span></div>
+      <div>⏱️ <span id="timer">60</span>s</div>
+      <div>🏆 <span id="best">0</span></div>
+    </div>
+
+    <!-- Game Area -->
+    <div class="game-area">
+      <canvas id="gameCanvas" width="400" height="400"></canvas>
+    </div>
+
+    <!-- Message -->
+    <div class="message" id="msg">🔍 Tap the differences!</div>
+
+    <!-- Difficulty -->
+    <div class="difficulty">
+      <span class="difficulty-label">🎯 Difficulty:</span>
+      <button class="active" data-diff="3">Easy 3</button>
+      <button data-diff="5">Medium 5</button>
+      <button data-diff="7">Hard 7</button>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button class="btn" onclick="newRound()">🔄 New Round</button>
+      <button class="btn btn-secondary" onclick="resetGame()">⏳ Reset</button>
+    </div>
+  </div>
+
+  <script src="spot-script.js"></script>
+</body>
+</html>
