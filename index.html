@@ -1055,7 +1055,9 @@
       <a href="contact.html">📩 Contact</a>
       <a href="privacy.html">🔒 Privacy</a>
       <a href
-<!-- =========================================== -->
+
+
+  <!-- =========================================== -->
 <script>
   // === COOKIE MANAGEMENT ===
   function setCookie(name, value, days = 30) {
@@ -1094,10 +1096,78 @@
   let visitCount = parseInt(getCookie('visits') || '0') + 1;
   setCookie('visits', visitCount, 365);
 
+  // === SEND SUGGESTION FUNCTION ===
+  function sendSuggestion() {
+    const suggestionInput = document.getElementById('suggestion');
+    const suggestionMessage = document.getElementById('suggestionMessage');
+    const suggestion = suggestionInput.value.trim();
+    
+    if (suggestion === '') {
+      suggestionMessage.innerHTML = '⚠️ Please write a suggestion before submitting.';
+      suggestionMessage.style.color = '#ff6b6b';
+      return;
+    }
+    
+    // Save suggestion to cookie
+    let suggestions = JSON.parse(getCookie('userSuggestions') || '[]');
+    suggestions.push({
+      text: suggestion,
+      date: new Date().toISOString()
+    });
+    setCookie('userSuggestions', JSON.stringify(suggestions), 30);
+    
+    suggestionMessage.innerHTML = '✅ Thank you for your suggestion! We appreciate your feedback.';
+    suggestionMessage.style.color = '#4ecdc4';
+    suggestionInput.value = '';
+    console.log('💡 Suggestion saved:', suggestion);
+  }
+
+  // === AI EYE COACH FUNCTION ===
+  function askAI() {
+    const aiInput = document.getElementById('aiInput');
+    const aiResponse = document.getElementById('aiResponse');
+    const question = aiInput.value.trim();
+    
+    if (question === '') {
+      aiResponse.innerHTML = '🤖 Please ask me a question about eye challenges or games!';
+      aiResponse.style.color = '#ff6b6b';
+      return;
+    }
+    
+    // AI responses based on keywords
+    const responses = {
+      'hint': '👁️ Here\'s a hint: Focus on patterns and details. Sometimes the answer is hidden in plain sight!',
+      'tips': '💡 Eye training tips: Take breaks every 20 minutes, practice focus exercises, and challenge yourself daily!',
+      'game': '🎮 Try Eagle Radar for observation, Camouflage Hunter for focus, or Reaction Speed Test for quick reflexes!',
+      'score': '🏆 Keep playing to increase your score! Each game gives you points based on your performance.',
+      'level': '⚡ Your level increases as you complete more challenges. Higher levels mean harder puzzles!',
+      'help': '🆘 Need help? Check the Help section or ask me specific questions about any game!',
+      'default': '🤖 Great question! Try our Eagle Radar game to test your observation skills, or ask me for specific tips about any challenge!'
+    };
+    
+    // Check for keywords in the question
+    let response = responses.default;
+    const lowerQuestion = question.toLowerCase();
+    
+    if (lowerQuestion.includes('hint')) response = responses.hint;
+    else if (lowerQuestion.includes('tip') || lowerQuestion.includes('advice')) response = responses.tips;
+    else if (lowerQuestion.includes('game') || lowerQuestion.includes('play')) response = responses.game;
+    else if (lowerQuestion.includes('score') || lowerQuestion.includes('point')) response = responses.score;
+    else if (lowerQuestion.includes('level') || lowerQuestion.includes('rank')) response = responses.level;
+    else if (lowerQuestion.includes('help') || lowerQuestion.includes('support')) response = responses.help;
+    
+    aiResponse.innerHTML = response;
+    aiResponse.style.color = '#4ecdc4';
+    aiInput.value = '';
+    console.log('🤖 AI Question:', question);
+    console.log('🤖 AI Response:', response);
+  }
+
   // === PAGE LOAD ===
   window.addEventListener('DOMContentLoaded', function() {
     loadSavedStats();
     
+    // Track game clicks
     document.querySelectorAll('.game-grid a, .text-quiz-button a, .play-button').forEach(link => {
       link.addEventListener('click', function() {
         const gameName = this.querySelector('.game-name')?.innerText || 'Unknown Game';
@@ -1105,55 +1175,37 @@
       });
     });
 
+    // Save stats when page unloads
     window.addEventListener('beforeunload', saveStats);
+    
+    // Allow Enter key to submit suggestion
+    document.getElementById('suggestion')?.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendSuggestion();
+      }
+    });
+    
+    // Allow Enter key to ask AI
+    document.getElementById('aiInput')?.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        askAI();
+      }
+    });
   });
 
-  // === OVERRIDE FUNCTIONS ===
+  // === OVERRIDE START GAME FUNCTION ===
   const originalStartGame = window.startGame;
   window.startGame = function() {
     if (originalStartGame) originalStartGame();
     setTimeout(saveStats, 1000);
   };
 
-       // === SEND SUGGESTION FUNCTION ===
-function sendSuggestion() {
-  const suggestionInput = document.getElementById('suggestion');
-  const suggestionMessage = document.getElementById('suggestionMessage');
-  const suggestion = suggestionInput.value.trim();
-  
-  if (suggestion === '') {
-    suggestionMessage.innerHTML = '⚠️ Please write a suggestion before submitting.';
-    suggestionMessage.style.color = '#ff6b6b';
-    return;
-  }
-  
-  // Save suggestion to cookie
-  let suggestions = JSON.parse(getCookie('userSuggestions') || '[]');
-  suggestions.push({
-    text: suggestion,
-    date: new Date().toISOString()
-  });
-  setCookie('userSuggestions', JSON.stringify(suggestions), 30);
-  
-  suggestionMessage.innerHTML = '✅ Thank you for your suggestion! We appreciate your feedback.';
-  suggestionMessage.style.color = '#4ecdc4';
-  suggestionInput.value = '';
-  console.log('💡 Suggestion saved:', suggestion);
-}
-
-// === OVERRIDE FUNCTIONS ===
-const originalStartGame = window.startGame;
-window.startGame = function() {
-  if (originalStartGame) originalStartGame();
-  setTimeout(saveStats, 1000);
-};
-
-console.log('🍪 Cookies loaded!'); 
-
   console.log('🍪 Cookies loaded!');
-
-  
+  console.log('🤖 AI Coach ready!');
+  console.log('💡 Suggestion system ready!');
 </script>
 </body>
 </html>
+
+
         
