@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /images/
+Sitemap: https://safalthapa622.com.np/sitemap.xml
