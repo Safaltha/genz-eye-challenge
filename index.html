@@ -1122,17 +1122,84 @@
     console.log('💡 Suggestion saved:', suggestion);
   }
 
-  // === AI EYE COACH FUNCTION ===
-  function askAI() {
-    const aiInput = document.getElementById('aiInput');
-    const aiResponse = document.getElementById('aiResponse');
-    const question = aiInput.value.trim();
-    
-    if (question === '') {
-      aiResponse.innerHTML = '🤖 Please ask me a question about eye challenges or games!';
-      aiResponse.style.color = '#ff6b6b';
-      return;
+// === AI EYE COACH FUNCTION (ENHANCED) ===
+function askAI() {
+  const aiInput = document.getElementById('aiInput');
+  const aiResponse = document.getElementById('aiResponse');
+  const question = aiInput.value.trim();
+  
+  if (question === '') {
+    aiResponse.innerHTML = '🤖 Please ask me a question about eye challenges or games!';
+    aiResponse.style.color = '#ff6b6b';
+    return;
+  }
+  
+  // === ENHANCED RESPONSES ===
+  const responses = {
+    'hint': '👁️ Here\'s a hint: Focus on patterns, look for contrasts, and trust your instincts! Sometimes the answer is hidden in plain sight.',
+    'tips': '💡 Eye training tips: \n• Take breaks every 20 minutes\n• Practice focus exercises daily\n• Play in a well-lit room\n• Challenge yourself with harder levels',
+    'game': '🎮 Try these games: \n• Eagle Radar - Best for observation\n• Camouflage Hunter - Great for focus\n• Reaction Speed Test - Perfect for reflexes\n• Spot the Difference - Fun for detail hunting',
+    'score': '🏆 Your score increases with every correct answer. Play more games, complete daily challenges, and maintain your streak to climb the leaderboard!',
+    'level': '⚡ Level up by completing challenges! Each level unlocks harder puzzles and new game modes. Current max level is 50!',
+    'help': '🆘 Need help? Check the Help page, read the FAQ section, or ask me specific questions about any game or feature!',
+    'memory': '🧠 Try Number Memory for number recall or Text Quiz for reading comprehension. Both will boost your memory skills!',
+    'reaction': '⚡ Test your reflexes with Reaction Speed Test or Dot Hunter. Pro gamers have reaction times under 200ms!',
+    'focus': '🎯 Improve concentration with Eye Focus Challenge and Focus Follow. These train your brain to ignore distractions!',
+    'leaderboard': '🏆 Check the Leaderboard to see your rank. Top players get special badges and recognition!',
+    'mobile': '📱 Yes! The website is fully responsive and works on phones, tablets, and computers. Play anywhere!',
+    'free': '💰 All games are 100% free! No ads, no subscriptions, no hidden costs. Just pure eye training fun!',
+    'difficulty': '📈 Games get progressively harder. Start with Level 1 and work your way up to Level 50 challenges!',
+    'daily': '📅 New challenges appear every day at midnight. Don\'t miss your daily streak bonus!',
+    'friends': '👥 Challenge your friends! Share your scores and see who has the sharpest eyes and quickest reactions!',
+    'privacy': '🔒 Your privacy matters. We only save game progress and suggestions. No personal data is collected or shared.',
+    'fun': getRandomFunFact(),
+    'fact': getRandomFunFact(),
+    'interesting': getRandomFunFact(),
+    'default': '🤖 That\'s a great question! Try Eagle Radar to test your observation skills, or ask me about hints, tips, games, or anything else!'
+  };
+  
+  // === FUN FACTS ===
+  function getRandomFunFact() {
+    const facts = [
+      '🤖 Did you know? The human eye can distinguish about 10 million different colors!',
+      '👁️ Fun fact: Your eyes blink about 15-20 times per minute - that\'s over 1,200 times per hour!',
+      '🎯 Pro tip: The 20-20-20 rule - every 20 minutes, look at something 20 feet away for 20 seconds!',
+      '🔥 Your brain processes images 60,000 times faster than text! That\'s why visual challenges are so effective!',
+      '👀 The human eye can detect a candle flame from 1.7 miles away on a clear night!',
+      '⚡ Average human reaction time is 250 milliseconds. Can you beat that?',
+      '🧠 Playing eye-training games for just 10 minutes a day can improve attention span by 25%!',
+      '🏆 The world record for the fastest reaction time is 101 milliseconds!',
+      '🌟 Your eyes are the second most complex organ in your body, after your brain!',
+      '💪 Regular eye exercises can reduce eye strain by up to 70%!'
+    ];
+    return facts[Math.floor(Math.random() * facts.length)];
+  }
+  
+  // === CHECK KEYWORDS ===
+  let response = responses.default;
+  const lowerQuestion = question.toLowerCase();
+  
+  for (const [keyword, reply] of Object.entries(responses)) {
+    if (lowerQuestion.includes(keyword)) {
+      response = reply;
+      break;
     }
+  }
+  
+  // Show typing effect (optional)
+  aiResponse.innerHTML = '🤖 Thinking...';
+  aiResponse.style.color = '#4ecdc4';
+  
+  // Delay response for effect
+  setTimeout(() => {
+    aiResponse.innerHTML = response;
+    aiResponse.style.color = '#4ecdc4';
+  }, 500);
+  
+  aiInput.value = '';
+  console.log('🤖 Question:', question);
+  console.log('🤖 Response:', response);
+}
     
     // AI responses based on keywords
     const responses = {
