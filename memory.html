@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>🧠 Memory Flip Challenge | Gen Z Eye Challenge</title>
+
+    <link rel="stylesheet" href="memory.css">
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+
+        <h1>🧠 Memory Flip Challenge</h1>
+
+        <p class="subtitle">
+            Flip the cards, remember their positions and match every pair as fast as possible!
+        </p>
+
+    </header>
+
+    <section class="top-panel">
+
+        <div class="difficulty-box">
+
+            <label for="difficulty">
+                Difficulty
+            </label>
+
+            <select id="difficulty">
+
+                <option value="easy">Easy (4 × 4)</option>
+
+                <option value="medium">Medium (4 × 5)</option>
+
+                <option value="hard">Hard (6 × 6)</option>
+
+            </select>
+
+        </div>
+
+        <div class="stats">
+
+            <div class="stat-card">
+                <span class="stat-title">⏱ Time</span>
+                <span id="timer">00:00</span>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-title">🎯 Moves</span>
+                <span id="moves">0</span>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-title">✅ Matches</span>
+                <span id="matches">0</span>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="best-score">
+
+        <div>
+            🏆 Best Time:
+            <span id="bestTime">--:--</span>
+        </div>
+
+        <div>
+            ⭐ Best Moves:
+            <span id="bestMoves">--</span>
+        </div>
+
+    </section>
+
+    <section class="buttons">
+
+        <button id="startBtn">
+            ▶ Start Game
+        </button>
+
+        <button id="restartBtn">
+            🔄 Restart
+        </button>
+
+    </section>
+
+    <section id="gameBoard" class="game-board">
+
+        <!-- Cards will be created by JavaScript -->
+
+    </section>
+
+</div>
+
+<!-- Win Popup -->
+
+<div id="winPopup" class="popup hidden">
+
+    <div class="popup-content">
+
+        <h2>🎉 Congratulations!</h2>
+
+        <p>
+            You matched every card!
+        </p>
+
+        <div class="popup-stats">
+
+            <p>
+                ⏱ Time:
+                <span id="finalTime"></span>
+            </p>
+
+            <p>
+                🎯 Moves:
+                <span id="finalMoves"></span>
+            </p>
+
+        </div>
+
+        <button id="playAgain">
+            Play Again
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Confetti -->
+
+<div id="confetti"></div>
+
+<script src="memory.js"></script>
+
+</body>
+</html>
