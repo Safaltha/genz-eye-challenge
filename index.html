@@ -1,1613 +1,1057 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
- <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-P9S9E1YGPG"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-P9S9E1YGPG');
-</script>   
-    
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Gen Z Eye Challenge AI 👁️</title>
-    
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7507942151077858"
-     crossorigin="anonymous"></script>
-
-    
-<style>
-
-
-
-*{
-box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
-}
-
-.game-grid{
-
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:20px;
-margin:40px 0;
-justify-items:center;
-
-}
-
-.text-quiz-button{
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-}
-
-
-
-.text-quiz-button a{
-
-width:180px;
-
-height:180px;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-align-items:center;
-
-text-align:center;
-
-padding:15px;
-
-font-size:18px;
-
-font-weight:bold;
-
-color:white;
-
-text-decoration:none;
-
-border-radius:20px;
-
-background:rgba(255,255,255,.12);
-
-border:1px solid rgba(255,255,255,.25);
-
-backdrop-filter:blur(15px);
-
-box-shadow:0 0 20px rgba(0,255,255,.2);
-
-transition:.3s;
-
-}
-
-
-.text-quiz-button a:hover{
-
-transform:translateY(-8px) scale(1.05);
-
-box-shadow:0 0 35px cyan;
-
-border-color:cyan;
-
-}
-
-    
-
-body{
-
-margin:0;
-min-height:100vh;
-
-color:white;
-
-background:
-radial-gradient(circle at top,#4b0082,#050014 45%,#000);
-
-overflow-x:hidden;
-
-}
-
-
-
-/* AURA BACKGROUND */
-
-body::before{
-
-content:"";
-
-position:fixed;
-
-width:500px;
-height:500px;
-
-background:linear-gradient(
-45deg,
-cyan,
-magenta,
-purple
-);
-
-filter:blur(120px);
-
-opacity:.35;
-
-top:-150px;
-left:-100px;
-
-z-index:-1;
-
-}
-
-
-
-body::after{
-
-content:"";
-
-position:fixed;
-
-width:400px;
-height:400px;
-
-background:#00ffff;
-
-filter:blur(150px);
-
-opacity:.2;
-
-right:-100px;
-bottom:-100px;
-
-z-index:-1;
-
-}
-
-
-
-.container{
-
-max-width:900px;
-
-margin:auto;
-
-padding:20px;
-
-}
-
-
-
-/* HERO */
-
-
-.hero{
-
-text-align:center;
-
-padding:50px 20px;
-
-}
-
-
-
-.hero h1{
-
-font-size:45px;
-
-background:linear-gradient(
-90deg,
-cyan,
-magenta,
-yellow
-);
-
--webkit-background-clip:text;
-
-color:transparent;
-
-}
-
-
-
-.hero p{
-
-font-size:18px;
-
-opacity:.9;
-
-}
-
-
-
-/* GLASS CARD */
-
-
-.card{
-
-background:rgba(255,255,255,.08);
-
-border:1px solid rgba(255,255,255,.2);
-
-backdrop-filter:blur(15px);
-
-border-radius:30px;
-
-padding:25px;
-
-margin:20px 0;
-
-box-shadow:
-0 0 30px rgba(0,255,255,.15);
-
-}
-
-
-
-/* BUTTON */
-
-
-button{
-
-border:none;
-
-padding:14px 25px;
-
-border-radius:50px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-background:linear-gradient(
-45deg,
-cyan,
-magenta
-);
-
-color:black;
-
-transition:.3s;
-
-}
-
-
-button:hover{
-
-transform:scale(1.08);
-
-box-shadow:
-0 0 25px cyan;
-
-}
-
-
-
-
-.stats{
-
-display:flex;
-
-justify-content:center;
-
-gap:15px;
-
-flex-wrap:wrap;
-
-}
-
-
-
-.stat{
-
-padding:15px;
-
-min-width:110px;
-
-text-align:center;
-
-border-radius:20px;
-
-background:rgba(255,255,255,.1);
-
-}
-
-
-
-/* IMAGE */
-
-
-.challenge-img{
-
-width:100%;
-
-max-height:450px;
-
-object-fit:contain;
-
-border-radius:25px;
-
-margin:20px 0;
-
-border:2px solid cyan;
-
-}
-
-
-
-
-.progress{
-
-height:12px;
-
-background:#222;
-
-border-radius:20px;
-
-overflow:hidden;
-
-}
-
-
-#progressBar{
-
-height:100%;
-
-width:0%;
-
-background:linear-gradient(
-90deg,
-cyan,
-magenta
-);
-
-}
-
-
-
-/* AI */
-
-
-input{
-
-width:70%;
-
-padding:15px;
-
-border-radius:30px;
-
-border:none;
-
-outline:none;
-
-}
-
-
-
-#aiResponse{
-
-margin-top:15px;
-
-padding:15px;
-
-border-radius:20px;
-
-background:rgba(0,0,0,.4);
-
-}
-
-
-
-/* MOBILE */
-
-
-@media(max-width:600px){
-
-.hero h1{
-
-font-size:32px;
-
-}
-
-
-input{
-
-width:100%;
-
-}
-
-}
-
-.navbar{
-text-align:center;
-padding:20px;
-}
-
-.navbar a{
-color:white;
-text-decoration:none;
-margin:10px;
-font-weight:bold;
-font-size:18px;
-}
-
-.navbar a:hover{
-color:cyan;
-}
-
- .footer{
-text-align:center;
-padding:30px;
-margin-top:40px;
-background:rgba(255,255,255,0.08);
-border-radius:25px;
-}
-
-.footer a{
-color:cyan;
-text-decoration:none;
-margin:8px;
-display:inline-block;
-}
-
-.footer a:hover{
-color:magenta;
-}   
-
-.section-title{
-
-text-align:center;
-
-font-size:30px;
-
-margin:40px 0 20px;
-
-color:cyan;
-
-}    
-    
- .play-button{
-
-display:inline-block;
-
-margin-top:20px;
-
-padding:15px 30px;
-
-background:linear-gradient(45deg,cyan,magenta);
-
-color:black;
-
-font-weight:bold;
-
-text-decoration:none;
-
-border-radius:50px;
-
-transition:.3s;
-
-}
-
-.play-button:hover{
-
-transform:scale(1.05);
-
-box-shadow:0 0 25px cyan;
-
-}   
-</style>
-
-
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P9S9E1YGPG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P9S9E1YGPG');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>👁️ Gen Z Eye Challenge AI</title>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7507942151077858" crossorigin="anonymous"></script>
+
+  <style>
+    /* ============================================
+       RESET & BASE
+    ============================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #4b0082, #050014 45%, #000);
+      color: white;
+      overflow-x: hidden;
+      padding-bottom: 20px;
+    }
+
+    /* ============================================
+       AURA BACKGROUND EFFECTS
+    ============================================ */
+    body::before {
+      content: "";
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(45deg, cyan, magenta, purple);
+      filter: blur(120px);
+      opacity: .35;
+      top: -150px;
+      left: -100px;
+      z-index: -1;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      background: #00ffff;
+      filter: blur(150px);
+      opacity: .2;
+      right: -100px;
+      bottom: -100px;
+      z-index: -1;
+    }
+
+    /* ============================================
+       CONTAINER
+    ============================================ */
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    /* ============================================
+       NAVBAR
+    ============================================ */
+    .navbar {
+      text-align: center;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .navbar a {
+      color: #8892b0;
+      text-decoration: none;
+      margin: 8px 15px;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 10px;
+    }
+
+    .navbar a:hover {
+      color: cyan;
+      background: rgba(0, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .navbar .logo {
+      color: cyan;
+      font-size: 20px;
+      font-weight: 700;
+      margin-right: 20px;
+      background: linear-gradient(90deg, cyan, magenta);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ============================================
+       HERO SECTION
+    ============================================ */
+    .hero {
+      text-align: center;
+      padding: 60px 20px 40px;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      background: linear-gradient(90deg, cyan, magenta, yellow, cyan);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientMove 4s ease-in-out infinite;
+      margin-bottom: 15px;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #8892b0;
+      max-width: 600px;
+      margin: 0 auto 10px;
+    }
+
+    .hero .subtitle {
+      font-size: 16px;
+      color: #5b5f7a;
+    }
+
+    /* ============================================
+       SECTION TITLES
+    ============================================ */
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      margin: 50px 0 25px;
+      color: cyan;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, cyan, magenta);
+      margin: 10px auto 0;
+      border-radius: 10px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #8892b0;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+
+    /* ============================================
+       GAME GRID
+    ============================================ */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .text-quiz-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .text-quiz-button a {
+      width: 100%;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px 15px;
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
+      transition: all 0.3s ease;
+      width: 100%;
+      gap: 5px;
+    }
+
+    .text-quiz-button a:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+      border-color: cyan;
+      background: rgba(0, 255, 255, 0.08);
+    }
+
+    .text-quiz-button a .game-icon {
+      font-size: 32px;
+      margin-bottom: 5px;
+    }
+
+    .text-quiz-button a .game-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .text-quiz-button a .game-tag {
+      font-size: 10px;
+      color: #8892b0;
+      font-weight: 400;
+      margin-top: 4px;
+    }
+
+    .text-quiz-button a .badge-new {
+      background: #ff6b6b;
+      color: white;
+      font-size: 9px;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    /* ============================================
+       FEATURED GAME CARD
+    ============================================ */
+    .featured-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 30px;
+      padding: 35px;
+      margin: 30px 0;
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.05);
+      transition: all 0.3s ease;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(255, 0, 255, 0.05));
+    }
+
+    .featured-card:hover {
+      border-color: cyan;
+      box-shadow: 0 0 60px rgba(0, 255, 255, 0.1);
+    }
+
+    .featured-card .featured-icon {
+      font-size: 60px;
+      margin-bottom: 10px;
+    }
+
+    .featured-card h2 {
+      font-size: 28px;
+      color: cyan;
+      margin-bottom: 10px;
+    }
+
+    .featured-card h3 {
+      font-size: 22px;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .featured-card p {
+      color: #8892b0;
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto 20px;
+    }
+
+    .play-button {
+      display: inline-block;
+      padding: 15px 40px;
+      background: linear-gradient(45deg, cyan, magenta);
+      color: black;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .play-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 35px cyan;
+    }
+
+    /* ============================================
+       GLASS CARDS
+    ============================================ */
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      border-radius: 25px;
+      padding: 30px;
+      margin: 25px 0;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(0, 255, 255, 0.2);
+    }
+
+    .card h2 {
+      color: cyan;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      color: white;
+      font-size: 18px;
+      margin: 15px 0 10px;
+    }
+
+    .card p {
+      color: #8892b0;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .card ul li {
+      color: #8892b0;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    /* ============================================
+       STATS SECTION
+    ============================================ */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .stat {
+      padding: 20px 30px;
+      min-width: 120px;
+      text-align: center;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .stat:hover {
+      border-color: rgba(0, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .stat .stat-label {
+      color: #8892b0;
+      font-size: 14px;
+      display: block;
+    }
+
+    .stat .stat-value {
+      font-size: 32px;
+      font-weight: 700;
+      color: cyan;
+      margin-top: 5px;
+    }
+
+    /* ============================================
+       PROGRESS BAR
+    ============================================ */
+    .progress {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 15px 0;
+    }
+
+    #progressBar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, cyan, magenta);
+      transition: width 0.5s ease;
+      border-radius: 20px;
+    }
+
+    /* ============================================
+       BUTTONS
+    ============================================ */
+    .btn {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 16px;
+      margin: 5px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, cyan, magenta);
+      color: black;
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px cyan;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #8892b0;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    /* ============================================
+       INPUTS
+    ============================================ */
+    input {
+      width: 70%;
+      padding: 15px 20px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      outline: none;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      border-color: cyan;
+      background: rgba(0, 255, 255, 0.05);
+    }
+
+    input::placeholder {
+      color: #5b5f7a;
+    }
+
+    /* ============================================
+       AI RESPONSE
+    ============================================ */
+    #aiResponse {
+      margin-top: 15px;
+      padding: 15px 20px;
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      color: #8892b0;
+      min-height: 50px;
+    }
+
+    /* ============================================
+       IMAGES
+    ============================================ */
+    .challenge-img {
+      width: 100%;
+      max-height: 450px;
+      object-fit: contain;
+      border-radius: 20px;
+      margin: 15px 0;
+      border: 2px solid rgba(0, 255, 255, 0.1);
+    }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    .footer {
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 50px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .footer h3 {
+      color: cyan;
+      margin-bottom: 10px;
+    }
+
+    .footer p {
+      color: #5b5f7a;
+      margin-bottom: 15px;
+    }
+
+    .footer a {
+      color: #8892b0;
+      text-decoration: none;
+      margin: 8px 12px;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .footer a:hover {
+      color: cyan;
+      transform: translateY(-2px);
+    }
+
+    /* ============================================
+       RESPONSIVE DESIGN
+    ============================================ */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .navbar a {
+        margin: 5px 8px;
+        font-size: 14px;
+        padding: 6px 10px;
+      }
+
+      .navbar .logo {
+        font-size: 16px;
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .section-title {
+        font-size: 24px;
+      }
+
+      .game-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 15px;
+      }
+
+      .text-quiz-button a {
+        min-height: 150px;
+        padding: 15px 10px;
+        font-size: 14px;
+      }
+
+      .text-quiz-button a .game-icon {
+        font-size: 28px;
+      }
+
+      .featured-card {
+        padding: 25px;
+      }
+
+      .featured-card h2 {
+        font-size: 22px;
+      }
+
+      .stats {
+        gap: 12px;
+      }
+
+      .stat {
+        padding: 15px 20px;
+        min-width: 90px;
+      }
+
+      .stat .stat-value {
+        font-size: 24px;
+      }
+
+      input {
+        width: 100%;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .footer a {
+        margin: 5px 8px;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .game-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 12px;
+      }
+
+      .text-quiz-button a {
+        min-height: 130px;
+        padding: 12px 8px;
+        font-size: 12px;
+        border-radius: 15px;
+      }
+
+      .text-quiz-button a .game-icon {
+        font-size: 24px;
+      }
+
+      .text-quiz-button a .game-name {
+        font-size: 12px;
+      }
+
+      .featured-card {
+        padding: 20px;
+      }
+
+      .featured-card .featured-icon {
+        font-size: 40px;
+      }
+
+      .play-button {
+        padding: 12px 25px;
+        font-size: 14px;
+      }
+
+      .navbar a {
+        margin: 3px 5px;
+        font-size: 12px;
+        padding: 4px 8px;
+      }
+    }
+
+    /* ============================================
+       SCROLLBAR
+    ============================================ */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0a0e1a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(cyan, magenta);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: cyan;
+    }
+  </style>
 </head>
-
-
 
 <body>
 
- <nav class="navbar">
-<a href="index.html">🏠 Home</a>
-<a href="about.html">ℹ️ About</a>
-<a href="help.html">❓ Help</a>
-<a href="contact.html">📩 Contact</a>
-<a href="privacy.html">🔒 Privacy</a>
-</nav>       
-
-<div class="container">
-
-
-<section class="hero">
-
-<h1>
-👁️ Gen Z Eye Challenge AI
-</h1>
-
-<p>
-Find the hidden answer. Test your vision. Earn your aura.
-</p>
-
-<section class="card">
-
-<h2>🔥 Featured Game</h2>
-
-<h3>🦅 Eagle Radar</h3>
-
-<p>
-Train your observation skills with our most popular eye challenge. Find the hidden target before time runs out and become an Eye Legend!
-</p>
-
-<a href="eagle-radar.html" class="play-button">
-▶ Play Eagle Radar
-</a>
-
-</section>
-
-<section class="card">
-
-<h2>🆕 Latest Games</h2>
-
-<div class="game-grid">
-
-<div class="text-quiz-button">
-<a href="eagle-radar.html">🦅 Eagle Radar</a>
-</div>
-
-<div class="text-quiz-button">
-<a href="camouflage-hunter.html">🟦 Camouflage Hunter</a>
-</div>
-
-<div class="text-quiz-button">
-<a href="reaction-game.html">⚡ Reaction Speed Test</a>
-</div>
-
-</div>
-
-</section>
-    
-<h2 class="section-title">👁️ Eye Challenges</h2>
-
-<div class="game-grid">
-
-<div class="text-quiz-button">
-<a href="eye-focus.html">
-👁️ EYE FOCUS CHALLENGE
-</a>
-</div>
-
-<div class="text-quiz-button">
-<a href="camouflage-hunter.html">
-🟦 CAMOUFLAGE HUNTER
-</a>
-</div>
-
-<div class="text-quiz-button">
-<a href="eagle-radar.html">
-🦅 EAGLE RADAR
-</a>
-</div>
-
-<div class="text-quiz-button">
-<a href="eye-maze.html">
-🌀 EYE MAZE ESCAPE
-</a>
-</div>
-
-<div class="text-quiz-button">
-<a href="focus-follow.html">
-👁️ FOCUS FOLLOW
-</a>
-</div>
-
-</div>
-
-<h2 class="section-title">🧠 Brain Challenges</h2>
-
-<div class="game-grid">
-
-<div class="text-quiz-button">
-<a href="text-quiz.html">
-🧠 START TEXT QUIZ
-</a>
-</div>
-
-<div class="text-quiz-button">
-<a href="hidden-number.html">
-🔢 HIDDEN NUMBER
-</a>
-</div>
-
-<div class="text-quiz-button">
-<a href="number-memory.html">
-🧠 NUMBER MEMORY
-</a>
-</div>
-
-
-
-</div>
-
-
-<h2 class="section-title">⚡ Speed Challenges</h2>
-
-<div class="game-grid">
-
-<div class="text-quiz-button">
-<a href="reaction-game.html">
-⚡ REACTION SPEED TEST
-</a>
-</div>
-
-<div class="text-quiz-button">
-<a href="dot-hunter.html">
-🟢 DOT HUNTER
-</a>
-</div>
-
-<div class="text-quiz-button">
-<a href="cyber-sniper.html">
-🎯 CYBER SNIPER
-</a>
-</div>
-
-</div>
-
-
-<h2 class="section-title">🎯 Special Modes</h2>
-
-<div class="game-grid">
-
-<div class="text-quiz-button">
-<a href="lucky-box.html">
-🎁 LUCKY BOX
-</a>
-</div>
-
-<div class="text-quiz-button">
-<a href="missions.html">
-🎯 MISSION MODE
-</a>
-</div>
-
-<div class="text-quiz-button">
-<a href="leaderboard.html">
-🏆 LEADERBOARD
-</a>
-</div>
-
-<div class="text-quiz-button">
-
-<a href="tic-tac-toe.html">
-
-🎮 TIC TAC TOE
-
-<br>
-
-🤖 AI + 👥 Friend Mode
-
-</a>
-
-</div>
-    
-</div>
-    
-<button onclick="startGame()">
-🔥 Start Challenge
-</button>
-
-<section class="card">
-
-<h2>👁️ About Gen Z Eye Challenge</h2>
-
-<p>
-Gen Z Eye Challenge is an interactive eye and brain challenge platform.
-It provides fun games that test observation, focus, memory, and reaction speed.
-</p>
-
-<p>
-Players can solve visual puzzles, discover hidden objects, and improve their
-attention skills through different challenges.
-</p>
-
-</section>
-
-
-<section class="card">
-
-<h2>🎮 How To Play</h2>
-
-<p>1️⃣ Choose a challenge from the game section.</p>
-
-<p>2️⃣ Focus carefully and complete the challenge.</p>
-
-<p>3️⃣ Reveal answers, check your score, and improve your skills.</p>
-
-<p>4️⃣ Challenge your friends and see who gets the highest score.</p>
-
-</section>
-
-
-<section class="card">
-
-<h2>🧠 Why Play Eye Challenge Games?</h2>
-
-<p>
-These games are designed to practice observation, concentration, memory,
-and problem-solving in an entertaining way.
-</p>
-
-<p>
-Gen Z Eye Challenge creates enjoyable puzzles for people who love testing
-their visual skills.
-</p>
-
-<section class="card">
-
-<h2>👁️ Eye Training Tips</h2>
-
-<ul>
-
-<li>✅ Take short breaks to reduce eye strain.</li>
-
-<li>✅ Focus on small details to improve observation.</li>
-
-<li>✅ Practice memory and reaction games regularly.</li>
-
-<li>✅ Play in a well-lit room for better visibility.</li>
-
-<li>✅ Challenge yourself with harder levels over time.</li>
-
-</ul>
-
-</section>
-    
-</section>
-
-
-<section class="card">
-
-<h2>❓ Frequently Asked Questions</h2>
-
-<h3>What is Gen Z Eye Challenge?</h3>
-
-<p>
-It is a collection of eye tests, puzzles, and brain games.
-</p>
-
-<h3>Are the games free?</h3>
-
-<p>
-Yes, all challenges are free to play.
-</p>
-
-<h3>Can I play on mobile?</h3>
-
-<p>
-Yes, the website works on mobile phones, tablets, and computers.
-</p>
-
-</section>
-
-<section class="card">
-
-<h2>⭐ Why Choose Gen Z Eye Challenge?</h2>
-
-<p>
-Gen Z Eye Challenge offers free eye tests, brain puzzles, memory games, and reaction challenges for players of all ages.
-</p>
-
-<p>
-Our games help improve observation, concentration, focus, and visual attention while keeping the experience fun and engaging.
-</p>
-
-<p>
-New games and challenges are added regularly, so there is always something new to play.
-</p>
-
-</section>
-    
-</section>
-
-
-
-<div class="stats">
-
-<div class="stat">
-🏆 Score
-<h2 id="score">0</h2>
-</div>
-
-
-<div class="stat">
-🔥 Streak
-<h2 id="streak">0</h2>
-</div>
-
-
-<div class="stat">
-⚡ Level
-<h2 id="level">1</h2>
-</div>
-
-
-</div>
-
-<section class="card" id="quiz">
-
-<h2>
-👁️ Eye Challenge
-</h2>
-
-
-<h3 id="questionTitle">
-Question 1 / 5
-</h3>
-
-
-<div class="progress">
-
-<div id="progressBar"></div>
-
-</div>
-
-
-
-<img 
-id="questionImage"
-class="challenge-img"
-src="question1.jpg"
->
-
-
-
-<div style="text-align:center;">
-
-
-<button onclick="showAnswer()">
-
-💡 Reveal Answer
-
-</button>
-
-
-
-<button onclick="nextQuestion()">
-
-➡️ Next
-
-</button>
-
-
-</div>
-
-
-
-
-<div id="answerArea" style="display:none;">
-
-
-<h3>
-✅ Answer
-</h3>
-
-
-<img
-id="answerImage"
-class="challenge-img"
-src="answer1.jpg"
->
-
-
-</div>
-
-
-
-
-<p style="text-align:center;">
-
-⏱️ Time:
-<span id="timer">
-30
-</span>
-seconds
-
-</p>
-
-
-
-</section>
-
-
-
-
-
-
-<section class="card">
-
-<h2>
-🤖 AI Eye Coach
-</h2>
-
-
-<input
-id="aiInput"
-placeholder="Ask for hint..."
->
-
-
-<button onclick="askAI()">
-
-Ask AI
-
-</button>
-
-
-
-<div id="aiResponse">
-
-🤖 AI Ready. Ask me for a hint 👁️
-
-</div>
-
-
-</section>
-
-
-
-
-
-<section class="card" id="result" style="display:none; text-align:center;">
-
-
-<h2>
-🎉 Challenge Complete
-</h2>
-
-
-<h1 id="finalScore">
-
-</h1>
-
-
-<p>
-Your eye aura level has increased 🔥
-</p>
-
-
-
-<button onclick="location.reload()">
-
-Play Again
-
-</button>
-
-
-</section>
-
-
-</div>
-
-
-
-
-
-<script>
-
-
-// =======================
-// GAME DATA
-// =======================
-
-
-let questions = [
-
-{
-q:"Find the hidden object 👀",
-image:"question1.jpg",
-answer:"answer1.jpg",
-hint:"Look at small details."
-},
-
-
-{
-q:"Find the difference 🧩",
-image:"question2.jpg",
-answer:"answer2.jpg",
-hint:"Compare every corner."
-},
-
-
-{
-q:"Test your observation 👁️",
-image:"question3.jpg",
-answer:"answer3.jpg",
-hint:"Stay patient and focused."
-},
-
-
-{
-q:"Can you solve this? 🔥",
-image:"question4.jpg",
-answer:"answer4.jpg",
-hint:"Look beyond the obvious."
-},
-
-
-{
-q:"Final eye challenge 👑",
-image:"question5.jpg",
-answer:"answer5.jpg",
-hint:"Only sharp eyes win."
-}
-
-];
-
-
-
-let current=0;
-
-let score=0;
-
-let streak=0;
-
-let level=1;
-
-let time=30;
-
-let timer;
-
-
-
-
-
-function startGame(){
-
-
-document
-.getElementById("quiz")
-.scrollIntoView();
-
-
-loadQuestion();
-
-
-startTimer();
-
-
-}
-
-
-
-
-
-
-function loadQuestion(){
-
-
-let q=questions[current];
-
-
-document.getElementById(
-"questionTitle"
-).innerHTML=
-
-"Question "+(current+1)+" / 5";
-
-
-
-document.getElementById(
-"questionImage"
-).src=q.image;
-
-
-
-document.getElementById(
-"answerImage"
-).src=q.answer;
-
-
-
-document.getElementById(
-"answerArea"
-).style.display="none";
-
-
-
-document.getElementById(
-"progressBar"
-).style.width=
-
-((current+1)/5*100)+"%";
-
-
-
-}
-
-
-
-function showAnswer(){
-
-
-document.getElementById(
-"answerArea"
-).style.display="block";
-
-
-score+=10;
-
-streak++;
-
-
-if(streak%3===0){
-
-level++;
-
-}
-
-
-updateStats();
-
-
-}
-
-
-
-
-
-
-function nextQuestion(){
-
-
-if(current<4){
-
-
-current++;
-
-loadQuestion();
-
-
-time=30;
-
-
-}
-
-
-else{
-
-
-finishGame();
-
-
-}
-
-
-}
-
-
-
-
-
-function updateStats(){
-
-
-document.getElementById(
-"score"
-).innerHTML=score;
-
-
-document.getElementById(
-"streak"
-).innerHTML=streak;
-
-
-document.getElementById(
-"level"
-).innerHTML=level;
-
-
-}
-
-
-
-
-
-
-function startTimer(){
-
-
-clearInterval(timer);
-
-
-timer=setInterval(()=>{
-
-
-time--;
-
-
-document.getElementById(
-"timer"
-).innerHTML=time;
-
-
-
-if(time<=0){
-
-
-clearInterval(timer);
-
-nextQuestion();
-
-
-}
-
-
-},1000);
-
-
-}
-
-
-
-
-
-function finishGame(){
-
-
-clearInterval(timer);
-
-
-document.getElementById(
-"quiz"
-).style.display="none";
-
-
-document.getElementById(
-"result"
-).style.display="block";
-
-
-document.getElementById(
-"finalScore"
-).innerHTML=
-
-"🏆 Aura Score: "+score;
-
-
-}
-
-// =======================
-// 🤖 AI EYE COACH
-// =======================
-
-
-function askAI(){
-
-
-let input =
-document.getElementById("aiInput")
-.value
-.toLowerCase();
-
-
-
-let answer =
-"🤖 Try asking: hint, score, level, game";
-
-
-
-if(input.includes("hint")){
-
-
-answer =
-"💡 Hint: " + questions[current].hint;
-
-
-}
-
-
-else if(input.includes("score")){
-
-
-answer =
-"🏆 Your current aura score is "+score;
-
-
-}
-
-
-else if(input.includes("level")){
-
-
-answer =
-"⚡ Your eye level is "+level;
-
-
-}
-
-
-else if(input.includes("game")){
-
-
-answer =
-"🎮 Complete all 5 eye challenges and become an Eye Legend!";
-
-
-}
-
-
-else if(input.includes("hard")){
-
-
-answer =
-"🔥 Hard mode: Focus on tiny details and don't rush.";
-
-
-}
-
-
-
-document.getElementById(
-"aiResponse"
-).innerHTML=answer;
-
-
-}
-
-
-
-
-
-// =======================
-// SAVE PROGRESS
-// =======================
-
-
-function saveData(){
-
-
-localStorage.setItem(
-"eyeScore",
-score
-);
-
-
-localStorage.setItem(
-"eyeLevel",
-level
-);
-
-
-}
-
-
-
-function loadData(){
-
-
-score =
-Number(
-localStorage.getItem("eyeScore")
-)||0;
-
-
-
-level =
-Number(
-localStorage.getItem("eyeLevel")
-)||1;
-
-
-
-updateStats();
-
-
-}
-
-
-
-loadData();
-
-
-
-
-
-// =======================
-// SHARE BUTTON
-// =======================
-
-
-function shareScore(){
-
-
-if(navigator.share){
-
-
-navigator.share({
-
-title:"Gen Z Eye Challenge",
-
-text:
-"I scored "+score+
-" aura points 👁️🔥 Can you beat me?"
-
-});
-
-
-}
-
-else{
-
-
-alert(
-"Share your score: "+score
-);
-
-
-}
-
-
-}
-
-
-
-
-
-// =======================
-// ACHIEVEMENT
-// =======================
-
-
-function achievement(){
-
-
-if(score>=50){
-
-
-return "👑 Eye Legend";
-
-
-}
-
-
-if(score>=30){
-
-
-return "🔥 Aura Observer";
-
-
-}
-
-
-return "🌱 Beginner Eye";
-
-
-}
-
-
-
-window.onload=()=>{
-
-
-let old =
-localStorage.getItem("eyeScore");
-
-
-
-if(old){
-
-
-score=Number(old);
-
-updateStats();
-
-
-}
-
-
-};
-
-
-
-
-</script>
-
-<script src="easy-questions.js"></script>
-<script src="medium-questions.js"></script>
-<script src="hard-questions.js"></script>
-<script src="text-quiz.js"></script>
-<script src="ai.js"></script>
-
-<section class="card">
-
-<h2>🆘 Help Portal & Suggestions</h2>
-
-<p>
-Have ideas, problems, or new challenge suggestions?
-Tell us and help improve Gen Z Eye Challenge.
-</p>
-
-<input 
-id="suggestion"
-placeholder="Write your suggestion..."
->
-
-<button onclick="sendSuggestion()">
-Send
-</button>
-
-<div id="suggestionMessage"></div>
-
-</section>
-
-
-<script>
-
-function sendSuggestion(){
-
-let text=document.getElementById("suggestion").value;
-
-if(text===""){
-document.getElementById("suggestionMessage").innerHTML=
-"⚠️ Please write something first.";
-}
-
-else{
-
-document.getElementById("suggestionMessage").innerHTML=
-"✅ Thanks! Your suggestion has been received.";
-
-document.getElementById("suggestion").value="";
-
-}
-
-}
-
-</script>
-
+  <!-- ============================================
+  NAVBAR
+  ============================================ -->
+  <nav class="navbar">
+    <span class="logo">👁️ EYE CHALLENGE</span>
+    <a href="index.html">🏠 Home</a>
+    <a href="about.html">ℹ️ About</a>
+    <a href="help.html">❓ Help</a>
+    <a href="contact.html">📩 Contact</a>
+    <a href="privacy.html">🔒 Privacy</a>
+    <a href="terms.html">📜 Terms</a>
+  </nav>
+
+  <!-- ============================================
+  CONTAINER
+  ============================================ -->
+  <div class="container">
+
+    <!-- ============================================
+    HERO SECTION
+    ============================================ -->
+    <section class="hero">
+      <h1>👁️ Gen Z Eye Challenge AI</h1>
+      <p>Find the hidden answer. Test your vision. Earn your aura.</p>
+      <p class="subtitle">🎯 20+ Games • 🔥 Daily Challenges • 🏆 Leaderboards</p>
+    </section>
+
+    <!-- ============================================
+    FEATURED GAME
+    ============================================ -->
+    <section class="featured-card">
+      <div class="featured-icon">🦅</div>
+      <h2>🔥 Featured Game</h2>
+      <h3>Eagle Radar</h3>
+      <p>Train your observation skills with our most popular eye challenge. Find the hidden target before time runs out and become an Eye Legend!</p>
+      <a href="eagle-radar.html" class="play-button">▶ Play Eagle Radar</a>
+    </section>
+
+    <!-- ============================================
+    LATEST GAMES
+    ============================================ -->
+    <h2 class="section-title">🆕 Latest Games</h2>
+    <div class="game-grid">
+      <div class="text-quiz-button">
+        <a href="eagle-radar.html">
+          <span class="game-icon">🦅</span>
+          <span class="game-name">Eagle Radar</span>
+          <span class="badge-new">🔥 Popular</span>
+        </a>
+      </div>
+      <div class="text-quiz-button">
+        <a href="camouflage-hunter.html">
+          <span class="game-icon">🟦</span>
+          <span class="game-name">Camouflage Hunter</span>
+          <span class="badge-new">New</span>
+        </a>
+      </div>
+      <div class="text-quiz-button">
+        <a href="reaction-game.html">
+          <span class="game-icon">⚡</span>
+          <span class="game-name">Reaction Speed Test</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============================================
+    EYE CHALLENGES
+    ============================================ -->
+    <h2 class="section-title">👁️ Eye Challenges</h2>
+    <p class="section-subtitle">Test your vision, focus, and observation skills</p>
+    <div class="game-grid">
+      <div class="text-quiz-button">
+        <a href="eye-focus.html">
+          <span class="game-icon">👁️</span>
+          <span class="game-name">Eye Focus Challenge</span>
+        </a>
+      </div>
+      <div class="text-quiz-button">
+        <a href="camouflage-hunter.html">
+          <span class="game-icon">🟦</span>
+          <span class="game-name">Camouflage Hunter</span>
+        </a>
+      </div>
+      <div class="text-quiz-button">
+        <a href="eagle-radar.html">
+          <span class="game-icon">🦅</span>
+          <span class="game-name">Eagle Radar</span>
+        </a>
+      </div>
+      <div class="text-quiz-button">
+        <a href="spot.html">
+          <span class="game-icon">👀</span>
+          <span class="game-name">Spot the Difference</span>
+          <span class="badge-new">New</span>
+        </a>
+      </div>
+      <div class="text-quiz-button">
+        <a href="eye-maze.html">
+          <span class="game-icon">🌀</span>
+          <span class="game-name">Eye Maze Escape</span>
+        </a>
+      </div>
+      <div class="text-quiz-button">
+        <a href="focus-follow.html">
+          <span class="game-icon">🎯</span>
+          <span class="game-name">Focus Follow</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============================================
+    BRAIN CHALLENGES
+    ============================================ -->
+    <h2 class="section-title">🧠 Brain Challenges</h2>
+    <p class="section-subtitle">Sharpen your mind with memory and puzzle games</p>
+    <div class="game-grid">
+      <div class="text-quiz-button">
+        <a href="text-quiz.html">
+          <span class="game-icon">🧠</span>
+          <span class="game-name">Text Quiz</span>
+        </a>
+      </div>
+      <div class="text-quiz-button">
+        <a href="hidden-number.html">
+          <span class="game-icon">🔢</span>
+          <span class="game-name">Hidden Number</span>
+        </a>
+      </div>
+      <div class="text-quiz-button">
+        <a href="number-memory.html">
+          <span class="game-icon">💾</span>
+          <span class="game-name">Number Memory</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============================================
+    SPEED CHALLENGES
+    ============================================ -->
+    <h2 class="section-title">⚡ Speed Challenges</h2>
+    <p class="section-subtitle">Test your reflexes and reaction time</p>
+    <div class="game-grid">
+      <div class="text-quiz-button">
+        <a href="reaction-game.html">
+          <span class="game-icon">⚡</span>
+          <span class="game-name">Reaction Speed Test</span>
+        </a>
+      </div>
+      <div class="text-quiz-button">
+        <a href="dot-hunter.html">
+          <span class="game-icon">🟢</span>
+          <span class="game-name">Dot Hunter</span>
+        </a>
+      </div>
+      <div class="text-quiz-button">
+        <a href="cyber-sniper.html">
+          <span class="game-icon">🎯</span>
+          <span class="game-name">Cyber Sniper</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============================================
+    SPECIAL MODES
+    ============================================ -->
+    <h2 class="section-title">🎯 Special Modes</h2>
+    <p class="section-subtitle">Extra challenges and fun modes</p>
+    <div class="game-grid">
+      <div class="text-quiz-button">
+        <a href="lucky-box.html">
+          <span class="game-icon">🎁</span>
+          <span class="game-name">Lucky Box</span>
+        </a>
+      </div>
+      <div class="text-quiz-button">
+        <a href="missions.html">
+          <span class="game-icon">🎯</span>
+          <span class="game-name">Mission Mode</span>
+        </a>
+      </div>
+      <div class="text-quiz-button">
+        <a href="leaderboard.html">
+          <span class="game-icon">🏆</span>
+          <span class="game-name">Leaderboard</span>
+        </a>
+      </div>
+      <div class="text-quiz-button">
+        <a href="tic-tac-toe.html">
+          <span class="game-icon">🎮</span>
+          <span class="game-name">Tic Tac Toe</span>
+          <span class="game-tag">AI + Friend</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============================================
+    STATS
+    ============================================ -->
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-label">🏆 Score</span>
+        <span class="stat-value" id="score">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">🔥 Streak</span>
+        <span class="stat-value" id="streak">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">⚡ Level</span>
+        <span class="stat-value" id="level">1</span>
+      </div>
+    </div>
+
+    <!-- ============================================
+    START CHALLENGE BUTTON
+    ============================================ -->
+    <div style="text-align: center; margin: 20px 0;">
+      <button class="btn btn-primary" onclick="startGame()">🔥 Start Challenge</button>
+    </div>
+
+    <!-- ============================================
+    EYE CHALLENGE QUIZ
+    ============================================ -->
+    <section class="card" id="quiz">
+      <h2>👁️ Eye Challenge</h2>
+      <h3 id="questionTitle">Question 1 / 5</h3>
+
+      <div class="progress">
+        <div id="progressBar"></div>
+      </div>
+
+      <img id="questionImage" class="challenge-img" src="question1.jpg" alt="Question">
+
+      <div style="text-align: center;">
+        <button class="btn btn-primary" onclick="showAnswer()">💡 Reveal Answer</button>
+        <button class="btn btn-secondary" onclick="nextQuestion()">➡️ Next</button>
+      </div>
+
+      <div id="answerArea" style="display: none;">
+        <h3>✅ Answer</h3>
+        <img id="answerImage" class="challenge-img" src="answer1.jpg" alt="Answer">
+      </div>
+
+      <p style="text-align: center; color: #8892b0; margin-top: 10px;">
+        ⏱️ Time: <span id="timer">30</span> seconds
+      </p>
+    </section>
+
+    <!-- ============================================
+    AI EYE COACH
+    ============================================ -->
+    <section class="card">
+      <h2>🤖 AI Eye Coach</h2>
+      <p style="color: #8892b0;">Ask me for hints, tips, or game info!</p>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <input id="aiInput" placeholder="Ask for hint..." style="flex: 1; min-width: 200px;">
+        <button class="btn btn-primary" onclick="askAI()">Ask AI</button>
+      </div>
+      <div id="aiResponse">🤖 AI Ready. Ask me for a hint 👁️</div>
+    </section>
+
+    <!-- ============================================
+    RESULT
+    ============================================ -->
+    <section class="card" id="result" style="display: none; text-align: center;">
+      <h2>🎉 Challenge Complete</h2>
+      <h1 id="finalScore" style="font-size: 48px; color: cyan;"></h1>
+      <p style="color: #8892b0;">Your eye aura level has increased 🔥</p>
+      <button class="btn btn-primary" onclick="location.reload()">Play Again</button>
+    </section>
+
+    <!-- ============================================
+    ABOUT SECTION
+    ============================================ -->
+    <section class="card">
+      <h2>👁️ About Gen Z Eye Challenge</h2>
+      <p>Gen Z Eye Challenge is an interactive eye and brain challenge platform. It provides fun games that test observation, focus, memory, and reaction speed.</p>
+      <p>Players can solve visual puzzles, discover hidden objects, and improve their attention skills through different challenges.</p>
+    </section>
+
+    <!-- ============================================
+    HOW TO PLAY
+    ============================================ -->
+    <section class="card">
+      <h2>🎮 How To Play</h2>
+      <p>1️⃣ Choose a challenge from the game section.</p>
+      <p>2️⃣ Focus carefully and complete the challenge.</p>
+      <p>3️⃣ Reveal answers, check your score, and improve your skills.</p>
+      <p>4️⃣ Challenge your friends and see who gets the highest score.</p>
+    </section>
+
+    <!-- ============================================
+    WHY PLAY
+    ============================================ -->
+    <section class="card">
+      <h2>🧠 Why Play Eye Challenge Games?</h2>
+      <p>These games are designed to practice observation, concentration, memory, and problem-solving in an entertaining way.</p>
+      <p>Gen Z Eye Challenge creates enjoyable puzzles for people who love testing their visual skills.</p>
+    </section>
+
+    <!-- ============================================
+    EYE TRAINING TIPS
+    ============================================ -->
+    <section class="card">
+      <h2>👁️ Eye Training Tips</h2>
+      <ul>
+        <li>✅ Take short breaks to reduce eye strain.</li>
+        <li>✅ Focus on small details to improve observation.</li>
+        <li>✅ Practice memory and reaction games regularly.</li>
+        <li>✅ Play in a well-lit room for better visibility.</li>
+        <li>✅ Challenge yourself with harder levels over time.</li>
+      </ul>
+    </section>
+
+    <!-- ============================================
+    FAQ
+    ============================================ -->
+    <section class="card">
+      <h2>❓ Frequently Asked Questions</h2>
+      <h3>What is Gen Z Eye Challenge?</h3>
+      <p>It is a collection of eye tests, puzzles, and brain games.</p>
+      <h3>Are the games free?</h3>
+      <p>Yes, all challenges are free to play.</p>
+      <h3>Can I play on mobile?</h3>
+      <p>Yes, the website works on mobile phones, tablets, and computers.</p>
+    </section>
+
+    <!-- ============================================
+    WHY CHOOSE
+    ============================================ -->
+    <section class="card">
+      <h2>⭐ Why Choose Gen Z Eye Challenge?</h2>
+      <p>Gen Z Eye Challenge offers free eye tests, brain puzzles, memory games, and reaction challenges for players of all ages.</p>
+      <p>Our games help improve observation, concentration, focus, and visual attention while keeping the experience fun and engaging.</p>
+      <p>New games and challenges are added regularly, so there is always something new to play.</p>
+    </section>
+
+    <!-- ============================================
+    SUGGESTIONS
+    ============================================ -->
+    <section class="card">
+      <h2>🆘 Help Portal & Suggestions</h2>
+      <p>Have ideas, problems, or new challenge suggestions? Tell us and help improve Gen Z Eye Challenge.</p>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <input id="suggestion" placeholder="Write your suggestion..." style="flex: 1; min-width: 200px;">
+        <button class="btn btn-primary" onclick="sendSuggestion()">Send</button>
+      </div>
+      <div id="suggestionMessage" style="margin-top: 10px; color: #8892b0;"></div>
+    </section>
+
+  </div>
+
+  <!-- ============================================
+  FOOTER
+  ============================================ -->
   <footer class="footer">
-
-<h3>👁️ Gen Z Eye Challenge</h3>
-
-<p>
-Play. Test your vision. Challenge your friends.
-</p>
-
-<div>
-
-<a href="index.html">🏠 Home</a>
-
-<a href="about.html">ℹ️ About</a>
-
-<a href="help.html">🆘 Help</a>
-
-<a href="contact.html">📩 Contact</a>
-
-<a href="privacy.html">🔒 Privacy</a>
-
-<a href="terms.html">📜 Terms</a>
-
-</div>
-
-<p>
-© 2026 Gen Z Eye Challenge. All rights reserved.
-</p>
-
-</footer>  
-
-
-
-</body>
-
-    
-</html>
-
+    <h3>👁️ Gen Z Eye Challenge</h3>
+    <p>Play. Test your vision. Challenge your friends.</p>
+    <div>
+      <a href="index.html">🏠 Home</a>
+      <a href="about.html">ℹ️ About</a>
+      <a href="help.html">🆘 Help</a>
+      <a href="contact.html">📩 Contact</a>
+      <a href="privacy.html">🔒 Privacy</a>
+      <a href
