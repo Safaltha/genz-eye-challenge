@@ -6,7 +6,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-P9S9E1YGPG"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-P9S9E1YGPG');
   </script>
@@ -15,6 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>👁️ Gen Z Eye Challenge AI</title>
 
+  <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7507942151077858" crossorigin="anonymous"></script>
 
   <style>
@@ -85,16 +86,21 @@
       border-radius: 20px;
       margin-bottom: 30px;
       border: 1px solid rgba(255, 255, 255, 0.05);
+      flex-wrap: wrap;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
     }
 
     .navbar a {
       color: #8892b0;
       text-decoration: none;
-      margin: 8px 15px;
+      margin: 5px 10px;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 15px;
       transition: all 0.3s ease;
-      padding: 8px 12px;
+      padding: 8px 14px;
       border-radius: 10px;
     }
 
@@ -108,7 +114,7 @@
       color: cyan;
       font-size: 20px;
       font-weight: 700;
-      margin-right: 20px;
+      margin-right: 15px;
       background: linear-gradient(90deg, cyan, magenta);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -119,12 +125,12 @@
     ============================================ */
     .hero {
       text-align: center;
-      padding: 60px 20px 40px;
+      padding: 40px 20px 30px;
       position: relative;
     }
 
     .hero h1 {
-      font-size: 52px;
+      font-size: 48px;
       background: linear-gradient(90deg, cyan, magenta, yellow, cyan);
       background-size: 300% 300%;
       -webkit-background-clip: text;
@@ -134,20 +140,26 @@
     }
 
     @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
     }
 
     .hero p {
-      font-size: 20px;
+      font-size: 18px;
       color: #8892b0;
       max-width: 600px;
       margin: 0 auto 10px;
     }
 
     .hero .subtitle {
-      font-size: 16px;
+      font-size: 15px;
       color: #5b5f7a;
     }
 
@@ -156,8 +168,8 @@
     ============================================ */
     .section-title {
       text-align: center;
-      font-size: 32px;
-      margin: 50px 0 25px;
+      font-size: 30px;
+      margin: 40px 0 20px;
       color: cyan;
       font-weight: 700;
       position: relative;
@@ -176,8 +188,8 @@
     .section-subtitle {
       text-align: center;
       color: #8892b0;
-      margin-bottom: 30px;
-      font-size: 16px;
+      margin-bottom: 25px;
+      font-size: 15px;
     }
 
     /* ============================================
@@ -185,75 +197,152 @@
     ============================================ */
     .game-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
       margin: 30px 0;
     }
 
-    .text-quiz-button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .text-quiz-button a {
-      width: 100%;
-      min-height: 180px;
+    .game-card {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 20px 15px;
-      font-size: 16px;
-      font-weight: 700;
-      color: white;
-      text-decoration: none;
-      border-radius: 20px;
+      padding: 25px 15px;
+      border-radius: 25px;
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(15px);
       box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
       transition: all 0.3s ease;
-      width: 100%;
-      gap: 5px;
+      text-decoration: none;
+      color: white;
+      cursor: pointer;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      min-height: 180px;
     }
 
-    .text-quiz-button a:hover {
+    .game-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.03), transparent 70%);
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+
+    .game-card:hover::before {
+      opacity: 1;
+    }
+
+    .game-card:hover {
       transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 50px rgba(0, 255, 255, 0.2);
       border-color: cyan;
       background: rgba(0, 255, 255, 0.08);
     }
 
-    .text-quiz-button a .game-icon {
-      font-size: 32px;
+    .game-card .game-icon {
+      font-size: 40px;
       margin-bottom: 5px;
+      position: relative;
+      z-index: 1;
     }
 
-    .text-quiz-button a .game-name {
-      font-size: 14px;
+    .game-card .game-name {
+      font-size: 16px;
       font-weight: 700;
       color: white;
+      position: relative;
+      z-index: 1;
     }
 
-    .text-quiz-button a .game-tag {
+    .game-card .game-tag {
       font-size: 10px;
       color: #8892b0;
       font-weight: 400;
-      margin-top: 4px;
+      margin-top: 3px;
+      position: relative;
+      z-index: 1;
     }
 
-    .text-quiz-button a .badge-new {
+    .game-card .badge {
       background: #ff6b6b;
       color: white;
       font-size: 9px;
-      padding: 2px 10px;
+      padding: 3px 12px;
       border-radius: 20px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-top: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge-popular {
+      background: linear-gradient(45deg, #f7971e, #ffd200);
+      color: #000;
+    }
+
+    .badge-new {
+      background: linear-gradient(45deg, #00b09b, #96c93d);
+    }
+
+    .badge-hot {
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    }
+
+    /* Individual game card colors */
+    .game-card-1 .game-name {
+      color: #ff6b6b;
+    }
+    .game-card-2 .game-name {
+      color: #4ecdc4;
+    }
+    .game-card-3 .game-name {
+      color: #ffe66d;
+    }
+    .game-card-4 .game-name {
+      color: #a29bfe;
+    }
+    .game-card-5 .game-name {
+      color: #fd79a8;
+    }
+    .game-card-6 .game-name {
+      color: #55efc4;
+    }
+    .game-card-7 .game-name {
+      color: #fdcb6e;
+    }
+    .game-card-8 .game-name {
+      color: #e17055;
+    }
+    .game-card-9 .game-name {
+      color: #74b9ff;
+    }
+    .game-card-10 .game-name {
+      color: #fd79a8;
+    }
+    .game-card-11 .game-name {
+      color: #00cec9;
+    }
+    .game-card-12 .game-name {
+      color: #fab1a0;
+    }
+    .game-card-13 .game-name {
+      color: #81ecec;
+    }
+    .game-card-14 .game-name {
+      color: #ffeaa7;
+    }
+    .game-card-15 .game-name {
+      color: #dfe6e9;
     }
 
     /* ============================================
@@ -270,16 +359,29 @@
       transition: all 0.3s ease;
       text-align: center;
       background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(255, 0, 255, 0.05));
+      cursor: pointer;
     }
 
     .featured-card:hover {
       border-color: cyan;
       box-shadow: 0 0 60px rgba(0, 255, 255, 0.1);
+      transform: scale(1.01);
     }
 
     .featured-card .featured-icon {
       font-size: 60px;
       margin-bottom: 10px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
     }
 
     .featured-card h2 {
@@ -373,13 +475,13 @@
     .stats {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 25px;
       flex-wrap: wrap;
       margin: 30px 0;
     }
 
     .stat {
-      padding: 20px 30px;
+      padding: 20px 35px;
       min-width: 120px;
       text-align: center;
       border-radius: 20px;
@@ -494,6 +596,7 @@
       background: rgba(0, 0, 0, 0.3);
       color: #8892b0;
       min-height: 50px;
+      white-space: pre-line;
     }
 
     /* ============================================
@@ -550,71 +653,56 @@
       .hero h1 {
         font-size: 32px;
       }
-
       .hero p {
         font-size: 16px;
       }
-
       .navbar a {
-        margin: 5px 8px;
-        font-size: 14px;
-        padding: 6px 10px;
+        margin: 4px 6px;
+        font-size: 13px;
+        padding: 5px 10px;
       }
-
       .navbar .logo {
         font-size: 16px;
         display: block;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
+        width: 100%;
       }
-
       .section-title {
         font-size: 24px;
       }
-
       .game-grid {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 15px;
       }
-
-      .text-quiz-button a {
+      .game-card {
         min-height: 150px;
-        padding: 15px 10px;
-        font-size: 14px;
+        padding: 20px 12px;
       }
-
-      .text-quiz-button a .game-icon {
-        font-size: 28px;
+      .game-card .game-icon {
+        font-size: 32px;
       }
-
       .featured-card {
         padding: 25px;
       }
-
       .featured-card h2 {
         font-size: 22px;
       }
-
       .stats {
         gap: 12px;
       }
-
       .stat {
         padding: 15px 20px;
         min-width: 90px;
       }
-
       .stat .stat-value {
         font-size: 24px;
       }
-
       input {
         width: 100%;
       }
-
       .card {
         padding: 20px;
       }
-
       .footer a {
         margin: 5px 8px;
         font-size: 13px;
@@ -625,43 +713,34 @@
       .hero h1 {
         font-size: 26px;
       }
-
       .game-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
         gap: 12px;
       }
-
-      .text-quiz-button a {
+      .game-card {
         min-height: 130px;
-        padding: 12px 8px;
-        font-size: 12px;
-        border-radius: 15px;
+        padding: 15px 10px;
+        border-radius: 18px;
       }
-
-      .text-quiz-button a .game-icon {
-        font-size: 24px;
+      .game-card .game-icon {
+        font-size: 28px;
       }
-
-      .text-quiz-button a .game-name {
-        font-size: 12px;
+      .game-card .game-name {
+        font-size: 13px;
       }
-
       .featured-card {
         padding: 20px;
       }
-
       .featured-card .featured-icon {
         font-size: 40px;
       }
-
       .play-button {
         padding: 12px 25px;
         font-size: 14px;
       }
-
       .navbar a {
-        margin: 3px 5px;
-        font-size: 12px;
+        margin: 3px 4px;
+        font-size: 11px;
         padding: 4px 8px;
       }
     }
@@ -672,18 +751,172 @@
     ::-webkit-scrollbar {
       width: 8px;
     }
-
     ::-webkit-scrollbar-track {
       background: #0a0e1a;
     }
-
     ::-webkit-scrollbar-thumb {
       background: linear-gradient(cyan, magenta);
       border-radius: 10px;
     }
-
     ::-webkit-scrollbar-thumb:hover {
       background: cyan;
+    }
+
+    /* ============================================
+       QUIZ SECTION
+    ============================================ */
+    #quiz {
+      display: block;
+    }
+
+    #result {
+      display: none;
+    }
+
+    #answerArea {
+      display: none;
+    }
+
+    /* ============================================
+       TAP EFFECT
+    ============================================ */
+    .tap-effect {
+      animation: tapAnim 0.2s ease;
+    }
+
+    @keyframes tapAnim {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(0.95);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* ============================================
+       GAME HEADER COLORS
+    ============================================ */
+    .game-card-1 {
+      border-color: #ff6b6b55;
+    }
+    .game-card-1:hover {
+      border-color: #ff6b6b;
+      box-shadow: 0 0 40px #ff6b6b33;
+    }
+
+    .game-card-2 {
+      border-color: #4ecdc455;
+    }
+    .game-card-2:hover {
+      border-color: #4ecdc4;
+      box-shadow: 0 0 40px #4ecdc433;
+    }
+
+    .game-card-3 {
+      border-color: #ffe66d55;
+    }
+    .game-card-3:hover {
+      border-color: #ffe66d;
+      box-shadow: 0 0 40px #ffe66d33;
+    }
+
+    .game-card-4 {
+      border-color: #a29bfe55;
+    }
+    .game-card-4:hover {
+      border-color: #a29bfe;
+      box-shadow: 0 0 40px #a29bfe33;
+    }
+
+    .game-card-5 {
+      border-color: #fd79a855;
+    }
+    .game-card-5:hover {
+      border-color: #fd79a8;
+      box-shadow: 0 0 40px #fd79a833;
+    }
+
+    .game-card-6 {
+      border-color: #55efc455;
+    }
+    .game-card-6:hover {
+      border-color: #55efc4;
+      box-shadow: 0 0 40px #55efc433;
+    }
+
+    .game-card-7 {
+      border-color: #fdcb6e55;
+    }
+    .game-card-7:hover {
+      border-color: #fdcb6e;
+      box-shadow: 0 0 40px #fdcb6e33;
+    }
+
+    .game-card-8 {
+      border-color: #e1705555;
+    }
+    .game-card-8:hover {
+      border-color: #e17055;
+      box-shadow: 0 0 40px #e1705533;
+    }
+
+    .game-card-9 {
+      border-color: #74b9ff55;
+    }
+    .game-card-9:hover {
+      border-color: #74b9ff;
+      box-shadow: 0 0 40px #74b9ff33;
+    }
+
+    .game-card-10 {
+      border-color: #fd79a855;
+    }
+    .game-card-10:hover {
+      border-color: #fd79a8;
+      box-shadow: 0 0 40px #fd79a833;
+    }
+
+    .game-card-11 {
+      border-color: #00cec955;
+    }
+    .game-card-11:hover {
+      border-color: #00cec9;
+      box-shadow: 0 0 40px #00cec933;
+    }
+
+    .game-card-12 {
+      border-color: #fab1a055;
+    }
+    .game-card-12:hover {
+      border-color: #fab1a0;
+      box-shadow: 0 0 40px #fab1a033;
+    }
+
+    .game-card-13 {
+      border-color: #81ecec55;
+    }
+    .game-card-13:hover {
+      border-color: #81ecec;
+      box-shadow: 0 0 40px #81ecec33;
+    }
+
+    .game-card-14 {
+      border-color: #ffeaa755;
+    }
+    .game-card-14:hover {
+      border-color: #ffeaa7;
+      box-shadow: 0 0 40px #ffeaa733;
+    }
+
+    .game-card-15 {
+      border-color: #dfe6e955;
+    }
+    .game-card-15:hover {
+      border-color: #dfe6e9;
+      box-shadow: 0 0 40px #dfe6e933;
     }
   </style>
 </head>
@@ -695,12 +928,12 @@
   ============================================ -->
   <nav class="navbar">
     <span class="logo">👁️ EYE CHALLENGE</span>
-    <a href="index.html">🏠 Home</a>
-    <a href="about.html">ℹ️ About</a>
-    <a href="help.html">❓ Help</a>
-    <a href="contact.html">📩 Contact</a>
-    <a href="privacy.html">🔒 Privacy</a>
-    <a href="terms.html">📜 Terms</a>
+    <a href="index.html" onclick="playTap()">🏠 Home</a>
+    <a href="about.html" onclick="playTap()">ℹ️ About</a>
+    <a href="help.html" onclick="playTap()">❓ Help</a>
+    <a href="contact.html" onclick="playTap()">📩 Contact</a>
+    <a href="privacy.html" onclick="playTap()">🔒 Privacy</a>
+    <a href="terms.html" onclick="playTap()">📜 Terms</a>
   </nav>
 
   <!-- ============================================
@@ -720,12 +953,12 @@
     <!-- ============================================
     FEATURED GAME
     ============================================ -->
-    <section class="featured-card">
+    <section class="featured-card" onclick="playTap(); window.location.href='eagle-radar.html'">
       <div class="featured-icon">🦅</div>
       <h2>🔥 Featured Game</h2>
       <h3>Eagle Radar</h3>
       <p>Train your observation skills with our most popular eye challenge. Find the hidden target before time runs out and become an Eye Legend!</p>
-      <a href="eagle-radar.html" class="play-button">▶ Play Eagle Radar</a>
+      <a href="eagle-radar.html" class="play-button" onclick="event.stopPropagation(); playTap();">▶ Play Eagle Radar</a>
     </section>
 
     <!-- ============================================
@@ -733,26 +966,21 @@
     ============================================ -->
     <h2 class="section-title">🆕 Latest Games</h2>
     <div class="game-grid">
-      <div class="text-quiz-button">
-        <a href="eagle-radar.html">
-          <span class="game-icon">🦅</span>
-          <span class="game-name">Eagle Radar</span>
-          <span class="badge-new">🔥 Popular</span>
-        </a>
-      </div>
-      <div class="text-quiz-button">
-        <a href="camouflage-hunter.html">
-          <span class="game-icon">🟦</span>
-          <span class="game-name">Camouflage Hunter</span>
-          <span class="badge-new">New</span>
-        </a>
-      </div>
-      <div class="text-quiz-button">
-        <a href="reaction-game.html">
-          <span class="game-icon">⚡</span>
-          <span class="game-name">Reaction Speed Test</span>
-        </a>
-      </div>
+      <a href="eagle-radar.html" class="game-card game-card-1" onclick="playTap()">
+        <span class="game-icon">🦅</span>
+        <span class="game-name">Eagle Radar</span>
+        <span class="badge badge-popular">🔥 Popular</span>
+      </a>
+      <a href="camouflage-hunter.html" class="game-card game-card-2" onclick="playTap()">
+        <span class="game-icon">🟦</span>
+        <span class="game-name">Camouflage Hunter</span>
+        <span class="badge badge-new">✨ New</span>
+      </a>
+      <a href="reaction-game.html" class="game-card game-card-3" onclick="playTap()">
+        <span class="game-icon">⚡</span>
+        <span class="game-name">Reaction Speed Test</span>
+        <span class="badge badge-hot">🚀 Hot</span>
+      </a>
     </div>
 
     <!-- ============================================
@@ -761,43 +989,36 @@
     <h2 class="section-title">👁️ Eye Challenges</h2>
     <p class="section-subtitle">Test your vision, focus, and observation skills</p>
     <div class="game-grid">
-      <div class="text-quiz-button">
-        <a href="eye-focus.html">
-          <span class="game-icon">👁️</span>
-          <span class="game-name">Eye Focus Challenge</span>
-        </a>
-      </div>
-      <div class="text-quiz-button">
-        <a href="camouflage-hunter.html">
-          <span class="game-icon">🟦</span>
-          <span class="game-name">Camouflage Hunter</span>
-        </a>
-      </div>
-      <div class="text-quiz-button">
-        <a href="eagle-radar.html">
-          <span class="game-icon">🦅</span>
-          <span class="game-name">Eagle Radar</span>
-        </a>
-      </div>
-      <div class="text-quiz-button">
-        <a href="spot.html">
-          <span class="game-icon">👀</span>
-          <span class="game-name">Spot the Difference</span>
-          <span class="badge-new">New</span>
-        </a>
-      </div>
-      <div class="text-quiz-button">
-        <a href="eye-maze.html">
-          <span class="game-icon">🌀</span>
-          <span class="game-name">Eye Maze Escape</span>
-        </a>
-      </div>
-      <div class="text-quiz-button">
-        <a href="focus-follow.html">
-          <span class="game-icon">🎯</span>
-          <span class="game-name">Focus Follow</span>
-        </a>
-      </div>
+      <a href="eye-focus.html" class="game-card game-card-4" onclick="playTap()">
+        <span class="game-icon">👁️</span>
+        <span class="game-name">Eye Focus Challenge</span>
+        <span class="game-tag">🎯 Concentration</span>
+      </a>
+      <a href="camouflage-hunter.html" class="game-card game-card-2" onclick="playTap()">
+        <span class="game-icon">🟦</span>
+        <span class="game-name">Camouflage Hunter</span>
+        <span class="game-tag">🔍 Find It</span>
+      </a>
+      <a href="eagle-radar.html" class="game-card game-card-1" onclick="playTap()">
+        <span class="game-icon">🦅</span>
+        <span class="game-name">Eagle Radar</span>
+        <span class="game-tag">👀 Vision</span>
+      </a>
+      <a href="spot.html" class="game-card game-card-5" onclick="playTap()">
+        <span class="game-icon">👀</span>
+        <span class="game-name">Spot the Difference</span>
+        <span class="badge badge-new">✨ New</span>
+      </a>
+      <a href="eye-maze.html" class="game-card game-card-6" onclick="playTap()">
+        <span class="game-icon">🌀</span>
+        <span class="game-name">Eye Maze Escape</span>
+        <span class="game-tag">🧩 Puzzle</span>
+      </a>
+      <a href="focus-follow.html" class="game-card game-card-7" onclick="playTap()">
+        <span class="game-icon">🎯</span>
+        <span class="game-name">Focus Follow</span>
+        <span class="game-tag">👁️ Tracking</span>
+      </a>
     </div>
 
     <!-- ============================================
@@ -806,24 +1027,21 @@
     <h2 class="section-title">🧠 Brain Challenges</h2>
     <p class="section-subtitle">Sharpen your mind with memory and puzzle games</p>
     <div class="game-grid">
-      <div class="text-quiz-button">
-        <a href="text-quiz.html">
-          <span class="game-icon">🧠</span>
-          <span class="game-name">Text Quiz</span>
-        </a>
-      </div>
-      <div class="text-quiz-button">
-        <a href="hidden-number.html">
-          <span class="game-icon">🔢</span>
-          <span class="game-name">Hidden Number</span>
-        </a>
-      </div>
-      <div class="text-quiz-button">
-        <a href="number-memory.html">
-          <span class="game-icon">💾</span>
-          <span class="game-name">Number Memory</span>
-        </a>
-      </div>
+      <a href="text-quiz.html" class="game-card game-card-8" onclick="playTap()">
+        <span class="game-icon">🧠</span>
+        <span class="game-name">Text Quiz</span>
+        <span class="game-tag">📚 Reading</span>
+      </a>
+      <a href="hidden-number.html" class="game-card game-card-9" onclick="playTap()">
+        <span class="game-icon">🔢</span>
+        <span class="game-name">Hidden Number</span>
+        <span class="game-tag">🔍 Find It</span>
+      </a>
+      <a href="number-memory.html" class="game-card game-card-10" onclick="playTap()">
+        <span class="game-icon">💾</span>
+        <span class="game-name">Number Memory</span>
+        <span class="game-tag">🧠 Recall</span>
+      </a>
     </div>
 
     <!-- ============================================
@@ -832,24 +1050,21 @@
     <h2 class="section-title">⚡ Speed Challenges</h2>
     <p class="section-subtitle">Test your reflexes and reaction time</p>
     <div class="game-grid">
-      <div class="text-quiz-button">
-        <a href="reaction-game.html">
-          <span class="game-icon">⚡</span>
-          <span class="game-name">Reaction Speed Test</span>
-        </a>
-      </div>
-      <div class="text-quiz-button">
-        <a href="dot-hunter.html">
-          <span class="game-icon">🟢</span>
-          <span class="game-name">Dot Hunter</span>
-        </a>
-      </div>
-      <div class="text-quiz-button">
-        <a href="cyber-sniper.html">
-          <span class="game-icon">🎯</span>
-          <span class="game-name">Cyber Sniper</span>
-        </a>
-      </div>
+      <a href="reaction-game.html" class="game-card game-card-3" onclick="playTap()">
+        <span class="game-icon">⚡</span>
+        <span class="game-name">Reaction Speed Test</span>
+        <span class="badge badge-hot">🚀 Hot</span>
+      </a>
+      <a href="dot-hunter.html" class="game-card game-card-11" onclick="playTap()">
+        <span class="game-icon">🟢</span>
+        <span class="game-name">Dot Hunter</span>
+        <span class="game-tag">🎯 Click</span>
+      </a>
+      <a href="cyber-sniper.html" class="game-card game-card-12" onclick="playTap()">
+        <span class="game-icon">🎯</span>
+        <span class="game-name">Cyber Sniper</span>
+        <span class="game-tag">🔫 Aim</span>
+      </a>
     </div>
 
     <!-- ============================================
@@ -858,31 +1073,26 @@
     <h2 class="section-title">🎯 Special Modes</h2>
     <p class="section-subtitle">Extra challenges and fun modes</p>
     <div class="game-grid">
-      <div class="text-quiz-button">
-        <a href="lucky-box.html">
-          <span class="game-icon">🎁</span>
-          <span class="game-name">Lucky Box</span>
-        </a>
-      </div>
-      <div class="text-quiz-button">
-        <a href="missions.html">
-          <span class="game-icon">🎯</span>
-          <span class="game-name">Mission Mode</span>
-        </a>
-      </div>
-      <div class="text-quiz-button">
-        <a href="leaderboard.html">
-          <span class="game-icon">🏆</span>
-          <span class="game-name">Leaderboard</span>
-        </a>
-      </div>
-      <div class="text-quiz-button">
-        <a href="tic-tac-toe.html">
-          <span class="game-icon">🎮</span>
-          <span class="game-name">Tic Tac Toe</span>
-          <span class="game-tag">AI + Friend</span>
-        </a>
-      </div>
+      <a href="lucky-box.html" class="game-card game-card-13" onclick="playTap()">
+        <span class="game-icon">🎁</span>
+        <span class="game-name">Lucky Box</span>
+        <span class="game-tag">🎲 Surprise</span>
+      </a>
+      <a href="missions.html" class="game-card game-card-14" onclick="playTap()">
+        <span class="game-icon">🎯</span>
+        <span class="game-name">Mission Mode</span>
+        <span class="game-tag">📋 Quests</span>
+      </a>
+      <a href="leaderboard.html" class="game-card game-card-15" onclick="playTap()">
+        <span class="game-icon">🏆</span>
+        <span class="game-name">Leaderboard</span>
+        <span class="game-tag">📊 Rankings</span>
+      </a>
+      <a href="tic-tac-toe.html" class="game-card game-card-1" onclick="playTap()">
+        <span class="game-icon">🎮</span>
+        <span class="game-name">Tic Tac Toe</span>
+        <span class="game-tag">🤖 AI + Friend</span>
+      </a>
     </div>
 
     <!-- ============================================
@@ -907,7 +1117,7 @@
     START CHALLENGE BUTTON
     ============================================ -->
     <div style="text-align: center; margin: 20px 0;">
-      <button class="btn btn-primary" onclick="startGame()">🔥 Start Challenge</button>
+      <button class="btn btn-primary" onclick="startGame(); playTap();">🔥 Start Challenge</button>
     </div>
 
     <!-- ============================================
@@ -921,16 +1131,16 @@
         <div id="progressBar"></div>
       </div>
 
-      <img id="questionImage" class="challenge-img" src="question1.jpg" alt="Question">
+      <img id="questionImage" class="challenge-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%238892b0' font-size='24' font-family='Arial'%3E🔍 Find the Hidden Object%3C/text%3E%3C/svg%3E" alt="Question">
 
       <div style="text-align: center;">
-        <button class="btn btn-primary" onclick="showAnswer()">💡 Reveal Answer</button>
-        <button class="btn btn-secondary" onclick="nextQuestion()">➡️ Next</button>
+        <button class="btn btn-primary" onclick="showAnswer(); playTap();">💡 Reveal Answer</button>
+        <button class="btn btn-secondary" onclick="nextQuestion(); playTap();">➡️ Next</button>
       </div>
 
-      <div id="answerArea" style="display: none;">
+      <div id="answerArea">
         <h3>✅ Answer</h3>
-        <img id="answerImage" class="challenge-img" src="answer1.jpg" alt="Answer">
+        <img id="answerImage" class="challenge-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%234ecdc4' font-size='24' font-family='Arial'%3E✅ Found it!%3C/text%3E%3C/svg%3E" alt="Answer">
       </div>
 
       <p style="text-align: center; color: #8892b0; margin-top: 10px;">
@@ -946,7 +1156,7 @@
       <p style="color: #8892b0;">Ask me for hints, tips, or game info!</p>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <input id="aiInput" placeholder="Ask for hint..." style="flex: 1; min-width: 200px;">
-        <button class="btn btn-primary" onclick="askAI()">Ask AI</button>
+        <button class="btn btn-primary" onclick="askAI(); playTap();">Ask AI</button>
       </div>
       <div id="aiResponse">🤖 AI Ready. Ask me for a hint 👁️</div>
     </section>
@@ -958,7 +1168,7 @@
       <h2>🎉 Challenge Complete</h2>
       <h1 id="finalScore" style="font-size: 48px; color: cyan;"></h1>
       <p style="color: #8892b0;">Your eye aura level has increased 🔥</p>
-      <button class="btn btn-primary" onclick="location.reload()">Play Again</button>
+      <button class="btn btn-primary" onclick="location.reload(); playTap();">Play Again</button>
     </section>
 
     <!-- ============================================
@@ -1028,14 +1238,14 @@
     </section>
 
     <!-- ============================================
-    SUGGESTIONS
+    SUGGESTIONS / HELP PORTAL
     ============================================ -->
     <section class="card">
       <h2>🆘 Help Portal & Suggestions</h2>
       <p>Have ideas, problems, or new challenge suggestions? Tell us and help improve Gen Z Eye Challenge.</p>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <input id="suggestion" placeholder="Write your suggestion..." style="flex: 1; min-width: 200px;">
-        <button class="btn btn-primary" onclick="sendSuggestion()">Send</button>
+        <button class="btn btn-primary" onclick="sendSuggestion(); playTap();">Send</button>
       </div>
       <div id="suggestionMessage" style="margin-top: 10px; color: #8892b0;"></div>
     </section>
@@ -1049,187 +1259,333 @@
     <h3>👁️ Gen Z Eye Challenge</h3>
     <p>Play. Test your vision. Challenge your friends.</p>
     <div>
-      <a href="index.html">🏠 Home</a>
-      <a href="about.html">ℹ️ About</a>
-      <a href="help.html">🆘 Help</a>
-      <a href="contact.html">📩 Contact</a>
-      <a href="privacy.html">🔒 Privacy</a>
-      <a href
+      <a href="index.html" onclick="playTap()">🏠 Home</a>
+      <a href="about.html" onclick="playTap()">ℹ️ About</a>
+      <a href="help.html" onclick="playTap()">🆘 Help</a>
+      <a href="contact.html" onclick="playTap()">📩 Contact</a>
+      <a href="privacy.html" onclick="playTap()">🔒 Privacy</a>
+      <a href="terms.html" onclick="playTap()">📜 Terms</a>
+    </div>
+    <p style="margin-top: 15px; font-size: 12px; color: #3a3f5a;">© 2026 Gen Z Eye Challenge. All rights reserved.</p>
+  </footer>
 
-
-  <!-- =========================================== -->
-<script>
-  // === COOKIE MANAGEMENT ===
-  function setCookie(name, value, days = 30) {
-    const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
-  }
-
-  function getCookie(name) {
-    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    return match ? decodeURIComponent(match[2]) : null;
-  }
-
-  // === LOAD SAVED STATS ===
-  function loadSavedStats() {
-    const score = getCookie('userScore');
-    const streak = getCookie('userStreak');
-    const level = getCookie('userLevel');
-    
-    if (score) document.getElementById('score').innerText = score;
-    if (streak) document.getElementById('streak').innerText = streak;
-    if (level) document.getElementById('level').innerText = level;
-  }
-
-  // === SAVE STATS ===
-  function saveStats() {
-    const score = document.getElementById('score')?.innerText || '0';
-    const streak = document.getElementById('streak')?.innerText || '0';
-    const level = document.getElementById('level')?.innerText || '1';
-    
-    setCookie('userScore', score, 30);
-    setCookie('userStreak', streak, 30);
-    setCookie('userLevel', level, 30);
-  }
-
-  // === TRACK VISITS ===
-  let visitCount = parseInt(getCookie('visits') || '0') + 1;
-  setCookie('visits', visitCount, 365);
-
-  // === SEND SUGGESTION FUNCTION ===
-  function sendSuggestion() {
-    const suggestionInput = document.getElementById('suggestion');
-    const suggestionMessage = document.getElementById('suggestionMessage');
-    const suggestion = suggestionInput.value.trim();
-    
-    if (suggestion === '') {
-      suggestionMessage.innerHTML = '⚠️ Please write a suggestion before submitting.';
-      suggestionMessage.style.color = '#ff6b6b';
-      return;
+  <!-- ============================================
+  JAVASCRIPT - ALL FUNCTIONS
+  ============================================ -->
+  <script>
+    // ============================================
+    // TAP SOUND EFFECT
+    // ============================================
+    function playTap() {
+      try {
+        const audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        oscillator.frequency.value = 800;
+        oscillator.type = 'sine';
+        gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+        oscillator.start(audioCtx.currentTime);
+        oscillator.stop(audioCtx.currentTime + 0.08);
+      } catch (e) {
+        // Silent fallback if audio not supported
+      }
     }
-    
-    // Save suggestion to cookie
-    let suggestions = JSON.parse(getCookie('userSuggestions') || '[]');
-    suggestions.push({
-      text: suggestion,
-      date: new Date().toISOString()
-    });
-    setCookie('userSuggestions', JSON.stringify(suggestions), 30);
-    
-    suggestionMessage.innerHTML = '✅ Thank you for your suggestion! We appreciate your feedback.';
-    suggestionMessage.style.color = '#4ecdc4';
-    suggestionInput.value = '';
-    console.log('💡 Suggestion saved:', suggestion);
-  }
 
-    // === AI EYE COACH FUNCTION (ENHANCED) ===
-function askAI() {
-  const aiInput = document.getElementById('aiInput');
-  const aiResponse = document.getElementById('aiResponse');
-  const question = aiInput.value.trim();
-  
-  if (question === '') {
-    aiResponse.innerHTML = '🤖 Please ask me a question about eye challenges or games!';
-    aiResponse.style.color = '#ff6b6b';
-    return;
-  }
-  
-  // === ENHANCED RESPONSES ===
-  const responses = {
-    'hint': '👁️ Here\'s a hint: Focus on patterns, look for contrasts, and trust your instincts! Sometimes the answer is hidden in plain sight.',
-    'tips': '💡 Eye training tips: \n• Take breaks every 20 minutes\n• Practice focus exercises daily\n• Play in a well-lit room\n• Challenge yourself with harder levels',
-    'game': '🎮 Try these games: \n• Eagle Radar - Best for observation\n• Camouflage Hunter - Great for focus\n• Reaction Speed Test - Perfect for reflexes\n• Spot the Difference - Fun for detail hunting',
-    'score': '🏆 Your score increases with every correct answer. Play more games, complete daily challenges, and maintain your streak to climb the leaderboard!',
-    'level': '⚡ Level up by completing challenges! Each level unlocks harder puzzles and new game modes. Current max level is 50!',
-    'help': '🆘 Need help? Check the Help page, read the FAQ section, or ask me specific questions about any game or feature!',
-    'memory': '🧠 Try Number Memory for number recall or Text Quiz for reading comprehension. Both will boost your memory skills!',
-    'reaction': '⚡ Test your reflexes with Reaction Speed Test or Dot Hunter. Pro gamers have reaction times under 200ms!',
-    'focus': '🎯 Improve concentration with Eye Focus Challenge and Focus Follow. These train your brain to ignore distractions!',
-    'leaderboard': '🏆 Check the Leaderboard to see your rank. Top players get special badges and recognition!',
-    'mobile': '📱 Yes! The website is fully responsive and works on phones, tablets, and computers. Play anywhere!',
-    'free': '💰 All games are 100% free! No ads, no subscriptions, no hidden costs. Just pure eye training fun!',
-    'difficulty': '📈 Games get progressively harder. Start with Level 1 and work your way up to Level 50 challenges!',
-    'daily': '📅 New challenges appear every day at midnight. Don\'t miss your daily streak bonus!',
-    'friends': '👥 Challenge your friends! Share your scores and see who has the sharpest eyes and quickest reactions!',
-    'privacy': '🔒 Your privacy matters. We only save game progress and suggestions. No personal data is collected or shared.',
-    'fun': getRandomFunFact(),
-    'fact': getRandomFunFact(),
-    'interesting': getRandomFunFact(),
-    'default': '🤖 That\'s a great question! Try Eagle Radar to test your observation skills, or ask me about hints, tips, games, or anything else!'
-  };
-  
-  // === FUN FACTS ===
-  function getRandomFunFact() {
-    const facts = [
-      '🤖 Did you know? The human eye can distinguish about 10 million different colors!',
-      '👁️ Fun fact: Your eyes blink about 15-20 times per minute - that\'s over 1,200 times per hour!',
-      '🎯 Pro tip: The 20-20-20 rule - every 20 minutes, look at something 20 feet away for 20 seconds!',
-      '🔥 Your brain processes images 60,000 times faster than text! That\'s why visual challenges are so effective!',
-      '👀 The human eye can detect a candle flame from 1.7 miles away on a clear night!',
-      '⚡ Average human reaction time is 250 milliseconds. Can you beat that?',
-      '🧠 Playing eye-training games for just 10 minutes a day can improve attention span by 25%!',
-      '🏆 The world record for the fastest reaction time is 101 milliseconds!',
-      '🌟 Your eyes are the second most complex organ in your body, after your brain!',
-      '💪 Regular eye exercises can reduce eye strain by up to 70%!'
-    ];
-    return facts[Math.floor(Math.random() * facts.length)];
-  }
-  
-  // === CHECK KEYWORDS ===
-  let response = responses.default;
-  const lowerQuestion = question.toLowerCase();
-  
-  for (const [keyword, reply] of Object.entries(responses)) {
-  if (lowerQuestion.includes(keyword)) {
-    response = reply;
-    break;
-  }
-}
-// Then the rest of the function...
+    // ============================================
+    // COOKIE MANAGEMENT
+    // ============================================
+    function setCookie(name, value, days = 30) {
+      const expires = new Date(Date.now() + days * 864e5).toUTCString();
+      document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+    }
 
-  // === PAGE LOAD ===
-  window.addEventListener('DOMContentLoaded', function() {
-    loadSavedStats();
-    
-    // Track game clicks
-    document.querySelectorAll('.game-grid a, .text-quiz-button a, .play-button').forEach(link => {
-      link.addEventListener('click', function() {
-        const gameName = this.querySelector('.game-name')?.innerText || 'Unknown Game';
-        setCookie('lastGame', gameName, 7);
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? decodeURIComponent(match[2]) : null;
+    }
+
+    // ============================================
+    // LOAD SAVED STATS
+    // ============================================
+    function loadSavedStats() {
+      const score = getCookie('userScore');
+      const streak = getCookie('userStreak');
+      const level = getCookie('userLevel');
+
+      if (score) document.getElementById('score').innerText = score;
+      if (streak) document.getElementById('streak').innerText = streak;
+      if (level) document.getElementById('level').innerText = level;
+    }
+
+    function saveStats() {
+      const score = document.getElementById('score')?.innerText || '0';
+      const streak = document.getElementById('streak')?.innerText || '0';
+      const level = document.getElementById('level')?.innerText || '1';
+      setCookie('userScore', score, 30);
+      setCookie('userStreak', streak, 30);
+      setCookie('userLevel', level, 30);
+    }
+
+    // ============================================
+    // TRACK VISITS
+    // ============================================
+    let visitCount = parseInt(getCookie('visits') || '0') + 1;
+    setCookie('visits', visitCount, 365);
+
+    // ============================================
+    // GAME DATA
+    // ============================================
+    let currentQuestion = 0;
+    let score = 0;
+    let timer = 30;
+    let timerInterval;
+
+    const questions = [{
+      question: "Find the hidden number in this pattern",
+      image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%23ff6b6b' font-size='40' font-family='Arial'%3E🔍 7%3C/text%3E%3C/svg%3E",
+      answer: "The hidden number is 7",
+      answerImage: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%234ecdc4' font-size='60' font-family='Arial'%3E7%3C/text%3E%3C/svg%3E"
+    }, {
+      question: "What color is the hidden shape?",
+      image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%2300ffff'/%3E%3C/svg%3E",
+      answer: "The hidden shape is cyan",
+      answerImage: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%2300ffff' font-size='40' font-family='Arial'%3E🔵 CYAN%3C/text%3E%3C/svg%3E"
+    }, {
+      question: "How many dots are there?",
+      image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ccircle cx='100' cy='100' r='20' fill='%23ffe66d'/%3E%3Ccircle cx='200' cy='100' r='20' fill='%23ffe66d'/%3E%3Ccircle cx='300' cy='100' r='20' fill='%23ffe66d'/%3E%3Ccircle cx='100' cy='200' r='20' fill='%23ffe66d'/%3E%3Ccircle cx='200' cy='200' r='20' fill='%23ffe66d'/%3E%3Ccircle cx='300' cy='200' r='20' fill='%23ffe66d'/%3E%3C/svg%3E",
+      answer: "There are 6 dots",
+      answerImage: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%23ffe66d' font-size='60' font-family='Arial'%3E6%3C/text%3E%3C/svg%3E"
+    }, {
+      question: "Find the odd one out",
+      image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ccircle cx='100' cy='150' r='40' fill='%23ff6b6b'/%3E%3Ccircle cx='200' cy='150' r='40' fill='%234ecdc4'/%3E%3Ccircle cx='300' cy='150' r='40' fill='%234ecdc4'/%3E%3C/svg%3E",
+      answer: "The odd one is the red circle",
+      answerImage: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%23ff6b6b' font-size='40' font-family='Arial'%3E🔴 RED%3C/text%3E%3C/svg%3E"
+    }, {
+      question: "What number is hidden?",
+      image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%23a29bfe' font-size='80' font-family='Arial'%3E3%3C/text%3E%3C/svg%3E",
+      answer: "The hidden number is 3",
+      answerImage: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a2e'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%23a29bfe' font-size='80' font-family='Arial'%3E3%3C/text%3E%3C/svg%3E"
+    }];
+
+    // ============================================
+    // GAME FUNCTIONS
+    // ============================================
+    function startGame() {
+      score = 0;
+      currentQuestion = 0;
+      document.getElementById('score').innerText = '0';
+      document.getElementById('quiz').style.display = 'block';
+      document.getElementById('result').style.display = 'none';
+      document.getElementById('answerArea').style.display = 'none';
+      loadQuestion();
+      startTimer();
+      playTap();
+    }
+
+    function loadQuestion() {
+      if (currentQuestion >= questions.length) {
+        endGame();
+        return;
+      }
+      const q = questions[currentQuestion];
+      document.getElementById('questionTitle').innerText = `Question ${currentQuestion + 1} / ${questions.length}`;
+      document.getElementById('questionImage').src = q.image;
+      document.getElementById('answerArea').style.display = 'none';
+      document.getElementById('progressBar').style.width = ((currentQuestion + 1) / questions.length * 100) + '%';
+      resetTimer();
+    }
+
+    function showAnswer() {
+      const q = questions[currentQuestion];
+      document.getElementById('answerArea').style.display = 'block';
+      document.getElementById('answerImage').src = q.answerImage;
+      score += 10;
+      document.getElementById('score').innerText = score;
+      document.getElementById('answerArea').scrollIntoView({ behavior: 'smooth' });
+      playTap();
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        loadQuestion();
+      } else {
+        endGame();
+      }
+      playTap();
+    }
+
+    function startTimer() {
+      timer = 30;
+      document.getElementById('timer').innerText = timer;
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timer--;
+        document.getElementById('timer').innerText = timer;
+        if (timer <= 0) {
+          clearInterval(timerInterval);
+          endGame();
+        }
+      }, 1000);
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      startTimer();
+    }
+
+    function endGame() {
+      clearInterval(timerInterval);
+      document.getElementById('quiz').style.display = 'none';
+      document.getElementById('result').style.display = 'block';
+      document.getElementById('finalScore').innerText = score + ' Points';
+
+      let streak = parseInt(document.getElementById('streak').innerText) || 0;
+      if (score > 50) {
+        streak++;
+      } else {
+        streak = 0;
+      }
+      document.getElementById('streak').innerText = streak;
+
+      let level = parseInt(document.getElementById('level').innerText) || 1;
+      if (score >= 50 && level < 50) {
+        level++;
+        document.getElementById('level').innerText = level;
+      }
+      saveStats();
+      playTap();
+    }
+
+    // ============================================
+    // AI EYE COACH
+    // ============================================
+    function askAI() {
+      const aiInput = document.getElementById('aiInput');
+      const aiResponse = document.getElementById('aiResponse');
+      const question = aiInput.value.trim();
+
+      if (question === '') {
+        aiResponse.innerHTML = '🤖 Please ask me a question about eye challenges or games!';
+        aiResponse.style.color = '#ff6b6b';
+        playTap();
+        return;
+      }
+
+      const responses = {
+        'hint': '👁️ Here\'s a hint: Focus on patterns, look for contrasts, and trust your instincts! Sometimes the answer is hidden in plain sight.',
+        'tips': '💡 Eye training tips: \n• Take breaks every 20 minutes\n• Practice focus exercises daily\n• Play in a well-lit room\n• Challenge yourself with harder levels',
+        'game': '🎮 Try these games: \n• Eagle Radar - Best for observation\n• Camouflage Hunter - Great for focus\n• Reaction Speed Test - Perfect for reflexes\n• Spot the Difference - Fun for detail hunting',
+        'score': '🏆 Your score increases with every correct answer. Play more games, complete daily challenges, and maintain your streak to climb the leaderboard!',
+        'level': '⚡ Level up by completing challenges! Each level unlocks harder puzzles and new game modes. Current max level is 50!',
+        'help': '🆘 Need help? Check the Help page, read the FAQ section, or ask me specific questions about any game or feature!',
+        'memory': '🧠 Try Number Memory for number recall or Text Quiz for reading comprehension. Both will boost your memory skills!',
+        'reaction': '⚡ Test your reflexes with Reaction Speed Test or Dot Hunter. Pro gamers have reaction times under 200ms!',
+        'focus': '🎯 Improve concentration with Eye Focus Challenge and Focus Follow. These train your brain to ignore distractions!',
+        'leaderboard': '🏆 Check the Leaderboard to see your rank. Top players get special badges and recognition!',
+        'mobile': '📱 Yes! The website is fully responsive and works on phones, tablets, and computers. Play anywhere!',
+        'free': '💰 All games are 100% free! No ads, no subscriptions, no hidden costs. Just pure eye training fun!',
+        'difficulty': '📈 Games get progressively harder. Start with Level 1 and work your way up to Level 50 challenges!',
+        'daily': '📅 New challenges appear every day at midnight. Don\'t miss your daily streak bonus!',
+        'friends': '👥 Challenge your friends! Share your scores and see who has the sharpest eyes and quickest reactions!',
+        'privacy': '🔒 Your privacy matters. We only save game progress and suggestions. No personal data is collected or shared.',
+        'fun': '🤖 Did you know? The human eye can distinguish about 10 million different colors!',
+        'fact': '👁️ Fun fact: Your eyes blink about 15-20 times per minute - that\'s over 1,200 times per hour!',
+        'interesting': '🔥 Your brain processes images 60,000 times faster than text! That\'s why visual challenges are so effective!',
+        'default': '🤖 That\'s a great question! Try Eagle Radar to test your observation skills, or ask me about hints, tips, games, or anything else!'
+      };
+
+      let response = responses.default;
+      const lowerQuestion = question.toLowerCase();
+
+      for (const [keyword, reply] of Object.entries(responses)) {
+        if (lowerQuestion.includes(keyword)) {
+          response = reply;
+          break;
+        }
+      }
+
+      aiResponse.innerHTML = response;
+      aiResponse.style.color = '#4ecdc4';
+      aiInput.value = '';
+      playTap();
+    }
+
+    // ============================================
+    // SEND SUGGESTION
+    // ============================================
+    function sendSuggestion() {
+      const suggestionInput = document.getElementById('suggestion');
+      const suggestionMessage = document.getElementById('suggestionMessage');
+      const suggestion = suggestionInput.value.trim();
+
+      if (suggestion === '') {
+        suggestionMessage.innerHTML = '⚠️ Please write a suggestion before submitting.';
+        suggestionMessage.style.color = '#ff6b6b';
+        playTap();
+        return;
+      }
+
+      let suggestions = JSON.parse(localStorage.getItem('suggestions') || '[]');
+      suggestions.push({
+        text: suggestion,
+        date: new Date().toLocaleString()
       });
-    });
+      localStorage.setItem('suggestions', JSON.stringify(suggestions));
 
-    // Save stats when page unloads
-    window.addEventListener('beforeunload', saveStats);
-    
-    // Allow Enter key to submit suggestion
-    document.getElementById('suggestion')?.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        sendSuggestion();
+      suggestionMessage.innerHTML = '✅ Thank you for your suggestion! We appreciate your feedback.';
+      suggestionMessage.style.color = '#4ecdc4';
+      suggestionInput.value = '';
+      console.log('💡 Suggestion saved:', suggestion);
+      playTap();
+    }
+
+    // ============================================
+    // LOAD SUGGESTIONS (Optional)
+    // ============================================
+    function loadSuggestions() {
+      const suggestions = JSON.parse(localStorage.getItem('suggestions') || '[]');
+      if (suggestions.length > 0) {
+        console.log(`📋 ${suggestions.length} suggestions saved:`, suggestions);
       }
-    });
-    
-    // Allow Enter key to ask AI
-    document.getElementById('aiInput')?.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        askAI();
-      }
-    });
-  });
+    }
 
-  // === OVERRIDE START GAME FUNCTION ===
-  const originalStartGame = window.startGame;
-  window.startGame = function() {
-    if (originalStartGame) originalStartGame();
-    setTimeout(saveStats, 1000);
-  };
+    // ============================================
+    // PAGE LOAD
+    // ============================================
+    window.addEventListener('DOMContentLoaded', function() {
+      loadSavedStats();
+      loadSuggestions();
 
-  console.log('🍪 Cookies loaded!');
-  console.log('🤖 AI Coach ready!');
-  console.log('💡 Suggestion system ready!');
-</script>
+      document.querySelectorAll('.game-card, .featured-card, .play-button').forEach(el => {
+        el.addEventListener('click', function(e) {
+          // Don't play tap twice if already handled
+        });
+      });
+
+      document.getElementById('suggestion')?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          sendSuggestion();
+        }
+      });
+
+      document.getElementById('aiInput')?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          askAI();
+        }
+      });
+
+      window.addEventListener('beforeunload', saveStats);
+    });
+
+    console.log('🍪 Cookies loaded!');
+    console.log('🤖 AI Coach ready!');
+    console.log('💡 Suggestion system ready!');
+    console.log('👁️ All ' + document.querySelectorAll('.game-card').length + ' games loaded!');
+  </script>
+
 </body>
 </html>
-
-
-        
