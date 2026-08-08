@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>🎨 Color Vision Challenge</title>
+
+<link rel="stylesheet" href="color-vision.css">
+
+</head>
+
+<body>
+
+<div class="game-container">
+
+    <!-- HEADER -->
+    <header class="game-header">
+
+        <h1>🎨 Color Vision Challenge</h1>
+
+        <p class="subtitle">
+            Can you see the hidden number?
+        </p>
+
+    </header>
+
+
+    <!-- GAME INFORMATION -->
+    <div class="game-info">
+
+        <div class="info-box">
+            <span>⭐ Score</span>
+            <strong id="score">0</strong>
+        </div>
+
+        <div class="info-box">
+            <span>🔥 Streak</span>
+            <strong id="streak">0</strong>
+        </div>
+
+        <div class="info-box">
+            <span>❤️ Lives</span>
+            <strong id="lives">3</strong>
+        </div>
+
+        <div class="info-box">
+            <span>⏱️ Time</span>
+            <strong id="timer">20</strong>
+        </div>
+
+    </div>
+
+
+    <!-- PROGRESS -->
+    <div class="progress-area">
+
+        <div class="progress-text">
+            Test <span id="current-test">1</span>
+            / 11
+        </div>
+
+        <div class="progress-bar">
+
+            <div id="progress-fill"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- START SCREEN -->
+    <section id="start-screen" class="screen">
+
+        <div class="start-card">
+
+            <div class="big-icon">👁️</div>
+
+            <h2>Ready for the Challenge?</h2>
+
+            <p>
+                Look carefully at each picture and
+                find the hidden number.
+            </p>
+
+            <button id="start-button">
+                🚀 START CHALLENGE
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- GAME SCREEN -->
+    <section id="game-screen" class="screen hidden">
+
+        <div class="question-card">
+
+            <h2>What number do you see?</h2>
+
+            <!-- IMAGE WILL APPEAR HERE -->
+            <div class="image-area">
+
+                <img id="test-image"
+                     src=""
+                     alt="Color vision test">
+
+            </div>
+
+
+            <!-- ANSWER BUTTONS -->
+            <div id="answer-buttons"
+                 class="answer-buttons">
+            </div>
+
+
+            <!-- FEEDBACK -->
+            <div id="feedback"
+                 class="feedback">
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESULT SCREEN -->
+    <section id="result-screen"
+             class="screen hidden">
+
+        <div class="result-card">
+
+            <div class="result-icon">
+                🏆
+            </div>
+
+            <h2>Challenge Complete!</h2>
+
+            <p class="result-message"
+               id="result-message">
+            </p>
+
+            <div class="final-score">
+
+                <span>Your Score</span>
+
+                <strong id="final-score">
+                    0
+                </strong>
+
+            </div>
+
+            <div class="result-stats">
+
+                <div>
+                    <span>Correct</span>
+                    <strong id="correct-count">0</strong>
+                </div>
+
+                <div>
+                    <span>Wrong</span>
+                    <strong id="wrong-count">0</strong>
+                </div>
+
+                <div>
+                    <span>Best Streak</span>
+                    <strong id="best-streak">0</strong>
+                </div>
+
+            </div>
+
+            <button id="restart-button">
+                🔄 PLAY AGAIN
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- DISCLAIMER -->
+    <footer class="game-footer">
+
+        <p>
+            🎨 This is an entertainment color-vision
+            challenge and is not a medical diagnosis.
+        </p>
+
+    </footer>
+
+</div>
+
+
+<script src="color-vision.js"></script>
+
+</body>
+
+</html>
