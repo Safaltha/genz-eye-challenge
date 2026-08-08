@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eye Challenge</title>
+    <link rel="stylesheet" href="eye-challenge.css">
+</head>
+<body>
+
+    <div class="header">
+        <h1>🔍 How many different numbers can you see?</h1>
+    </div>
+    
+    <div class="stats">
+        <span>🏆 Rounds Passed: <span id="scoreDisplay">0</span></span>
+    </div>
+
+    <!-- 20x20 Grid Container -->
+    <div id="game-container">
+        <div id="game-board"></div>
+    </div>
+
+    <!-- Player Controls -->
+    <div class="controls">
+        <div class="input-group">
+            <input type="number" id="answerInput" placeholder="Count (0-5)" min="0" max="5">
+            <button id="submitBtn">Submit Answer</button>
+        </div>
+        <div id="messageBox"></div>
+        <button id="giveUpBtn">💡 Give Up / Next Round</button>
+    </div>
+
+    <script src="eye-challenge.js"></script>
+</body>
+</html>
