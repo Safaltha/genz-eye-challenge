@@ -39,7 +39,6 @@ function generateNumberPair() {
 
 // 2. Build the 20x20 grid with the 0 trick
 function generateNewGrid() {
-    // Clear any pending timeouts from a previous round
     if (nextRoundTimeout) {
         clearTimeout(nextRoundTimeout);
         nextRoundTimeout = null;
@@ -58,8 +57,8 @@ function generateNewGrid() {
     const mainNum = pair.mainNum;
     const oddNum = pair.oddNum;
     
-    // Randomly pick 0, 3, 4, or 5
-    const possibleAnswers = [0, 3, 4, 5];
+    // UPDATED: Randomly pick a number from 0 to 10 (We skip 1 and 2 because it's too easy to spot!)
+    const possibleAnswers = [0, 3, 4, 5, 6, 7, 8, 9, 10];
     correctAnswer = possibleAnswers[getRandomInt(0, possibleAnswers.length - 1)];
 
     let grid = Array(ROWS).fill().map(() => Array(COLS).fill(mainNum));
@@ -95,14 +94,14 @@ function checkAnswer() {
     if (!isRoundActive) return;
     let userInput = parseInt(answerInput.value);
     
-    if (isNaN(userInput) || userInput < 0 || userInput > 5) {
+    // UPDATED: Validate input range from 0 to 10
+    if (isNaN(userInput) || userInput < 0 || userInput > 10) {
         messageBox.style.color = "#facc15";
-        messageBox.textContent = "Please enter a valid number (0 to 5).";
+        messageBox.textContent = "Please enter a valid number (0 to 10).";
         return;
     }
 
     if (userInput === correctAnswer) {
-        // CORRECT ANSWER
         messageBox.style.color = "#22c55e";
         messageBox.textContent = "✅ Correct! Moving to next round...";
         currentScore++;
@@ -111,18 +110,15 @@ function checkAnswer() {
         isRoundActive = false;
         nextRoundTimeout = setTimeout(generateNewGrid, 1500);
     } else {
-        // WRONG ANSWER
         wrongAttempts++;
         
         if (wrongAttempts >= MAX_WRONG_ATTEMPTS) {
-            // REVEAL ANSWER (4th wrong guess)
             isRoundActive = false;
             answerInput.disabled = true;
             submitBtn.disabled = true;
             messageBox.style.color = "#f59e0b"; // Orange
             messageBox.innerHTML = `⏰ Too many wrong attempts! The correct answer was <strong>${correctAnswer}</strong>. Press the "<strong>Give Up</strong>" button to start the next round.`;
         } else {
-            // Give them another chance
             messageBox.style.color = "#ef4444"; // Red
             messageBox.textContent = `❌ Wrong! (${wrongAttempts}/${MAX_WRONG_ATTEMPTS}) Try again, or press 'Give Up'.`;
             answerInput.focus();
@@ -132,19 +128,16 @@ function checkAnswer() {
 
 // 4. Give Up / Skip (Also acts as "Next Round" after answer reveal)
 function giveUp() {
-    // Clear any pending auto-transition
     if (nextRoundTimeout) {
         clearTimeout(nextRoundTimeout);
         nextRoundTimeout = null;
     }
 
     if (!isRoundActive) {
-        // If they used up attempts or got it right, just go straight to next round
         generateNewGrid();
         return;
     }
 
-    // Standard manual give up
     messageBox.style.color = "#facc15";
     messageBox.textContent = "New round starting...";
     answerInput.disabled = true;
