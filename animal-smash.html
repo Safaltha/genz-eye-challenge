@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <meta name="theme-color" content="#111827">
+
+  <title>🐾 Animal Smash Challenge</title>
+
+  <link rel="stylesheet" href="animal-smash.css">
+</head>
+
+<body>
+
+  <main class="game-page">
+
+    <!-- HEADER -->
+    <header class="game-header">
+
+      <button id="backButton" class="back-button" type="button">
+        ← Back
+      </button>
+
+      <div class="title-area">
+        <h1>🐾 Animal Smash</h1>
+        <p>Catch them before they disappear!</p>
+      </div>
+
+      <button id="soundButton"
+              class="icon-button"
+              type="button"
+              aria-label="Toggle sound">
+        🔊
+      </button>
+
+    </header>
+
+
+    <!-- GAME INFORMATION -->
+    <section class="game-info" aria-label="Game information">
+
+      <div class="info-box">
+        <span class="info-label">SCORE</span>
+        <strong id="score">0</strong>
+      </div>
+
+      <div class="info-box">
+        <span class="info-label">COMBO</span>
+        <strong id="combo">0</strong>
+      </div>
+
+      <div class="info-box">
+        <span class="info-label">LIVES</span>
+        <strong id="lives">❤️❤️❤️</strong>
+      </div>
+
+      <div class="info-box">
+        <span class="info-label">TIME</span>
+        <strong id="timer">60</strong>
+      </div>
+
+    </section>
+
+
+    <!-- GAME AREA -->
+    <section class="game-container">
+
+      <div id="gameBoard"
+           class="game-board"
+           aria-label="Animal Smash game board">
+
+        <!-- 9 HOLES -->
+        <button class="hole" data-hole="0" type="button">
+          <span class="hole-shadow"></span>
+          <span class="animal" aria-hidden="true"></span>
+        </button>
+
+        <button class="hole" data-hole="1" type="button">
+          <span class="hole-shadow"></span>
+          <span class="animal" aria-hidden="true"></span>
+        </button>
+
+        <button class="hole" data-hole="2" type="button">
+          <span class="hole-shadow"></span>
+          <span class="animal" aria-hidden="true"></span>
+        </button>
+
+        <button class="hole" data-hole="3" type="button">
+          <span class="hole-shadow"></span>
+          <span class="animal" aria-hidden="true"></span>
+        </button>
+
+        <button class="hole" data-hole="4" type="button">
+          <span class="hole-shadow"></span>
+          <span class="animal" aria-hidden="true"></span>
+        </button>
+
+        <button class="hole" data-hole="5" type="button">
+          <span class="hole-shadow"></span>
+          <span class="animal" aria-hidden="true"></span>
+        </button>
+
+        <button class="hole" data-hole="6" type="button">
+          <span class="hole-shadow"></span>
+          <span class="animal" aria-hidden="true"></span>
+        </button>
+
+        <button class="hole" data-hole="7" type="button">
+          <span class="hole-shadow"></span>
+          <span class="animal" aria-hidden="true"></span>
+        </button>
+
+        <button class="hole" data-hole="8" type="button">
+          <span class="hole-shadow"></span>
+          <span class="animal" aria-hidden="true"></span>
+        </button>
+
+        <!-- HAMMER -->
+        <div id="hammer"
+             class="hammer"
+             aria-hidden="true">
+          🔨
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- GAME MESSAGE -->
+    <section class="message-area">
+
+      <p id="gameMessage">
+        Get ready! Animals are coming! 🐰
+      </p>
+
+    </section>
+
+
+    <!-- CONTROLS -->
+    <section class="controls">
+
+      <button id="startButton"
+              class="primary-button"
+              type="button">
+        🎮 START GAME
+      </button>
+
+      <button id="restartButton"
+              class="secondary-button hidden"
+              type="button">
+        🔄 PLAY AGAIN
+      </button>
+
+    </section>
+
+
+    <!-- BEST SCORE -->
+    <section class="best-score">
+
+      <span>🏆 BEST SCORE</span>
+
+      <strong id="bestScore">
+        0
+      </strong>
+
+    </section>
+
+
+    <!-- INSTRUCTIONS -->
+    <section class="instructions">
+
+      <h2>How to Play</h2>
+
+      <div class="instruction-grid">
+
+        <div>
+          <span>👀</span>
+          <p>Watch the holes</p>
+        </div>
+
+        <div>
+          <span>🐰</span>
+          <p>Find the animal</p>
+        </div>
+
+        <div>
+          <span>🔨</span>
+          <p>Tap quickly!</p>
+        </div>
+
+        <div>
+          <span>🔥</span>
+          <p>Build your combo</p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- GAME JAVASCRIPT -->
+  <script src="animal-smash.js"></script>
+
+</body>
+</html>
