@@ -1,1305 +1,802 @@
+
 /* =========================================================
-ANIMAL SMASH — FINAL CSS
+   🐾 ANIMAL SMASH
+   COMPLETE GAME STYLE
 ========================================================= */
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
   margin: 0;
   padding: 0;
-  -webkit-tap-highlight-color: transparent;
-  }
-
-html {
-scroll-behavior: smooth;
+  min-height: 100%;
 }
 
 body {
-min-height: 100vh;
-font-family: "Segoe UI", Arial, sans-serif;
-color: #ffffff;
-background:
-radial-gradient(circle at 20% 10%, rgba(0, 255, 255, 0.15), transparent 30%),
-radial-gradient(circle at 85% 20%, rgba(255, 0, 170, 0.13), transparent 30%),
-linear-gradient(145deg, #050816, #10152b 55%, #03040a);
-overflow-x: hidden;
-user-select: none;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #243047 0%,
+      #111827 45%,
+      #070b12 100%
+    );
+
+  color: white;
+
+  overflow-x: hidden;
 }
 
-/* =========================================================
-MAIN PAGE
-========================================================= */
+button {
+  font: inherit;
+}
 
 .game-page {
-width: min(1100px, 100%);
-margin: 0 auto;
-padding: 18px;
+  width: min(100%, 900px);
+  margin: auto;
+  padding: 14px;
 }
 
+
 /* =========================================================
-HEADER
+   HEADER
 ========================================================= */
 
 .game-header {
-display: grid;
-grid-template-columns: auto 1fr auto;
-align-items: center;
-gap: 15px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
 
-padding: 18px;
-margin-bottom: 18px;
-
-border: 1px solid rgba(255, 255, 255, 0.1);
-border-radius: 22px;
-
-background: rgba(255, 255, 255, 0.05);
-backdrop-filter: blur(15px);
-
-box-shadow:
-0 15px 45px rgba(0, 0, 0, 0.3),
-inset 0 1px rgba(255, 255, 255, 0.05);
+  margin-bottom: 18px;
 }
 
 .title-area {
-text-align: center;
+  text-align: center;
 }
 
 .title-area h1 {
-font-size: clamp(26px, 5vw, 42px);
-font-weight: 900;
-
-background: linear-gradient(
-90deg,
-#00ffff,
-#ffffff,
-#ff4fd8,
-#00ffff
-);
-
-background-size: 300% auto;
-
--webkit-background-clip: text;
-background-clip: text;
-color: transparent;
-
-animation: titleGradient 5s linear infinite;
+  margin: 0;
+  font-size: clamp(1.6rem, 6vw, 2.6rem);
 }
 
 .title-area p {
-margin-top: 5px;
-color: #9aa5c5;
-font-size: 14px;
-}
-
-@keyframes titleGradient {
-0% {
-background-position: 0% center;
-}
-
-100% {
-background-position: 300% center;
-}
-}
-
-/* =========================================================
-BUTTONS
-========================================================= */
-
-button {
-font-family: inherit;
+  margin: 5px 0 0;
+  opacity: .75;
+  font-size: .85rem;
 }
 
 .back-button,
-.icon-button,
-.primary-button,
-.secondary-button,
-.difficulty-button {
-border: none;
-cursor: pointer;
-touch-action: manipulation;
-}
-
-.back-button {
-padding: 10px 15px;
-
-border-radius: 12px;
-
-color: #ffffff;
-background: rgba(255, 255, 255, 0.08);
-
-font-weight: 700;
-
-transition: 0.2s ease;
-}
-
-.back-button:hover {
-background: rgba(0, 255, 255, 0.15);
-transform: translateY(-2px);
+.icon-button {
+  border: 0;
+  border-radius: 12px;
+  padding: 10px 13px;
+  background: rgba(255,255,255,.1);
+  color: white;
+  cursor: pointer;
 }
 
 .icon-button {
-width: 45px;
-height: 45px;
-
-border-radius: 50%;
-
-color: white;
-background: rgba(255, 255, 255, 0.08);
-
-font-size: 20px;
-
-transition: 0.2s ease;
+  font-size: 1.2rem;
 }
 
-.icon-button:hover {
-transform: scale(1.08);
-background: rgba(0, 255, 255, 0.15);
-}
 
 /* =========================================================
-DIFFICULTY PANEL
+   DIFFICULTY
 ========================================================= */
 
 .difficulty-panel {
-padding: 28px 20px;
-margin: 20px 0;
-
-text-align: center;
-
-border: 1px solid rgba(0, 255, 255, 0.14);
-border-radius: 26px;
-
-background:
-linear-gradient(
-135deg,
-rgba(0, 255, 255, 0.07),
-rgba(255, 0, 200, 0.05)
-);
-
-box-shadow:
-0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1);
+  text-align: center;
 }
 
 .difficulty-panel h2 {
-color: #00ffff;
-font-size: clamp(22px, 4vw, 30px);
+  margin: 0 0 6px;
 }
 
 .difficulty-description {
-margin: 8px 0 22px;
-color: #8f9bbd;
+  opacity: .7;
+  margin-top: 5px;
 }
 
 .difficulty-buttons {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 15px;
-max-width: 850px;
-margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 15px;
 }
 
 .difficulty-button {
-min-height: 90px;
-padding: 15px;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  padding: 15px 8px;
+  background: rgba(255,255,255,.08);
+  color: white;
+  cursor: pointer;
+  transition: .2s;
+}
 
-border-radius: 18px;
-
-color: white;
-
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-
-gap: 7px;
-
-font-size: 18px;
-font-weight: 900;
-
-transition:
-transform 0.2s ease,
-box-shadow 0.2s ease;
+.difficulty-button span {
+  display: block;
+  font-weight: 900;
 }
 
 .difficulty-button small {
-font-size: 11px;
-font-weight: 500;
-opacity: 0.8;
+  display: block;
+  margin-top: 6px;
+  opacity: .65;
 }
 
-.difficulty-button:hover {
-transform: translateY(-5px) scale(1.02);
+.difficulty-button:hover,
+.difficulty-button.active {
+  transform: translateY(-2px);
+  border-color: #fff;
+  background: rgba(255,255,255,.15);
 }
 
-.difficulty-button:active {
-transform: scale(0.96);
-}
-
-.difficulty-button.easy {
-background: linear-gradient(
-135deg,
-rgba(34, 197, 94, 0.25),
-rgba(16, 185, 129, 0.1)
-);
-
-border: 1px solid rgba(34, 197, 94, 0.5);
-}
-
-.difficulty-button.normal {
-background: linear-gradient(
-135deg,
-rgba(250, 204, 21, 0.25),
-rgba(234, 179, 8, 0.1)
-);
-
-border: 1px solid rgba(250, 204, 21, 0.5);
-}
-
-.difficulty-button.hard {
-background: linear-gradient(
-135deg,
-rgba(239, 68, 68, 0.25),
-rgba(220, 38, 38, 0.1)
-);
-
-border: 1px solid rgba(239, 68, 68, 0.5);
-}
 
 /* =========================================================
-OBJECTIVE PANEL
+   OBJECTIVE
 ========================================================= */
 
 .objective-panel {
-display: grid;
-
-grid-template-columns: 0.7fr 1.6fr 1fr;
-
-gap: 12px;
-
-margin: 18px 0;
+  display: grid;
+  grid-template-columns: 1fr 1.7fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
 }
 
 .round-display,
 .target-display,
 .special-display {
-min-height: 100px;
+  border-radius: 18px;
+  padding: 12px;
+  text-align: center;
 
-display: flex;
-flex-direction: column;
-
-align-items: center;
-justify-content: center;
-
-text-align: center;
-
-padding: 12px;
-
-border-radius: 20px;
-
-background: rgba(255, 255, 255, 0.05);
-
-border: 1px solid rgba(255, 255, 255, 0.1);
-
-backdrop-filter: blur(12px);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.1);
 }
 
 .round-display span,
-.target-label,
+.target-display span,
 .special-display span {
-color: #8f9bbd;
-font-size: 11px;
-font-weight: 800;
-letter-spacing: 1px;
+  display: block;
+  font-size: .72rem;
+  opacity: .65;
 }
 
 .round-display strong {
-margin-top: 5px;
-color: #00ffff;
-font-size: 34px;
+  display: block;
+  font-size: 1.8rem;
+  margin-top: 4px;
 }
 
 .target-display strong {
-margin: 4px 0;
-color: #ffffff;
-font-size: clamp(21px, 4vw, 30px);
-}
-
-#targetProgress {
-color: #5ee7ff;
-font-size: 13px;
-font-weight: 800;
+  display: block;
+  font-size: clamp(1.2rem, 5vw, 1.8rem);
+  margin: 5px 0;
 }
 
 .special-display strong {
-margin: 3px 0;
-font-size: 35px;
+  display: block;
+  font-size: 2rem;
+  margin: 4px;
 }
 
-.special-display span:last-child {
-color: #ffd700;
-}
 
 /* =========================================================
-GAME INFORMATION
+   GAME INFO
 ========================================================= */
 
 .game-info {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 12px;
-
-margin: 18px 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 12px 0;
 }
 
 .info-box {
-min-height: 75px;
-
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-
-border-radius: 18px;
-
-background: rgba(255, 255, 255, 0.05);
-border: 1px solid rgba(255, 255, 255, 0.08);
-
-backdrop-filter: blur(12px);
+  text-align: center;
+  padding: 10px 5px;
+  border-radius: 15px;
+  background: rgba(255,255,255,.08);
 }
 
 .info-label {
-color: #7f8baa;
-font-size: 10px;
-font-weight: 900;
-letter-spacing: 1px;
+  display: block;
+  font-size: .65rem;
+  opacity: .65;
 }
 
 .info-box strong {
-margin-top: 4px;
-color: #ffffff;
-font-size: 23px;
+  display: block;
+  margin-top: 4px;
+  font-size: 1.2rem;
 }
 
+.time-box strong {
+  font-size: 1.4rem;
+}
+
+
 /* =========================================================
-GAME CONTAINER
+   GAME BOARD
 ========================================================= */
 
 .game-container {
-display: flex;
-justify-content: center;
-width: 100%;
+  position: relative;
 }
 
 .game-board {
-position: relative;
+  position: relative;
 
-width: min(700px, 100%);
-aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 650px;
 
-display: grid;
+  margin: auto;
 
-grid-template-columns: repeat(3, 1fr);
-grid-template-rows: repeat(3, 1fr);
+  aspect-ratio: 1 / 1;
 
-gap: clamp(8px, 2vw, 18px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(10px, 3vw, 18px);
 
-padding: clamp(12px, 3vw, 25px);
+  padding: clamp(10px, 4vw, 22px);
 
-border-radius: 30px;
+  border-radius: 30px;
 
-overflow: hidden;
+  background:
+    linear-gradient(
+      145deg,
+      #182235,
+      #0b111c
+    );
 
-background:
-radial-gradient(
-circle at center,
-rgba(34, 197, 94, 0.15),
-transparent 55%
-),
-linear-gradient(
-145deg,
-#18251c,
-#0c160f
-);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.45),
+    inset 0 0 30px rgba(0,0,0,.4);
 
-border: 2px solid rgba(34, 197, 94, 0.2);
-
-box-shadow:
-0 30px 80px rgba(0, 0, 0, 0.5),
-inset 0 0 40px rgba(0, 255, 120, 0.04);
-
-touch-action: manipulation;
+  overflow: hidden;
 }
 
+
 /* =========================================================
-HOLES
+   HOLES
 ========================================================= */
 
 .hole {
-position: relative;
+  position: relative;
 
-width: 100%;
-height: 100%;
+  border: 0;
+  padding: 0;
 
-min-height: 100px;
+  border-radius: 50%;
 
-border: none;
-border-radius: 50%;
+  background:
+    radial-gradient(
+      ellipse at center,
+      #030507 0%,
+      #0b0f15 48%,
+      #151c29 52%,
+      #05070a 100%
+    );
 
-overflow: hidden;
+  box-shadow:
+    inset 0 8px 15px rgba(0,0,0,.8),
+    0 5px 10px rgba(0,0,0,.35);
 
-cursor: crosshair;
+  cursor: crosshair;
 
-background:
-radial-gradient(
-ellipse at center,
-#020303 0%,
-#050806 45%,
-#18201a 48%,
-#273329 60%,
-#101711 72%,
-#060806 100%
-);
+  overflow: hidden;
 
-box-shadow:
-inset 0 12px 20px rgba(0, 0, 0, 0.8),
-inset 0 -8px 12px rgba(255, 255, 255, 0.03),
-0 6px 15px rgba(0, 0, 0, 0.5);
+  min-width: 0;
+  min-height: 0;
 
-transition: transform 0.12s ease;
+  touch-action: manipulation;
+
+  transition: transform .12s;
 }
 
 .hole:active {
-transform: scale(0.95);
+  transform: scale(.94);
 }
 
 .hole-shadow {
-position: absolute;
-
-left: 10%;
-right: 10%;
-bottom: 13%;
-
-height: 25%;
-
-border-radius: 50%;
-
-background: rgba(0, 0, 0, 0.7);
-
-filter: blur(5px);
-
-pointer-events: none;
+  position: absolute;
+  inset: 15%;
+  border-radius: 50%;
+  background: rgba(0,0,0,.5);
 }
 
+
 /* =========================================================
-ANIMAL
+   ANIMAL
 ========================================================= */
 
 .animal {
-position: absolute;
+  position: absolute;
 
-left: 50%;
-bottom: -55%;
+  left: 50%;
+  top: 58%;
 
-width: 72%;
-height: 72%;
+  transform:
+    translate(-50%, -50%)
+    scale(0);
 
-transform: translateX(-50%);
+  font-size: clamp(2.5rem, 10vw, 5rem);
 
-display: flex;
-align-items: center;
-justify-content: center;
+  line-height: 1;
 
-font-size: clamp(40px, 8vw, 75px);
+  z-index: 4;
 
-opacity: 0;
+  pointer-events: none;
 
-pointer-events: none;
-
-z-index: 3;
-
-transition:
-bottom 0.16s ease,
-opacity 0.12s ease,
-transform 0.12s ease;
-
-filter:
-drop-shadow(0 5px 7px rgba(0, 0, 0, 0.6));
+  transition:
+    transform .15s ease;
 }
 
 .hole.active .animal {
-bottom: 3%;
-opacity: 1;
+  transform:
+    translate(-50%, -50%)
+    scale(1);
 }
 
-.animal.target {
-filter:
-drop-shadow(0 0 10px rgba(0, 255, 255, 0.8))
-drop-shadow(0 5px 7px rgba(0, 0, 0, 0.7));
+.hole.active {
+  box-shadow:
+    inset 0 5px 15px rgba(0,0,0,.8),
+    0 0 0 2px rgba(255,255,255,.08);
 }
 
-.animal.special {
-filter:
-drop-shadow(0 0 12px rgba(255, 215, 0, 1))
-drop-shadow(0 0 25px rgba(255, 170, 0, 0.6));
-}
-
-.animal.bomb {
-filter:
-drop-shadow(0 0 12px rgba(255, 50, 50, 0.9))
-drop-shadow(0 0 25px rgba(255, 0, 0, 0.5));
-}
 
 /* =========================================================
-HAMMER
+   TARGET
 ========================================================= */
 
-.hammer {
-position: absolute;
-
-left: 50%;
-top: 50%;
-
-z-index: 20;
-
-font-size: clamp(55px, 12vw, 100px);
-
-opacity: 0;
-
-pointer-events: none;
-
-transform:
-translate(-25%, -25%)
-rotate(-35deg)
-scale(0.7);
-
-transition:
-opacity 0.08s ease,
-transform 0.08s ease;
+.hole.target-hit {
+  animation: targetHit .3s ease;
 }
 
-.hammer.smash {
-opacity: 1;
-
-transform:
-translate(-50%, -50%)
-rotate(25deg)
-scale(1.15);
+@keyframes targetHit {
+  50% {
+    transform: scale(1.12);
+  }
 }
+
 
 /* =========================================================
-HIT EFFECTS
+   SPECIAL
 ========================================================= */
 
-.hit-effect {
-position: absolute;
-
-z-index: 30;
-
-pointer-events: none;
-
-font-size: 24px;
-font-weight: 900;
-
-animation: hitFloat 0.7s ease-out forwards;
+.hole.special {
+  box-shadow:
+    0 0 20px rgba(255,215,0,.8),
+    inset 0 0 20px rgba(255,215,0,.2);
 }
 
-@keyframes hitFloat {
-0% {
-opacity: 1;
-transform: translate(-50%, 0) scale(0.8);
+.hole.special .animal {
+  animation: specialPulse .6s infinite alternate;
 }
 
-100% {
-opacity: 0;
-transform: translate(-50%, -70px) scale(1.2);
-}
-}
+@keyframes specialPulse {
+  from {
+    filter: brightness(1);
+  }
 
-.bomb-effect {
-position: absolute;
-
-inset: 0;
-
-z-index: 50;
-
-display: flex;
-
-align-items: center;
-justify-content: center;
-
-pointer-events: none;
-
-font-size: clamp(60px, 15vw, 120px);
-
-animation: bombBoom 0.7s ease-out forwards;
+  to {
+    filter: brightness(1.6);
+    transform:
+      translate(-50%, -50%)
+      scale(1.12);
+  }
 }
 
-@keyframes bombBoom {
-0% {
-opacity: 0;
-transform: scale(0.3);
-}
-
-40% {
-opacity: 1;
-transform: scale(1.3);
-}
-
-100% {
-opacity: 0;
-transform: scale(1.8);
-}
-}
 
 /* =========================================================
-MESSAGE
+   BOMB
 ========================================================= */
 
-.message-area {
-min-height: 60px;
-
-display: flex;
-align-items: center;
-justify-content: center;
-
-margin: 15px 0;
-
-text-align: center;
+.hole.bomb {
+  box-shadow:
+    0 0 18px rgba(255,60,60,.5),
+    inset 0 0 15px rgba(255,0,0,.1);
 }
 
-#gameMessage {
-color: #a9b5d2;
-font-size: 16px;
-font-weight: 700;
-line-height: 1.5;
+.hole.bomb .animal {
+  animation: bombShake .2s infinite;
 }
 
-#gameMessage.success {
-color: #4ade80;
+@keyframes bombShake {
+  0% {
+    transform:
+      translate(-52%, -50%)
+      rotate(-3deg)
+      scale(1);
+  }
+
+  50% {
+    transform:
+      translate(-48%, -50%)
+      rotate(3deg)
+      scale(1.05);
+  }
+
+  100% {
+    transform:
+      translate(-52%, -50%)
+      rotate(-3deg)
+      scale(1);
+  }
 }
 
-#gameMessage.warning {
-color: #facc15;
-}
-
-#gameMessage.danger {
-color: #ff5c5c;
-}
-
-#gameMessage.bonus {
-color: #ffd700;
-}
-
-/* =========================================================
-CONTROLS
-========================================================= */
-
-.controls {
-display: flex;
-
-justify-content: center;
-align-items: center;
-
-flex-wrap: wrap;
-
-gap: 10px;
-
-margin: 18px 0;
-}
-
-.primary-button,
-.secondary-button {
-min-width: 170px;
-
-padding: 14px 24px;
-
-border-radius: 50px;
-
-font-size: 15px;
-font-weight: 900;
-
-transition:
-transform 0.2s ease,
-box-shadow 0.2s ease;
-}
-
-.primary-button {
-color: #020617;
-
-background:
-linear-gradient(
-90deg,
-#00ffff,
-#a855f7,
-#ff4fd8
-);
-
-box-shadow:
-0 8px 30px rgba(0, 255, 255, 0.18);
-}
-
-.primary-button:hover {
-transform: translateY(-3px) scale(1.03);
-box-shadow:
-0 12px 40px rgba(0, 255, 255, 0.3);
-}
-
-.secondary-button {
-color: white;
-
-background: rgba(255, 255, 255, 0.08);
-
-border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.secondary-button:hover {
-transform: translateY(-3px);
-background: rgba(255, 255, 255, 0.13);
-}
 
 /* =========================================================
-BEST SCORE
-========================================================= */
-
-.best-score {
-display: flex;
-
-justify-content: center;
-align-items: center;
-
-gap: 12px;
-
-margin: 20px auto;
-
-width: min(400px, 100%);
-
-padding: 15px;
-
-border-radius: 18px;
-
-background: rgba(255, 215, 0, 0.06);
-
-border: 1px solid rgba(255, 215, 0, 0.15);
-}
-
-.best-score span {
-color: #b5bed5;
-font-size: 13px;
-font-weight: 800;
-}
-
-.best-score strong {
-color: #ffd700;
-font-size: 24px;
-}
-
-/* =========================================================
-INSTRUCTIONS
-========================================================= */
-
-.instructions,
-.game-rules {
-margin-top: 25px;
-
-padding: 25px;
-
-border-radius: 24px;
-
-background: rgba(255, 255, 255, 0.04);
-
-border: 1px solid rgba(255, 255, 255, 0.08);
-
-backdrop-filter: blur(12px);
-}
-
-.instructions h2,
-.game-rules h2 {
-margin-bottom: 18px;
-
-color: #00ffff;
-
-text-align: center;
-
-font-size: 24px;
-}
-
-.instruction-grid {
-display: grid;
-
-grid-template-columns: repeat(4, 1fr);
-
-gap: 12px;
-}
-
-.instruction-grid > div {
-padding: 15px 8px;
-
-text-align: center;
-
-border-radius: 16px;
-
-background: rgba(255, 255, 255, 0.04);
-}
-
-.instruction-grid span {
-display: block;
-
-margin-bottom: 8px;
-
-font-size: 30px;
-}
-
-.instruction-grid p {
-color: #9da8c4;
-
-font-size: 12px;
-
-line-height: 1.4;
-}
-
-.danger-warning {
-margin-top: 18px;
-
-padding: 14px;
-
-text-align: center;
-
-border-radius: 14px;
-
-color: #ffb4b4;
-
-background: rgba(255, 50, 50, 0.08);
-
-border: 1px solid rgba(255, 50, 50, 0.18);
-
-font-size: 13px;
-}
-
-.game-rules p {
-max-width: 800px;
-
-margin: 10px auto;
-
-color: #9da8c4;
-
-text-align: center;
-
-line-height: 1.7;
-
-font-size: 14px;
-}
-
-/* =========================================================
-UTILITY
-========================================================= */
-
-.hidden {
-display: none !important;
-}
-
-/* =========================================================
-GAME STATES
-========================================================= */
-
-.game-board.game-over {
-animation: boardShake 0.45s ease;
-}
-
-@keyframes boardShake {
-0%,
-100% {
-transform: translateX(0);
-}
-
-20% {
-transform: translateX(-8px);
-}
-
-40% {
-transform: translateX(8px);
-}
-
-60% {
-transform: translateX(-6px);
-}
-
-80% {
-transform: translateX(6px);
-}
-}
-
-.game-board.round-complete {
-animation: roundPulse 0.45s ease;
-}
-
-@keyframes roundPulse {
-0% {
-transform: scale(1);
-}
-
-50% {
-transform: scale(1.025);
-}
-
-100% {
-transform: scale(1);
-}
-}
-
-/* =========================================================
-RESPONSIVE — TABLET
-========================================================= */
-
-@media (max-width: 760px) {
-
-.game-page {
-padding: 12px;
-}
-
-.game-header {
-grid-template-columns: auto 1fr auto;
-padding: 12px;
-}
-
-.difficulty-buttons {
-grid-template-columns: 1fr;
-}
-
-.difficulty-button {
-min-height: 75px;
-}
-
-.objective-panel {
-grid-template-columns: 1fr 1.5fr 1fr;
-}
-
-.round-display strong {
-font-size: 28px;
-}
-
-.target-display strong {
-font-size: 20px;
-}
-
-.special-display strong {
-font-size: 30px;
-}
-
-.instruction-grid {
-grid-template-columns: repeat(2, 1fr);
-}
-
-}
-
-/* =========================================================
-RESPONSIVE — MOBILE
-========================================================= */
-
-@media (max-width: 520px) {
-
-.game-page {
-padding: 8px;
-}
-
-.game-header {
-grid-template-columns: auto 1fr auto;
-gap: 7px;
-
-border-radius: 17px;
-
-}
-
-.title-area h1 {
-font-size: 22px;
-}
-
-.title-area p {
-font-size: 10px;
-}
-
-.back-button {
-padding: 8px 10px;
-font-size: 11px;
-}
-
-.icon-button {
-width: 38px;
-height: 38px;
-font-size: 17px;
-}
-
-.difficulty-panel {
-padding: 22px 12px;
-border-radius: 20px;
-}
-
-.difficulty-panel h2 {
-font-size: 22px;
-}
-
-.difficulty-description {
-font-size: 12px;
-}
-
-.difficulty-button {
-min-height: 68px;
-font-size: 16px;
-}
-
-.difficulty-button small {
-font-size: 10px;
-}
-
-.objective-panel {
-grid-template-columns: 0.7fr 1.5fr 0.8fr;
-gap: 6px;
-}
-
-.round-display,
-.target-display,
-.special-display {
-min-height: 85px;
-padding: 7px;
-border-radius: 14px;
-}
-
-.round-display span,
-.target-label,
-.special-display span {
-font-size: 8px;
-}
-
-.round-display strong {
-font-size: 24px;
-}
-
-.target-display strong {
-font-size: 16px;
-}
-
-#targetProgress {
-font-size: 9px;
-}
-
-.special-display strong {
-font-size: 26px;
-}
-
-.game-info {
-gap: 6px;
-}
-
-.info-box {
-min-height: 60px;
-border-radius: 13px;
-}
-
-.info-label {
-font-size: 8px;
-}
-
-.info-box strong {
-font-size: 17px;
-}
-
-.game-board {
-gap: 7px;
-padding: 10px;
-border-radius: 22px;
-}
-
-.hole {
-min-height: 80px;
-}
-
-.animal {
-font-size: clamp(32px, 11vw, 55px);
-}
-
-.primary-button,
-.secondary-button {
-width: 100%;
-max-width: 320px;
-}
-
-.instructions,
-.game-rules {
-padding: 18px 12px;
-border-radius: 18px;
-}
-
-.instructions h2,
-.game-rules h2 {
-font-size: 20px;
-}
-
-.instruction-grid {
-gap: 7px;
-}
-
-.instruction-grid > div {
-padding: 12px 5px;
-}
-
-.instruction-grid span {
-font-size: 25px;
-}
-
-.instruction-grid p {
-font-size: 10px;
-}
-
-}
-
-/* =========================================================
-VERY SMALL PHONES
-========================================================= */
-
-@media (max-width: 360px) {
-
-.title-area h1 {
-font-size: 19px;
-}
-
-.title-area p {
-display: none;
-}
-
-.objective-panel {
-grid-template-columns: 1fr 1.4fr 1fr;
-}
-
-.target-display strong {
-font-size: 14px;
-}
-
-.special-display strong {
-font-size: 22px;
-}
-
-.info-box strong {
-font-size: 15px;
-}
-
-.hole {
-min-height: 65px;
-}
-
-}
-
-/* =========================================================
-REDUCED MOTION ACCESSIBILITY
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-*,
-*::before,
-*::after {
-animation-duration: 0.01ms !important;
-animation-iteration-count: 1 !important;
-transition-duration: 0.01ms !important;
-}
-
-}
-
-/* =========================================================
-   🔨 ANIMAL SMASH HAMMER EFFECT
+   HAMMER
 ========================================================= */
 
 .hammer {
   position: absolute;
 
-  left: 0;
-  top: 0;
+  left: -100px;
+  top: -100px;
 
-  font-size: 58px;
+  z-index: 50;
 
-  line-height: 1;
+  font-size: clamp(3rem, 12vw, 6rem);
 
   pointer-events: none;
 
-  z-index: 9999;
+  transform-origin: 75% 75%;
 
   opacity: 0;
 
-  transform:
-    rotate(-45deg)
-    scale(0.7);
-
-  transform-origin: 70% 80%;
+  filter:
+    drop-shadow(
+      5px 8px 5px rgba(0,0,0,.5)
+    );
 }
-
-
-/* HAMMER SMASH ANIMATION */
 
 .hammer.hammer-hit {
+  animation: hammerSmash .38s ease-out;
+}
 
-  opacity: 1;
+@keyframes hammerSmash {
 
-  animation:
-    animalSmashHammer
-    0.4s
-    ease-out
-    forwards;
+  0% {
+    opacity: 0;
+    transform:
+      rotate(-55deg)
+      scale(.7);
+  }
+
+  20% {
+    opacity: 1;
+    transform:
+      rotate(-35deg)
+      scale(1);
+  }
+
+  55% {
+    opacity: 1;
+    transform:
+      rotate(28deg)
+      scale(1.12);
+  }
+
+  70% {
+    transform:
+      rotate(8deg)
+      scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      rotate(0)
+      scale(.85);
+  }
+}
+
+
+/* =========================================================
+   SCARE
+========================================================= */
+
+.scare-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 40;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0,0,0,.72);
+
+  opacity: 0;
+  visibility: hidden;
+
+  pointer-events: none;
+}
+
+.scare-overlay.show {
+  animation: scareFlash .75s ease;
+}
+
+.scare-overlay div {
+  font-size: clamp(4rem, 20vw, 9rem);
+}
+
+.scare-overlay span {
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+@keyframes scareFlash {
+
+  0% {
+    opacity: 0;
+    transform: scale(.6);
+  }
+
+  20% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+
+  55% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message-area {
+  min-height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 8px;
+}
+
+.message-area p {
+  margin: 0;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.primary-button,
+.secondary-button {
+  border: 0;
+  border-radius: 15px;
+  padding: 13px 20px;
+
+  color: white;
+
+  font-weight: 900;
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+.primary-button {
+  background:
+    linear-gradient(
+      135deg,
+      #16a34a,
+      #15803d
+    );
+}
+
+.secondary-button {
+  background:
+    rgba(255,255,255,.12);
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   BEST SCORE
+========================================================= */
+
+.best-score {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  margin: 15px 0;
+
+  padding: 12px;
+
+  border-radius: 15px;
+
+  background: rgba(255,255,255,.06);
+}
+
+.best-score strong {
+  color: #ffd54a;
+}
+
+
+/* =========================================================
+   INSTRUCTIONS
+========================================================= */
+
+.instructions,
+.game-rules {
+  margin-top: 18px;
+
+  padding: 18px;
+
+  border-radius: 20px;
+
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.instructions h2,
+.game-rules h2 {
+  margin-top: 0;
+}
+
+.instruction-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.instruction-grid div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px;
+
+  border-radius: 13px;
+
+  background: rgba(255,255,255,.05);
+}
+
+.instruction-grid span {
+  font-size: 1.6rem;
+}
+
+.instruction-grid p {
+  margin: 0;
+  font-size: .85rem;
+}
+
+.game-rules p {
+  line-height: 1.55;
+  opacity: .78;
+}
+
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+
+.hidden {
+  display: none !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .game-page {
+    padding: 9px;
+  }
+
+  .game-header {
+    grid-template-columns: auto 1fr auto;
+    gap: 6px;
+  }
+
+  .back-button {
+    padding: 8px;
+    font-size: .8rem;
+  }
+
+  .icon-button {
+    padding: 8px;
+  }
+
+  .difficulty-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .difficulty-button {
+    padding: 12px;
+  }
+
+  .objective-panel {
+    grid-template-columns: 1fr 1.5fr 1fr;
+  }
+
+  .objective-panel > div {
+    padding: 8px 4px;
+  }
+
+  .game-info {
+    gap: 5px;
+  }
+
+  .info-box {
+    padding: 8px 3px;
+  }
+
+  .instruction-grid {
+    grid-template-columns: 1fr;
+  }
 
 }
 
 
-@keyframes animalSmashHammer {
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
 
-  0% {
+@media (max-width: 380px) {
 
-    opacity: 0;
-
-    transform:
-      rotate(-55deg)
-      scale(0.7)
-      translateY(-35px);
-
+  .title-area h1 {
+    font-size: 1.35rem;
   }
 
-
-  30% {
-
-    opacity: 1;
-
-    transform:
-      rotate(-30deg)
-      scale(1.05)
-      translateY(0);
-
+  .title-area p {
+    font-size: .7rem;
   }
 
-
-  55% {
-
-    transform:
-      rotate(18deg)
-      scale(1.15)
-      translateY(8px);
-
+  .game-board {
+    gap: 7px;
+    padding: 9px;
   }
 
-
-  75% {
-
-    transform:
-      rotate(-5deg)
-      scale(1)
-      translateY(0);
-
-  }
-
-
-  100% {
-
-    opacity: 0;
-
-    transform:
-      rotate(-10deg)
-      scale(0.9)
-      translateY(5px);
-
+  .animal {
+    font-size: 2.4rem;
   }
 
 }
