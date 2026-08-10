@@ -1,518 +1,326 @@
-
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <meta name="theme-color" content="#111827">  <title>🐾 Animal Smash Challenge</title>  <link rel="stylesheet" href="animal-smash.css">
-</head><body>  <main class="game-page"><!-- ==========================================
-     HEADER
-=========================================== -->
-<header class="game-header">
+  <meta name="theme-color" content="#111827">
 
-  <button id="backButton"
-          class="back-button"
-          type="button">
-    ← Back
-  </button>
+  <title>🐾 Animal Smash Challenge</title>
 
-  <div class="title-area">
-    <h1>🐾 Animal Smash</h1>
-    <p>Hit the target. Grab the bonus. Avoid the bombs!</p>
-  </div>
+  <link rel="stylesheet" href="animal-smash.css">
+</head>
 
-  <button id="soundButton"
-          class="icon-button"
-          type="button"
-          aria-label="Toggle sound">
-    🔊
-  </button>
+<body>
 
-</header>
+<main class="game-page">
+
+  <!-- HEADER -->
+  <header class="game-header">
+
+    <button id="backButton" class="back-button" type="button">
+      ← Back
+    </button>
+
+    <div class="title-area">
+      <h1>🐾 Animal Smash</h1>
+      <p>Find the target. Smash it. Survive the chaos!</p>
+    </div>
+
+    <button id="soundButton"
+            class="icon-button"
+            type="button"
+            aria-label="Toggle sound">
+      🔊
+    </button>
+
+  </header>
 
 
-<!-- ==========================================
-     DIFFICULTY SELECTION
-=========================================== -->
-<section id="difficultyPanel"
-         class="difficulty-panel">
+  <!-- DIFFICULTY -->
+  <section id="difficultyPanel" class="difficulty-panel">
 
-  <h2>🎮 Choose Your Difficulty</h2>
+    <h2>🎮 Choose Your Difficulty</h2>
 
-  <p class="difficulty-description">
-    Start easy and become an Animal Smash master!
-  </p>
+    <p class="difficulty-description">
+      How fast can your eyes find the target?
+    </p>
 
-  <div class="difficulty-buttons">
+    <div class="difficulty-buttons">
 
-    <button class="difficulty-button easy"
-            data-difficulty="easy"
+      <button class="difficulty-button easy"
+              data-difficulty="easy"
+              type="button">
+        <span>🟢 EASY</span>
+        <small>Slower • Fewer distractions</small>
+      </button>
+
+      <button class="difficulty-button normal active"
+              data-difficulty="normal"
+              type="button">
+        <span>🟡 NORMAL</span>
+        <small>Fast • More confusion</small>
+      </button>
+
+      <button class="difficulty-button hard"
+              data-difficulty="hard"
+              type="button">
+        <span>🔴 HARD</span>
+        <small>Very fast • Maximum chaos</small>
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- OBJECTIVE -->
+  <section id="objectivePanel"
+           class="objective-panel hidden">
+
+    <div class="round-display">
+      <span>ROUND</span>
+      <strong id="round">1</strong>
+    </div>
+
+    <div class="target-display">
+      <span class="target-label">🎯 FIND THIS</span>
+
+      <strong id="targetAnimal">
+        🐸 FROG
+      </strong>
+
+      <span id="targetProgress">
+        0 / 10 HITS
+      </span>
+    </div>
+
+    <div class="special-display">
+      <span>⭐ BONUS</span>
+
+      <strong id="specialAnimal">🦄</strong>
+
+      <span>POINTS + TIME</span>
+    </div>
+
+  </section>
+
+
+  <!-- GAME INFORMATION -->
+  <section class="game-info">
+
+    <div class="info-box">
+      <span class="info-label">SCORE</span>
+      <strong id="score">0</strong>
+    </div>
+
+    <div class="info-box">
+      <span class="info-label">COMBO</span>
+      <strong id="combo">0</strong>
+    </div>
+
+    <div class="info-box">
+      <span class="info-label">LIVES</span>
+      <strong id="lives">❤️❤️❤️</strong>
+    </div>
+
+    <div class="info-box time-box">
+      <span class="info-label">TIME</span>
+      <strong id="timer">10</strong>
+    </div>
+
+  </section>
+
+
+  <!-- GAME BOARD -->
+  <section class="game-container">
+
+    <div id="gameBoard"
+         class="game-board"
+         aria-label="Animal Smash game board">
+
+      <!-- 9 HOLES -->
+
+      <button class="hole" data-hole="0" type="button">
+        <span class="hole-shadow"></span>
+        <span class="animal"></span>
+      </button>
+
+      <button class="hole" data-hole="1" type="button">
+        <span class="hole-shadow"></span>
+        <span class="animal"></span>
+      </button>
+
+      <button class="hole" data-hole="2" type="button">
+        <span class="hole-shadow"></span>
+        <span class="animal"></span>
+      </button>
+
+      <button class="hole" data-hole="3" type="button">
+        <span class="hole-shadow"></span>
+        <span class="animal"></span>
+      </button>
+
+      <button class="hole" data-hole="4" type="button">
+        <span class="hole-shadow"></span>
+        <span class="animal"></span>
+      </button>
+
+      <button class="hole" data-hole="5" type="button">
+        <span class="hole-shadow"></span>
+        <span class="animal"></span>
+      </button>
+
+      <button class="hole" data-hole="6" type="button">
+        <span class="hole-shadow"></span>
+        <span class="animal"></span>
+      </button>
+
+      <button class="hole" data-hole="7" type="button">
+        <span class="hole-shadow"></span>
+        <span class="animal"></span>
+      </button>
+
+      <button class="hole" data-hole="8" type="button">
+        <span class="hole-shadow"></span>
+        <span class="animal"></span>
+      </button>
+
+
+      <!-- HAMMER -->
+      <div id="hammer"
+           class="hammer"
+           aria-hidden="true">
+        🔨
+      </div>
+
+
+      <!-- FLASH EFFECT -->
+      <div id="scareOverlay" class="scare-overlay">
+        <div id="scareEmoji">👻</div>
+        <span>DON'T BLINK!</span>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- MESSAGE -->
+  <section class="message-area">
+    <p id="gameMessage">
+      Choose a difficulty to begin! 🎯
+    </p>
+  </section>
+
+
+  <!-- CONTROLS -->
+  <section class="controls">
+
+    <button id="startButton"
+            class="primary-button"
             type="button">
-
-      <span>🟢 EASY</span>
-      <small>Slow • Fewer bombs • More time</small>
-
+      🎮 START GAME
     </button>
 
-
-    <button class="difficulty-button normal"
-            data-difficulty="normal"
+    <button id="restartButton"
+            class="secondary-button hidden"
             type="button">
-
-      <span>🟡 NORMAL</span>
-      <small>Balanced speed • Balanced danger</small>
-
+      🔄 PLAY AGAIN
     </button>
 
-
-    <button class="difficulty-button hard"
-            data-difficulty="hard"
+    <button id="difficultyButton"
+            class="secondary-button hidden"
             type="button">
-
-      <span>🔴 HARD</span>
-      <small>Fast • More bombs • Less time</small>
-
+      🎚️ CHANGE DIFFICULTY
     </button>
 
-  </div>
+  </section>
 
-</section>
 
+  <!-- BEST SCORE -->
+  <section class="best-score">
 
-<!-- ==========================================
-     ROUND OBJECTIVE
-=========================================== -->
-<section id="objectivePanel"
-         class="objective-panel hidden">
+    <span>🏆 BEST SCORE</span>
 
-  <div class="round-display">
+    <strong id="bestScore">0</strong>
 
-    <span>ROUND</span>
+  </section>
 
-    <strong id="round">
-      1
-    </strong>
 
-  </div>
+  <!-- INSTRUCTIONS -->
+  <section class="instructions">
 
+    <h2>🔨 How To Play</h2>
 
-  <div class="target-display">
+    <div class="instruction-grid">
 
-    <span class="target-label">
-      🎯 TARGET
-    </span>
+      <div>
+        <span>🎯</span>
+        <p>Smash the animal shown as the target.</p>
+      </div>
 
-    <strong id="targetAnimal">
-      🐰 RABBIT
-    </strong>
+      <div>
+        <span>⏱️</span>
+        <p>Correct hits give you extra time.</p>
+      </div>
 
-    <span id="targetProgress">
-      0 / 3 HITS
-    </span>
+      <div>
+        <span>💣</span>
+        <p>Never smash a bomb.</p>
+      </div>
 
-  </div>
+      <div>
+        <span>⭐</span>
+        <p>Special animals give huge rewards.</p>
+      </div>
 
+      <div>
+        <span>👻</span>
+        <p>Watch out for surprise scare events.</p>
+      </div>
 
-  <div class="special-display">
-
-    <span>
-      ⭐ SPECIAL
-    </span>
-
-    <strong id="specialAnimal">
-      🦊
-    </strong>
-
-    <span>
-      +50 BONUS
-    </span>
-
-  </div>
-
-</section>
-
-
-<!-- ==========================================
-     GAME INFORMATION
-=========================================== -->
-<section class="game-info"
-         aria-label="Game information">
-
-  <div class="info-box">
-
-    <span class="info-label">
-      SCORE
-    </span>
-
-    <strong id="score">
-      0
-    </strong>
-
-  </div>
-
-
-  <div class="info-box">
-
-    <span class="info-label">
-      COMBO
-    </span>
-
-    <strong id="combo">
-      0
-    </strong>
-
-  </div>
-
-
-  <div class="info-box">
-
-    <span class="info-label">
-      LIVES
-    </span>
-
-    <strong id="lives">
-      ❤️❤️❤️
-    </strong>
-
-  </div>
-
-
-  <div class="info-box">
-
-    <span class="info-label">
-      TIME
-    </span>
-
-    <strong id="timer">
-      10
-    </strong>
-
-  </div>
-
-</section>
-
-
-<!-- ==========================================
-     GAME BOARD
-=========================================== -->
-<section class="game-container">
-
-  <div id="gameBoard"
-       class="game-board"
-       aria-label="Animal Smash game board">
-
-
-    <!-- HOLE 1 -->
-    <button class="hole"
-            data-hole="0"
-            type="button"
-            aria-label="Game hole 1">
-
-      <span class="hole-shadow"></span>
-
-      <span class="animal"
-            aria-hidden="true"></span>
-
-    </button>
-
-
-    <!-- HOLE 2 -->
-    <button class="hole"
-            data-hole="1"
-            type="button"
-            aria-label="Game hole 2">
-
-      <span class="hole-shadow"></span>
-
-      <span class="animal"
-            aria-hidden="true"></span>
-
-    </button>
-
-
-    <!-- HOLE 3 -->
-    <button class="hole"
-            data-hole="2"
-            type="button"
-            aria-label="Game hole 3">
-
-      <span class="hole-shadow"></span>
-
-      <span class="animal"
-            aria-hidden="true"></span>
-
-    </button>
-
-
-    <!-- HOLE 4 -->
-    <button class="hole"
-            data-hole="3"
-            type="button"
-            aria-label="Game hole 4">
-
-      <span class="hole-shadow"></span>
-
-      <span class="animal"
-            aria-hidden="true"></span>
-
-    </button>
-
-
-    <!-- HOLE 5 -->
-    <button class="hole"
-            data-hole="4"
-            type="button"
-            aria-label="Game hole 5">
-
-      <span class="hole-shadow"></span>
-
-      <span class="animal"
-            aria-hidden="true"></span>
-
-    </button>
-
-
-    <!-- HOLE 6 -->
-    <button class="hole"
-            data-hole="5"
-            type="button"
-            aria-label="Game hole 6">
-
-      <span class="hole-shadow"></span>
-
-      <span class="animal"
-            aria-hidden="true"></span>
-
-    </button>
-
-
-    <!-- HOLE 7 -->
-    <button class="hole"
-            data-hole="6"
-            type="button"
-            aria-label="Game hole 7">
-
-      <span class="hole-shadow"></span>
-
-      <span class="animal"
-            aria-hidden="true"></span>
-
-    </button>
-
-
-    <!-- HOLE 8 -->
-    <button class="hole"
-            data-hole="7"
-            type="button"
-            aria-label="Game hole 8">
-
-      <span class="hole-shadow"></span>
-
-      <span class="animal"
-            aria-hidden="true"></span>
-
-    </button>
-
-
-    <!-- HOLE 9 -->
-    <button class="hole"
-            data-hole="8"
-            type="button"
-            aria-label="Game hole 9">
-
-      <span class="hole-shadow"></span>
-
-      <span class="animal"
-            aria-hidden="true"></span>
-
-    </button>
-
-
-    <!-- HAMMER -->
-    <div id="hammer"
-         class="hammer"
-         aria-hidden="true">
-
-      🔨
+      <div>
+        <span>🔥</span>
+        <p>Build combos for bigger rewards.</p>
+      </div>
 
     </div>
 
-  </div>
+  </section>
 
-</section>
 
+  <!-- RULES -->
+  <section class="game-rules">
 
-<!-- ==========================================
-     GAME MESSAGE
-=========================================== -->
-<section class="message-area">
+    <h2>🎯 Game Rules</h2>
 
-  <p id="gameMessage">
-    Choose a difficulty to begin! 🎯
-  </p>
+    <p>
+      Each round gives you a target animal. Multiple animals
+      appear together, so you must quickly identify the correct one.
+    </p>
 
-</section>
+    <p>
+      You need <strong>10 correct hits</strong> to complete a round.
+      The target appears many times, so you have enough opportunities
+      to complete the round.
+    </p>
 
+    <p>
+      Correct hits increase your remaining time. Wrong hits reduce it.
+      Missing targets also costs time.
+    </p>
 
-<!-- ==========================================
-     CONTROLS
-=========================================== -->
-<section class="controls">
+    <p>
+      Bombs end the game immediately. Special animals give bonus
+      points and extra time.
+    </p>
 
-  <button id="startButton"
-          class="primary-button"
-          type="button">
+  </section>
 
-    🎮 START GAME
+</main>
 
-  </button>
+<script src="animal-smash.js"></script>
 
-
-  <button id="restartButton"
-          class="secondary-button hidden"
-          type="button">
-
-    🔄 PLAY AGAIN
-
-  </button>
-
-
-  <button id="difficultyButton"
-          class="secondary-button hidden"
-          type="button">
-
-    🎚️ CHANGE DIFFICULTY
-
-  </button>
-
-</section>
-
-
-<!-- ==========================================
-     BEST SCORE
-=========================================== -->
-<section class="best-score">
-
-  <span>
-    🏆 BEST SCORE
-  </span>
-
-  <strong id="bestScore">
-    0
-  </strong>
-
-</section>
-
-
-<!-- ==========================================
-     INSTRUCTIONS
-=========================================== -->
-<section class="instructions">
-
-  <h2>🔨 How To Play</h2>
-
-
-  <div class="instruction-grid">
-
-    <div>
-
-      <span>🎯</span>
-
-      <p>
-        Hit the target animal
-      </p>
-
-    </div>
-
-
-    <div>
-
-      <span>⭐</span>
-
-      <p>
-        Hit the special animal for bonus points
-      </p>
-
-    </div>
-
-
-    <div>
-
-      <span>💣</span>
-
-      <p>
-        NEVER hit a bomb!
-      </p>
-
-    </div>
-
-
-    <div>
-
-      <span>⏱️</span>
-
-      <p>
-        Finish before time runs out
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div class="danger-warning">
-
-    ⚠️
-
-    <strong>
-      WARNING:
-    </strong>
-
-    Hitting a 💣 bomb immediately ends the game.
-
-  </div>
-
-</section>
-
-
-<!-- ==========================================
-     GAME RULES
-=========================================== -->
-<section class="game-rules">
-
-  <h2>
-    🎯 Round Rules
-  </h2>
-
-
-  <p>
-    Every round gives you a target animal and a limited amount
-    of time. Hit the target enough times to automatically
-    advance to the next round.
-  </p>
-
-
-  <p>
-    Other animals are distractions. The special animal gives
-    bonus points. Bombs are dangerous and must never be hit.
-  </p>
-
-
-  <p>
-    The game becomes gradually faster and harder. The target
-    requirement can increase, but it will never be more than
-    <strong>10 hits</strong> per round.
-  </p>
-
-
-  <p>
-    If a difficult round becomes too hard, you can return to
-    the difficulty menu and start again on Easy, Normal, or Hard.
-  </p>
-
-</section>
-
-  </main>  <!-- ==========================================
-       GAME JAVASCRIPT
-  =========================================== -->  <script src="animal-smash.js"></script></body>
+</body>
 </html>
