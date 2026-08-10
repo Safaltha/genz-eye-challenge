@@ -44,6 +44,9 @@
   const backButton =
     document.getElementById("backButton");
 
+   const hammer =
+  document.getElementById("hammer");
+
   /* =========================================================
      SETTINGS
   ========================================================= */
@@ -1326,22 +1329,76 @@
   /* =========================================================
      HOLE CLICK
   ========================================================= */
+/* =========================================================
+   🔨 SHOW HAMMER
+========================================================= */
 
-  holes.forEach(
-    (hole, index) => {
+function showHammer(event) {
 
-      hole.addEventListener(
-        "click",
-        () => {
+  if (!hammer) return;
 
-          hitHole(index);
+  const gameBoard =
+    document.getElementById("gameBoard");
 
-        }
-      );
+  if (!gameBoard) return;
 
-    }
+  const boardRect =
+    gameBoard.getBoundingClientRect();
+
+  const x =
+    event.clientX - boardRect.left;
+
+  const y =
+    event.clientY - boardRect.top;
+
+  hammer.style.left =
+    `${x - 30}px`;
+
+  hammer.style.top =
+    `${y - 55}px`;
+
+  hammer.classList.remove(
+    "hammer-hit"
   );
 
+  void hammer.offsetWidth;
+
+  hammer.classList.add(
+    "hammer-hit"
+  );
+
+  clearTimeout(
+    window.animalSmashHammerTimer
+  );
+
+  window.animalSmashHammerTimer =
+    setTimeout(() => {
+
+      hammer.classList.remove(
+        "hammer-hit"
+      );
+
+    }, 400);
+
+}
+  holes.forEach(
+  (hole, index) => {
+
+    hole.addEventListener(
+      "click",
+      (event) => {
+
+        if (!gameRunning) return;
+
+        showHammer(event);
+
+        hitHole(index);
+
+      }
+    );
+
+  }
+);
   /* =========================================================
      KEYBOARD SUPPORT
   ========================================================= */
