@@ -1,1259 +1,1127 @@
 /* =========================================================
-   ANIMAL SMASH CHALLENGE
-   animal-smash.js
+   🐾 ANIMAL SMASH
+   Complete Game JavaScript
    ========================================================= */
 
-"use strict";
-
-/* =========================================================
-   ELEMENTS
-   ========================================================= */
-
-const scoreElement = document.getElementById("score");
-const comboElement = document.getElementById("combo");
-const livesElement = document.getElementById("lives");
-const timerElement = document.getElementById("timer");
-const bestScoreElement = document.getElementById("bestScore");
-const gameMessage = document.getElementById("gameMessage");
-
-const startButton = document.getElementById("startButton");
-const restartButton = document.getElementById("restartButton");
-const soundButton = document.getElementById("soundButton");
-const backButton = document.getElementById("backButton");
-
-const gameBoard = document.getElementById("gameBoard");
-const hammer = document.getElementById("hammer");
-
-const holes = Array.from(document.querySelectorAll(".hole"));
-
-/* =========================================================
-   GAME SETTINGS
-   ========================================================= */
-
-const GAME_DURATION = 60;
-const STARTING_LIVES = 3;
-
-const MIN_SPAWN_DELAY = 320;
-const MAX_SPAWN_DELAY = 900;
-
-const MIN_VISIBLE_TIME = 420;
-const MAX_VISIBLE_TIME = 1250;
-
-/* =========================================================
-   ANIMAL DATABASE
-   ========================================================= */
-
-const ANIMALS = [
-  {
-    emoji: "🐰",
-    points: 10,
-    type: "normal"
-  },
-  {
-    emoji: "🐹",
-    points: 12,
-    type: "normal"
-  },
-  {
-    emoji: "🐭",
-    points: 12,
-    type: "normal"
-  },
-  {
-    emoji: "🐿️",
-    points: 15,
-    type: "normal"
-  },
-  {
-    emoji: "🦊",
-    points: 20,
-    type: "fast"
-  },
-  {
-    emoji: "🐼",
-    points: 20,
-    type: "normal"
-  },
-  {
-    emoji: "🐯",
-    points: 25,
-    type: "fast"
-  },
-  {
-    emoji: "⭐",
-    points: 50,
-    type: "bonus"
-  }
-];
-
-/* =========================================================
-   GAME STATE
-   ========================================================= */
-
-let score = 0;
-let combo = 0;
-let lives = STARTING_LIVES;
-let timeLeft = GAME_DURATION;
-
-let gameRunning = false;
-let gameOver = false;
-
-let timerInterval = null;
-let spawnTimeout = null;
-
-let activeAnimals = new Map();
-
-let difficulty = 1;
-
-let soundEnabled = true;
-
-let bestScore = loadBestScore();
-
-/* =========================================================
-   INITIAL DISPLAY
-   ========================================================= */
-
-updateScore();
-updateCombo();
-updateLives();
-updateTimer();
-updateBestScore();
-
-/* =========================================================
-   LOCAL STORAGE
-   ========================================================= */
-
-function loadBestScore() {
-  try {
-    const saved = localStorage.getItem("animalSmashBestScore");
-    const parsed = Number(saved);
-
-    if (Number.isFinite(parsed) && parsed >= 0) {
-      return parsed;
-    }
-  } catch (error) {
-    console.warn("Best score could not be loaded.");
-  }
-
-  return 0;
-}
-
-function saveBestScore() {
-  try {
-    localStorage.setItem(
-      "animalSmashBestScore",
-      String(bestScore)
-    );
-  } catch (error) {
-    console.warn("Best score could not be saved.");
-  }
-}
-
-/* =========================================================
-   DISPLAY FUNCTIONS
-   ========================================================= */
-
-function updateScore() {
-  scoreElement.textContent = score;
-}
-
-function updateCombo() {
-  comboElement.textContent = combo;
-}
-
-function updateLives() {
-  livesElement.textContent =
-    "❤️".repeat(Math.max(0, lives)) +
-    "🖤".repeat(Math.max(0, STARTING_LIVES - lives));
-}
-
-function updateTimer() {
-  timerElement.textContent = timeLeft;
-}
-
-function updateBestScore() {
-  bestScoreElement.textContent = bestScore;
-}
-
-/* =========================================================
-   RANDOM HELPERS
-   ========================================================= */
-
-function randomInteger(min, max) {
-  return Math.floor(
-    Math.random() * (max - min + 1)
-  ) + min;
-}
-
-function randomItem(array) {
-  return array[
-    Math.floor(Math.random() * array.length)
-  ];
-}
-
-/* =========================================================
-   DIFFICULTY
-   ========================================================= */
-
-function calculateDifficulty() {
-  const elapsed = GAME_DURATION - timeLeft;
-
-  /*
-    Difficulty grows continuously instead of using
-    manually created levels.
-  */
-
-  difficulty =
-    1 +
-    Math.floor(elapsed / 5);
-
-  return difficulty;
-}
-
-function getSpawnDelay() {
-  calculateDifficulty();
-
-  const reduction =
-    Math.min(
-      MAX_SPAWN_DELAY - MIN_SPAWN_DELAY,
-      difficulty * 28
-    );
-
-  const maximum =
-    Math.max(
-      MIN_SPAWN_DELAY,
-      MAX_SPAWN_DELAY - reduction
-    );
-
-  const minimum =
-    Math.max(
-      180,
-      maximum - 260
-    );
-
-  return randomInteger(
-    minimum,
-    maximum
-  );
-}
-
-function getVisibleTime() {
-  calculateDifficulty();
-
-  const reduction =
-    Math.min(
-      MAX_VISIBLE_TIME - MIN_VISIBLE_TIME,
-      difficulty * 22
-    );
-
-  const maximum =
-    Math.max(
-      MIN_VISIBLE_TIME,
-      MAX_VISIBLE_TIME - reduction
-    );
-
-  const minimum =
-    Math.max(
-      250,
-      maximum - 400
-    );
-
-  return randomInteger(
-    minimum,
-    maximum
-  );
-}
-
-/* =========================================================
-   ANIMAL SELECTION
-   ========================================================= */
-
-function chooseAnimal() {
-
-  /*
-    Bonus animals become more common later.
-  */
-
-  const roll = Math.random();
-
-  if (difficulty >= 6 && roll < 0.08) {
-    return ANIMALS.find(
-      animal => animal.type === "bonus"
-    );
-  }
-
-  if (difficulty >= 3 && roll < 0.22) {
-    return ANIMALS.find(
-      animal => animal.type === "fast"
-    );
-  }
-
-  return randomItem(
-    ANIMALS.filter(
-      animal => animal.type === "normal"
-    )
-  );
-}
-
-/* =========================================================
-   FIND AVAILABLE HOLE
-   ========================================================= */
-
-function getAvailableHole() {
-
-  const available = holes.filter(
-    hole => !activeAnimals.has(hole)
-  );
-
-  if (available.length === 0) {
-    return null;
-  }
-
-  return randomItem(available);
-}
-
-/* =========================================================
-   START GAME
-   ========================================================= */
-
-function startGame() {
-
-  if (gameRunning) {
-    return;
-  }
-
-  clearGameTimers();
-
-  clearAllAnimals();
-
-  score = 0;
-  combo = 0;
-  lives = STARTING_LIVES;
-  timeLeft = GAME_DURATION;
-
-  difficulty = 1;
-
-  gameRunning = true;
-  gameOver = false;
-
-  updateScore();
-  updateCombo();
-  updateLives();
-  updateTimer();
-
-  startButton.classList.add("hidden");
-  restartButton.classList.add("hidden");
-
-  gameMessage.textContent =
-    "🐰 GO! Catch the animals!";
-
-  timerInterval = setInterval(
-    countdown,
-    1000
-  );
-
-  scheduleNextSpawn();
-}
-
-/* =========================================================
-   COUNTDOWN
-   ========================================================= */
-
-function countdown() {
-
-  if (!gameRunning) {
-    return;
-  }
-
-  timeLeft--;
-
-  updateTimer();
-
-  calculateDifficulty();
-
-  if (timeLeft <= 0) {
-    endGame("⏰ Time's up!");
-  }
-}
-
-/* =========================================================
-   SPAWN SCHEDULER
-   ========================================================= */
-
-function scheduleNextSpawn() {
-
-  if (!gameRunning) {
-    return;
-  }
-
-  clearTimeout(spawnTimeout);
-
-  const delay = getSpawnDelay();
-
-  spawnTimeout = setTimeout(
-    () => {
-
-      if (!gameRunning) {
-        return;
-      }
-
-      spawnAnimal();
-
-      scheduleNextSpawn();
-
+(() => {
+  "use strict";
+
+  /* =========================================================
+     ELEMENTS
+  ========================================================= */
+
+  const holes = [...document.querySelectorAll(".hole")];
+  const animals = [...document.querySelectorAll(".animal")];
+
+  const scoreEl = document.getElementById("score");
+  const comboEl = document.getElementById("combo");
+  const livesEl = document.getElementById("lives");
+  const timerEl = document.getElementById("timer");
+  const bestScoreEl = document.getElementById("bestScore");
+  const messageEl = document.getElementById("gameMessage");
+
+  const startButton = document.getElementById("startButton");
+  const restartButton = document.getElementById("restartButton");
+  const soundButton = document.getElementById("soundButton");
+  const backButton = document.getElementById("backButton");
+  const hammer = document.getElementById("hammer");
+
+  /* =========================================================
+     GAME SETTINGS
+     ========================================================= */
+
+  const SETTINGS = {
+    maxHitsPerRound: 10,
+
+    startingLives: 3,
+
+    startingTime: 60,
+
+    easy: {
+      animalTime: 1250,
+      spawnDelay: 650,
+      bombChance: 0.10,
+      animalCount: 1
     },
-    delay
-  );
-}
 
-/* =========================================================
-   SPAWN ANIMAL
-   ========================================================= */
+    normal: {
+      animalTime: 1050,
+      spawnDelay: 550,
+      bombChance: 0.16,
+      animalCount: 1
+    },
 
-function spawnAnimal() {
-
-  if (!gameRunning) {
-    return;
-  }
-
-  const hole = getAvailableHole();
-
-  if (!hole) {
-    return;
-  }
-
-  const animal = chooseAnimal();
-
-  const animalElement =
-    hole.querySelector(".animal");
-
-  if (!animalElement) {
-    return;
-  }
-
-  /*
-    Store complete information for this animal.
-  */
-
-  const animalData = {
-    animal,
-    hit: false,
-    timeout: null
+    hard: {
+      animalTime: 850,
+      spawnDelay: 430,
+      bombChance: 0.23,
+      animalCount: 1
+    }
   };
 
-  animalElement.textContent =
-    animal.emoji;
+  /* =========================================================
+     ANIMALS
+     ========================================================= */
 
-  animalElement.dataset.type =
-    animal.type;
-
-  animalElement.dataset.points =
-    String(animal.points);
-
-  hole.classList.remove("hit");
-
-  /*
-    Force browser to restart animation.
-  */
-
-  void hole.offsetWidth;
-
-  hole.classList.add("active");
-
-  activeAnimals.set(
-    hole,
-    animalData
-  );
-
-  const visibleTime =
-    getVisibleTime();
-
-  animalData.timeout =
-    setTimeout(
-      () => {
-
-        if (!activeAnimals.has(hole)) {
-          return;
-        }
-
-        /*
-          Animal escaped.
-        */
-
-        activeAnimals.delete(hole);
-
-        hole.classList.remove("active");
-
-        animalElement.textContent = "";
-
-        /*
-          Missing an animal breaks combo.
-        */
-
-        combo = 0;
-
-        updateCombo();
-
-      },
-      visibleTime
-    );
-}
-
-/* =========================================================
-   HIT ANIMAL
-   ========================================================= */
-
-function hitAnimal(hole, event) {
-
-  if (!gameRunning) {
-    return;
-  }
-
-  const animalData =
-    activeAnimals.get(hole);
-
-  if (!animalData) {
-    /*
-      Player hit an empty hole.
-    */
-
-    combo = 0;
-
-    updateCombo();
-
-    showMessage("💨 Miss!");
-
-    playSound("miss");
-
-    return;
-  }
-
-  if (animalData.hit) {
-    return;
-  }
-
-  animalData.hit = true;
-
-  clearTimeout(
-    animalData.timeout
-  );
-
-  activeAnimals.delete(hole);
-
-  const animal =
-    animalData.animal;
-
-  /*
-    Combo increases with successful hits.
-  */
-
-  combo++;
-
-  /*
-    Combo multiplier:
-    1–2 hits = ×1
-    3–4 hits = ×2
-    5–6 hits = ×3
-    7+ hits = ×4
-  */
-
-  const multiplier =
-    Math.min(
-      4,
-      Math.floor((combo - 1) / 2) + 1
-    );
-
-  const gained =
-    animal.points * multiplier;
-
-  score += gained;
-
-  updateScore();
-  updateCombo();
-
-  hole.classList.add("hit");
-
-  setTimeout(
-    () => {
-      hole.classList.remove("active");
-      hole.classList.remove("hit");
-
-      const animalElement =
-        hole.querySelector(".animal");
-
-      if (animalElement) {
-        animalElement.textContent = "";
-      }
+  const ANIMALS = [
+    {
+      emoji: "🐰",
+      name: "Rabbit",
+      points: 10
     },
-    130
-  );
-
-  createScorePopup(
-    hole,
-    `+${gained}`
-  );
-
-  showMessage(
-    `${animal.emoji} +${gained}  🔥 ×${multiplier}`
-  );
-
-  playSound(
-    animal.type === "bonus"
-      ? "bonus"
-      : "hit"
-  );
-
-  updateBestScoreIfNeeded();
-
-  /*
-    Occasionally spawn another target quickly
-    at higher difficulty.
-  */
-
-  if (
-    difficulty >= 5 &&
-    Math.random() < 0.25
-  ) {
-    setTimeout(
-      spawnAnimal,
-      randomInteger(80, 180)
-    );
-  }
-}
-
-/* =========================================================
-   EMPTY HOLE HIT
-   ========================================================= */
-
-function hitEmptyHole(hole) {
-
-  if (!gameRunning) {
-    return;
-  }
-
-  /*
-    Empty-hole hits don't remove a life.
-    They simply reset the combo.
-  */
-
-  combo = 0;
-
-  updateCombo();
-
-  showMessage("💨 Too early!");
-
-  playSound("miss");
-
-  createScorePopup(
-    hole,
-    "MISS",
-    true
-  );
-}
-
-/* =========================================================
-   HOLE CLICK / TOUCH
-   ========================================================= */
-
-function handleHoleInteraction(event) {
-
-  event.preventDefault();
-
-  if (!gameRunning) {
-    return;
-  }
-
-  const hole =
-    event.currentTarget;
-
-  /*
-    Display hammer where the player touched/clicked.
-  */
-
-  showHammer(
-    event.clientX,
-    event.clientY
-  );
-
-  if (activeAnimals.has(hole)) {
-    hitAnimal(
-      hole,
-      event
-    );
-  } else {
-    hitEmptyHole(hole);
-  }
-}
-
-/* =========================================================
-   HAMMER
-   ========================================================= */
-
-function showHammer(clientX, clientY) {
-
-  const rect =
-    gameBoard.getBoundingClientRect();
-
-  let x =
-    clientX - rect.left;
-
-  let y =
-    clientY - rect.top;
-
-  /*
-    Keep hammer inside game board.
-  */
-
-  x = Math.max(
-    20,
-    Math.min(
-      rect.width - 20,
-      x
-    )
-  );
-
-  y = Math.max(
-    20,
-    Math.min(
-      rect.height - 20,
-      y
-    )
-  );
-
-  hammer.style.left =
-    `${x}px`;
-
-  hammer.style.top =
-    `${y}px`;
-
-  hammer.classList.remove("smash");
-
-  void hammer.offsetWidth;
-
-  hammer.classList.add("smash");
-}
-
-/* =========================================================
-   SCORE POPUP
-   ========================================================= */
-
-function createScorePopup(
-  hole,
-  text,
-  bad = false
-) {
-
-  const popup =
-    document.createElement("div");
-
-  popup.className =
-    "score-popup";
-
-  if (bad) {
-    popup.classList.add("bad");
-  }
-
-  popup.textContent =
-    text;
-
-  const holeRect =
-    hole.getBoundingClientRect();
-
-  const boardRect =
-    gameBoard.getBoundingClientRect();
-
-  popup.style.left =
-    `${holeRect.left - boardRect.left + holeRect.width / 2}px`;
-
-  popup.style.top =
-    `${holeRect.top - boardRect.top + holeRect.height * 0.25}px`;
-
-  gameBoard.appendChild(popup);
-
-  setTimeout(
-    () => {
-      popup.remove();
+    {
+      emoji: "🐹",
+      name: "Hamster",
+      points: 12
     },
-    800
-  );
-}
-
-/* =========================================================
-   LIVES
-   ========================================================= */
-
-function loseLife() {
-
-  if (!gameRunning) {
-    return;
-  }
-
-  lives--;
-
-  updateLives();
-
-  combo = 0;
-
-  updateCombo();
-
-  playSound("miss");
-
-  if (lives <= 0) {
-    endGame("💥 Game Over!");
-  }
-}
-
-/* =========================================================
-   END GAME
-   ========================================================= */
-
-function endGame(message) {
-
-  if (!gameRunning) {
-    return;
-  }
-
-  gameRunning = false;
-  gameOver = true;
-
-  clearGameTimers();
-
-  clearAllAnimals();
-
-  updateBestScoreIfNeeded();
-
-  gameMessage.textContent =
-    `${message} Final score: ${score}`;
-
-  startButton.classList.add("hidden");
-  restartButton.classList.remove("hidden");
-
-  playSound("gameover");
-}
-
-/* =========================================================
-   CLEAR ANIMALS
-   ========================================================= */
-
-function clearAllAnimals() {
-
-  activeAnimals.forEach(
-    data => {
-      clearTimeout(data.timeout);
+    {
+      emoji: "🐿️",
+      name: "Squirrel",
+      points: 15
+    },
+    {
+      emoji: "🦊",
+      name: "Fox",
+      points: 18
+    },
+    {
+      emoji: "🐱",
+      name: "Cat",
+      points: 20
+    },
+    {
+      emoji: "🐼",
+      name: "Panda",
+      points: 22
+    },
+    {
+      emoji: "🐸",
+      name: "Frog",
+      points: 25
     }
-  );
+  ];
 
-  activeAnimals.clear();
+  /* =========================================================
+     SPECIAL ANIMALS
+     One special animal appears every round.
+     ========================================================= */
 
-  holes.forEach(
-    hole => {
-
-      hole.classList.remove(
-        "active",
-        "hit"
-      );
-
-      const animalElement =
-        hole.querySelector(".animal");
-
-      if (animalElement) {
-        animalElement.textContent = "";
-      }
+  const SPECIAL_ANIMALS = [
+    {
+      emoji: "🦄",
+      name: "Golden Unicorn",
+      points: 75
+    },
+    {
+      emoji: "🐯",
+      name: "Golden Tiger",
+      points: 60
+    },
+    {
+      emoji: "🦁",
+      name: "Golden Lion",
+      points: 70
+    },
+    {
+      emoji: "🐲",
+      name: "Dragon",
+      points: 100
     }
-  );
-}
+  ];
 
-/* =========================================================
-   CLEAR TIMERS
-   ========================================================= */
+  /* =========================================================
+     GAME STATE
+     ========================================================= */
 
-function clearGameTimers() {
+  let score = 0;
+  let combo = 0;
+  let lives = SETTINGS.startingLives;
 
-  if (timerInterval !== null) {
-    clearInterval(
-      timerInterval
-    );
+  let round = 1;
+  let hitsThisRound = 0;
 
-    timerInterval = null;
-  }
+  let gameRunning = false;
+  let soundEnabled = true;
 
-  if (spawnTimeout !== null) {
-    clearTimeout(
-      spawnTimeout
-    );
+  let difficulty = "normal";
 
-    spawnTimeout = null;
-  }
-}
+  let gameTimer = SETTINGS.startingTime;
+  let gameTimerInterval = null;
 
-/* =========================================================
-   BEST SCORE
-   ========================================================= */
+  let spawnTimeout = null;
+  let animalTimeouts = [];
 
-function updateBestScoreIfNeeded() {
+  let currentTargets = [];
 
-  if (score > bestScore) {
+  let specialAnimal = null;
 
-    bestScore = score;
-
-    saveBestScore();
-
-    updateBestScore();
-  }
-}
-
-/* =========================================================
-   MESSAGE
-   ========================================================= */
-
-let messageTimeout = null;
-
-function showMessage(text) {
-
-  gameMessage.textContent =
-    text;
-
-  clearTimeout(
-    messageTimeout
+  let bestScore = Number(
+    localStorage.getItem("animalSmashBestScore") || 0
   );
 
-  messageTimeout =
-    setTimeout(
-      () => {
+  /* =========================================================
+     LOAD BEST SCORE
+     ========================================================= */
 
-        if (gameRunning) {
-          gameMessage.textContent =
-            "👀 Stay focused!";
-        }
+  if (bestScoreEl) {
+    bestScoreEl.textContent = bestScore;
+  }
 
-      },
-      900
-    );
-}
+  /* =========================================================
+     RANDOM HELPERS
+     ========================================================= */
 
-/* =========================================================
-   SOUND SYSTEM
-   ========================================================= */
+  function randomNumber(max) {
+    return Math.floor(Math.random() * max);
+  }
 
-let audioContext = null;
+  function randomAnimal() {
+    return ANIMALS[randomNumber(ANIMALS.length)];
+  }
 
-function getAudioContext() {
+  function randomSpecialAnimal() {
+    return SPECIAL_ANIMALS[
+      randomNumber(SPECIAL_ANIMALS.length)
+    ];
+  }
 
-  if (!audioContext) {
+  function randomHole() {
+    return randomNumber(holes.length);
+  }
+
+  /* =========================================================
+     MESSAGE
+     ========================================================= */
+
+  function setMessage(text) {
+    if (messageEl) {
+      messageEl.textContent = text;
+    }
+  }
+
+  /* =========================================================
+     UI UPDATE
+     ========================================================= */
+
+  function updateUI() {
+
+    if (scoreEl) {
+      scoreEl.textContent = score;
+    }
+
+    if (comboEl) {
+      comboEl.textContent = combo;
+    }
+
+    if (livesEl) {
+      livesEl.textContent =
+        "❤️".repeat(Math.max(0, lives)) +
+        "🖤".repeat(Math.max(0, SETTINGS.startingLives - lives));
+    }
+
+    if (timerEl) {
+      timerEl.textContent = gameTimer;
+    }
+
+    if (bestScoreEl) {
+      bestScoreEl.textContent = bestScore;
+    }
+  }
+
+  /* =========================================================
+     SOUND
+     ========================================================= */
+
+  function playSound(type = "hit") {
+
+    if (!soundEnabled) return;
 
     try {
 
-      audioContext =
-        new (
-          window.AudioContext ||
-          window.webkitAudioContext
-        )();
+      const AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+      if (!AudioContext) return;
+
+      const ctx = new AudioContext();
+
+      const oscillator = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      oscillator.connect(gain);
+      gain.connect(ctx.destination);
+
+      if (type === "hit") {
+        oscillator.frequency.value = 520;
+      }
+
+      if (type === "special") {
+        oscillator.frequency.value = 780;
+      }
+
+      if (type === "bomb") {
+        oscillator.frequency.value = 150;
+      }
+
+      if (type === "miss") {
+        oscillator.frequency.value = 240;
+      }
+
+      if (type === "level") {
+        oscillator.frequency.value = 900;
+      }
+
+      if (type === "gameover") {
+        oscillator.frequency.value = 120;
+      }
+
+      oscillator.type = "sine";
+
+      gain.gain.setValueAtTime(
+        0.12,
+        ctx.currentTime
+      );
+
+      gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        ctx.currentTime + 0.15
+      );
+
+      oscillator.start();
+
+      oscillator.stop(
+        ctx.currentTime + 0.15
+      );
 
     } catch (error) {
-
-      audioContext = null;
-
+      // Sound is optional.
     }
   }
 
-  return audioContext;
-}
+  /* =========================================================
+     CLEAR BOARD
+     ========================================================= */
 
-function playTone(
-  frequency,
-  duration,
-  type = "sine",
-  volume = 0.05
-) {
+  function clearBoard() {
 
-  if (!soundEnabled) {
-    return;
+    holes.forEach((hole, index) => {
+
+      hole.classList.remove(
+        "active",
+        "special",
+        "bomb",
+        "hit",
+        "miss"
+      );
+
+      const animal = animals[index];
+
+      if (animal) {
+        animal.textContent = "";
+        animal.removeAttribute("data-type");
+      }
+
+    });
+
+    currentTargets = [];
   }
 
-  const context =
-    getAudioContext();
+  /* =========================================================
+     DIFFICULTY
+     ========================================================= */
 
-  if (!context) {
-    return;
+  function getDifficultySettings() {
+
+    return SETTINGS[difficulty] || SETTINGS.normal;
+
   }
 
-  try {
+  /* =========================================================
+     SPEED PROGRESSION
+     ========================================================= */
 
-    if (context.state === "suspended") {
-      context.resume();
+  function getCurrentAnimalTime() {
+
+    const settings = getDifficultySettings();
+
+    const reduction =
+      Math.min(
+        500,
+        (round - 1) * 35
+      );
+
+    return Math.max(
+      350,
+      settings.animalTime - reduction
+    );
+  }
+
+  function getCurrentSpawnDelay() {
+
+    const settings = getDifficultySettings();
+
+    const reduction =
+      Math.min(
+        250,
+        (round - 1) * 18
+      );
+
+    return Math.max(
+      180,
+      settings.spawnDelay - reduction
+    );
+  }
+
+  function getBombChance() {
+
+    const settings = getDifficultySettings();
+
+    const increase =
+      Math.min(
+        0.12,
+        (round - 1) * 0.012
+      );
+
+    return Math.min(
+      0.40,
+      settings.bombChance + increase
+    );
+  }
+
+  /* =========================================================
+     CREATE TARGET
+     ========================================================= */
+
+  function createTarget() {
+
+    if (!gameRunning) return;
+
+    clearBoard();
+
+    const holeIndex = randomHole();
+
+    const hole = holes[holeIndex];
+    const animal = animals[holeIndex];
+
+    if (!hole || !animal) return;
+
+    /* -------------------------------------------------------
+       Decide whether this is a bomb.
+       Bombs become more common as rounds increase.
+       ------------------------------------------------------- */
+
+    const isBomb =
+      Math.random() < getBombChance();
+
+    /* -------------------------------------------------------
+       Special animal.
+       Exactly one special animal is available per round.
+       ------------------------------------------------------- */
+
+    const isSpecial =
+      !isBomb &&
+      specialAnimal !== null &&
+      Math.random() < 0.22;
+
+    if (isBomb) {
+
+      animal.textContent = "💣";
+
+      animal.setAttribute(
+        "data-type",
+        "bomb"
+      );
+
+      hole.classList.add("active", "bomb");
+
+      currentTargets.push({
+        holeIndex,
+        type: "bomb",
+        points: 0
+      });
+
+    } else {
+
+      let chosenAnimal;
+
+      if (isSpecial) {
+
+        chosenAnimal = specialAnimal;
+
+        specialAnimal = null;
+
+        animal.textContent =
+          chosenAnimal.emoji;
+
+        hole.classList.add(
+          "active",
+          "special"
+        );
+
+        animal.setAttribute(
+          "data-type",
+          "special"
+        );
+
+        currentTargets.push({
+          holeIndex,
+          type: "special",
+          points: chosenAnimal.points
+        });
+
+      } else {
+
+        chosenAnimal = randomAnimal();
+
+        animal.textContent =
+          chosenAnimal.emoji;
+
+        hole.classList.add("active");
+
+        animal.setAttribute(
+          "data-type",
+          "animal"
+        );
+
+        currentTargets.push({
+          holeIndex,
+          type: "animal",
+          points: chosenAnimal.points
+        });
+      }
     }
 
-    const oscillator =
-      context.createOscillator();
+    /* -------------------------------------------------------
+       Automatically hide target.
+       ------------------------------------------------------- */
 
-    const gain =
-      context.createGain();
+    const timeout = setTimeout(() => {
 
-    oscillator.type =
-      type;
+      if (!gameRunning) return;
 
-    oscillator.frequency.value =
-      frequency;
+      const targetStillThere =
+        currentTargets.some(
+          target =>
+            target.holeIndex === holeIndex
+        );
 
-    gain.gain.setValueAtTime(
-      0.0001,
-      context.currentTime
-    );
+      if (targetStillThere) {
 
-    gain.gain.exponentialRampToValueAtTime(
-      volume,
-      context.currentTime + 0.01
-    );
+        /* Animal escaped */
 
-    gain.gain.exponentialRampToValueAtTime(
-      0.0001,
-      context.currentTime + duration
-    );
+        if (
+          currentTargets.some(
+            target =>
+              target.holeIndex === holeIndex &&
+              target.type !== "bomb"
+          )
+        ) {
 
-    oscillator.connect(gain);
-    gain.connect(context.destination);
+          combo = 0;
 
-    oscillator.start();
+          if (lives > 0) {
+            lives--;
+          }
 
-    oscillator.stop(
-      context.currentTime + duration
-    );
+          updateUI();
 
-  } catch (error) {
-    /*
-      Audio errors should never stop the game.
-    */
-  }
-}
-
-function playSound(type) {
-
-  if (!soundEnabled) {
-    return;
-  }
-
-  switch (type) {
-
-    case "hit":
-      playTone(
-        520,
-        0.08,
-        "square",
-        0.045
-      );
-      break;
-
-    case "bonus":
-      playTone(
-        880,
-        0.12,
-        "sine",
-        0.06
-      );
-
-      setTimeout(
-        () => {
-          playTone(
-            1100,
-            0.12,
-            "sine",
-            0.05
+          setMessage(
+            "😱 Too slow! The animal escaped!"
           );
-        },
-        80
-      );
-      break;
 
-    case "miss":
-      playTone(
-        170,
-        0.12,
-        "sawtooth",
-        0.035
-      );
-      break;
+          playSound("miss");
 
-    case "gameover":
-      playTone(
-        180,
-        0.15,
-        "triangle",
-        0.05
-      );
+          if (lives <= 0) {
+            endGame(
+              "💔 You ran out of lives!"
+            );
+            return;
+          }
+        }
 
-      setTimeout(
-        () => {
-          playTone(
-            120,
-            0.2,
-            "triangle",
-            0.045
-          );
-        },
-        120
-      );
-      break;
+        clearBoard();
 
-    default:
-      break;
+        scheduleNextTarget();
+
+      }
+
+    }, getCurrentAnimalTime());
+
+    animalTimeouts.push(timeout);
   }
-}
 
-/* =========================================================
-   SOUND BUTTON
-   ========================================================= */
+  /* =========================================================
+     NEXT TARGET
+     ========================================================= */
 
-function toggleSound() {
+  function scheduleNextTarget() {
 
-  soundEnabled =
-    !soundEnabled;
+    if (!gameRunning) return;
 
-  soundButton.textContent =
-    soundEnabled
-      ? "🔊"
-      : "🔇";
+    clearTimeout(spawnTimeout);
 
-  soundButton.setAttribute(
-    "aria-label",
-    soundEnabled
-      ? "Turn sound off"
-      : "Turn sound on"
-  );
+    spawnTimeout = setTimeout(() => {
 
-  if (soundEnabled) {
-    playTone(
-      600,
-      0.08,
-      "sine",
-      0.04
-    );
+      createTarget();
+
+    }, getCurrentSpawnDelay());
+
   }
-}
 
-/* =========================================================
-   BACK BUTTON
-   ========================================================= */
+  /* =========================================================
+     HIT TARGET
+     ========================================================= */
 
-function goBack() {
+  function hitTarget(holeIndex) {
 
-  if (gameRunning) {
+    if (!gameRunning) return;
 
-    const shouldLeave =
-      window.confirm(
-        "Leave the game? Your current game will be lost."
+    const target =
+      currentTargets.find(
+        item =>
+          item.holeIndex === holeIndex
       );
 
-    if (!shouldLeave) {
+    if (!target) {
+
+      /* -----------------------------------------------------
+         Empty hole click.
+         Does NOT remove a life.
+         ----------------------------------------------------- */
+
+      setMessage(
+        "😅 Nothing there!"
+      );
+
+      return;
+    }
+
+    const hole = holes[holeIndex];
+
+    /* -------------------------------------------------------
+       BOMB
+       ------------------------------------------------------- */
+
+    if (target.type === "bomb") {
+
+      hole.classList.add("hit");
+
+      combo = 0;
+
+      lives--;
+
+      updateUI();
+
+      setMessage(
+        "💣 BOOM! You hit a bomb! -1 ❤️"
+      );
+
+      playSound("bomb");
+
+      clearBoard();
+
+      if (lives <= 0) {
+
+        endGame(
+          "💥 Too many bombs! Game Over!"
+        );
+
+        return;
+      }
+
+      scheduleNextTarget();
+
+      return;
+    }
+
+    /* -------------------------------------------------------
+       NORMAL ANIMAL
+       ------------------------------------------------------- */
+
+    if (target.type === "animal") {
+
+      const gained =
+        target.points +
+        Math.min(combo * 2, 20);
+
+      score += gained;
+
+      combo++;
+
+      hitsThisRound++;
+
+      hole.classList.add("hit");
+
+      updateUI();
+
+      setMessage(
+        `🎯 Great! +${gained} points`
+      );
+
+      playSound("hit");
+
+      clearBoard();
+
+      checkRoundComplete();
+
+      return;
+    }
+
+    /* -------------------------------------------------------
+       SPECIAL ANIMAL
+       ------------------------------------------------------- */
+
+    if (target.type === "special") {
+
+      const gained =
+        target.points +
+        combo * 5;
+
+      score += gained;
+
+      combo++;
+
+      hitsThisRound++;
+
+      hole.classList.add(
+        "hit",
+        "special"
+      );
+
+      updateUI();
+
+      setMessage(
+        `🌟 SPECIAL ANIMAL! +${gained} points!`
+      );
+
+      playSound("special");
+
+      clearBoard();
+
+      checkRoundComplete();
+
       return;
     }
   }
 
-  /*
-    Works with your website when this page
-    is opened normally.
-  */
+  /* =========================================================
+     CHECK ROUND
+     ========================================================= */
 
-  if (
-    document.referrer &&
-    document.referrer !== window.location.href
-  ) {
+  function checkRoundComplete() {
 
-    window.history.back();
+    if (
+      hitsThisRound >=
+      SETTINGS.maxHitsPerRound
+    ) {
 
-  } else {
+      nextRound();
 
-    window.location.href =
-      "index.html";
+      return;
+    }
+
+    scheduleNextTarget();
   }
-}
 
-/* =========================================================
-   BUTTON EVENTS
-   ========================================================= */
+  /* =========================================================
+     NEXT ROUND
+     ========================================================= */
 
-startButton.addEventListener(
-  "click",
-  startGame
-);
+  function nextRound() {
 
-restartButton.addEventListener(
-  "click",
-  startGame
-);
+    clearBoard();
 
-soundButton.addEventListener(
-  "click",
-  toggleSound
-);
+    round++;
 
-backButton.addEventListener(
-  "click",
-  goBack
-);
+    hitsThisRound = 0;
 
-/* =========================================================
-   HOLE EVENTS
-   ========================================================= */
+    specialAnimal =
+      randomSpecialAnimal();
 
-holes.forEach(
-  hole => {
+    playSound("level");
+
+    setMessage(
+      `🔥 ROUND ${round}! Speed increased! Find the special animal!`
+    );
+
+    scheduleNextTarget();
+  }
+
+  /* =========================================================
+     GAME TIMER
+     ========================================================= */
+
+  function startGameTimer() {
+
+    clearInterval(gameTimerInterval);
+
+    gameTimer =
+      SETTINGS.startingTime;
+
+    updateUI();
+
+    gameTimerInterval =
+      setInterval(() => {
+
+        if (!gameRunning) return;
+
+        gameTimer--;
+
+        updateUI();
+
+        if (gameTimer <= 0) {
+
+          endGame(
+            "⏰ Time's up!"
+          );
+
+        }
+
+      }, 1000);
+  }
+
+  /* =========================================================
+     START GAME
+     ========================================================= */
+
+  function startGame() {
+
+    stopEverything();
+
+    score = 0;
+    combo = 0;
+    lives = SETTINGS.startingLives;
+
+    round = 1;
+    hitsThisRound = 0;
+
+    gameRunning = true;
+
+    specialAnimal =
+      randomSpecialAnimal();
+
+    updateUI();
+
+    if (startButton) {
+      startButton.classList.add("hidden");
+    }
+
+    if (restartButton) {
+      restartButton.classList.add("hidden");
+    }
+
+    setMessage(
+      "🐰 Get ready! Find the animals!"
+    );
+
+    startGameTimer();
+
+    setTimeout(() => {
+
+      if (!gameRunning) return;
+
+      setMessage(
+        "🎯 ROUND 1 — Smash the animals!"
+      );
+
+      createTarget();
+
+    }, 500);
+  }
+
+  /* =========================================================
+     END GAME
+     ========================================================= */
+
+  function endGame(reason = "Game Over!") {
+
+    if (!gameRunning) return;
+
+    gameRunning = false;
+
+    stopEverything();
+
+    if (score > bestScore) {
+
+      bestScore = score;
+
+      localStorage.setItem(
+        "animalSmashBestScore",
+        bestScore
+      );
+
+      setMessage(
+        `🏆 NEW BEST SCORE: ${bestScore}!`
+      );
+
+    } else {
+
+      setMessage(
+        `${reason} Final Score: ${score}`
+      );
+
+    }
+
+    if (restartButton) {
+      restartButton.classList.remove("hidden");
+    }
+
+    if (startButton) {
+      startButton.classList.remove("hidden");
+    }
+
+    updateUI();
+
+    playSound("gameover");
+  }
+
+  /* =========================================================
+     STOP EVERYTHING
+     ========================================================= */
+
+  function stopEverything() {
+
+    clearInterval(gameTimerInterval);
+
+    clearTimeout(spawnTimeout);
+
+    animalTimeouts.forEach(
+      timeout =>
+        clearTimeout(timeout)
+    );
+
+    animalTimeouts = [];
+
+    clearBoard();
+  }
+
+  /* =========================================================
+     HAMMER EFFECT
+     ========================================================= */
+
+  function showHammer(event) {
+
+    if (!hammer) return;
+
+    hammer.classList.remove(
+      "hammer-hit"
+    );
+
+    void hammer.offsetWidth;
+
+    hammer.classList.add(
+      "hammer-hit"
+    );
+
+    if (
+      event &&
+      typeof event.clientX === "number"
+    ) {
+
+      const rect =
+        document.body.getBoundingClientRect();
+
+      hammer.style.left =
+        `${event.clientX - rect.left - 25}px`;
+
+      hammer.style.top =
+        `${event.clientY - rect.top - 25}px`;
+    }
+  }
+
+  /* =========================================================
+     HOLE CLICK EVENTS
+     ========================================================= */
+
+  holes.forEach((hole, index) => {
 
     hole.addEventListener(
-      "pointerdown",
-      handleHoleInteraction,
-      {
-        passive: false
+      "click",
+      event => {
+
+        if (!gameRunning) return;
+
+        showHammer(event);
+
+        hitTarget(index);
+
+      }
+    );
+
+  });
+
+  /* =========================================================
+     START BUTTON
+     ========================================================= */
+
+  if (startButton) {
+
+    startButton.addEventListener(
+      "click",
+      () => {
+
+        startGame();
+
       }
     );
 
   }
-);
 
-/* =========================================================
-   PREVENT LONG PRESS / CONTEXT MENU
-   ========================================================= */
+  /* =========================================================
+     RESTART BUTTON
+     ========================================================= */
 
-gameBoard.addEventListener(
-  "contextmenu",
-  event => {
-    event.preventDefault();
+  if (restartButton) {
+
+    restartButton.addEventListener(
+      "click",
+      () => {
+
+        startGame();
+
+      }
+    );
+
   }
-);
 
-/* =========================================================
-   PAGE VISIBILITY
-   ========================================================= */
+  /* =========================================================
+     SOUND BUTTON
+     ========================================================= */
 
-document.addEventListener(
-  "visibilitychange",
-  () => {
+  if (soundButton) {
 
-    /*
-      Don't allow a hidden browser tab to
-      create strange duplicate timers.
+    soundButton.addEventListener(
+      "click",
+      () => {
 
-      The current game simply continues when
-      the player returns.
-    */
+        soundEnabled =
+          !soundEnabled;
 
-    if (
-      document.hidden &&
-      gameRunning
-    ) {
-      gameMessage.textContent =
-        "⏸️ Come back and keep playing!";
+        soundButton.textContent =
+          soundEnabled
+            ? "🔊"
+            : "🔇";
+
+        if (soundEnabled) {
+          playSound("hit");
+        }
+
+      }
+    );
+
+  }
+
+  /* =========================================================
+     BACK BUTTON
+     ========================================================= */
+
+  if (backButton) {
+
+    backButton.addEventListener(
+      "click",
+      () => {
+
+        window.location.href =
+          "index.html";
+
+      }
+    );
+
+  }
+
+  /* =========================================================
+     DIFFICULTY MENU
+     
+     If difficulty buttons are added later,
+     this automatically supports:
+     
+     data-difficulty="easy"
+     data-difficulty="normal"
+     data-difficulty="hard"
+     ========================================================= */
+
+  document
+    .querySelectorAll(
+      "[data-difficulty]"
+    )
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const selected =
+            button.dataset.difficulty;
+
+          if (
+            SETTINGS[selected]
+          ) {
+
+            difficulty = selected;
+
+            document
+              .querySelectorAll(
+                "[data-difficulty]"
+              )
+              .forEach(btn =>
+                btn.classList.remove(
+                  "active"
+                )
+              );
+
+            button.classList.add(
+              "active"
+            );
+
+            setMessage(
+              `🎮 ${selected.toUpperCase()} mode selected`
+            );
+
+          }
+
+        }
+      );
+
+    });
+
+  /* =========================================================
+     KEYBOARD SUPPORT
+     ========================================================= */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (!gameRunning) return;
+
+      const key =
+        Number(event.key);
+
+      if (
+        key >= 1 &&
+        key <= 9
+      ) {
+
+        hitTarget(key - 1);
+
+      }
+
     }
+  );
 
-  }
-);
+  /* =========================================================
+     INITIAL UI
+     ========================================================= */
 
-/* =========================================================
-   INITIAL MESSAGE
-   ========================================================= */
+  updateUI();
 
-gameMessage.textContent =
-  "Press START and get ready! 🐰🔨";
+  setMessage(
+    "Get ready! Animals are coming! 🐰"
+  );
 
-/* =========================================================
-   END
-   ========================================================= */
+  console.log(
+    "🐾 Animal Smash loaded successfully!"
+  );
+
+})();
