@@ -1524,20 +1524,47 @@ LATEST GAMES
     <!-- ============================================
     SUGGESTIONS / HELP PORTAL
     ============================================ -->
-    <section class="card">
+    
+<section class="card" id="help-portal">
+
   <h2>🆘 Help Portal & Suggestions</h2>
 
   <p>
-    Found a problem or have an idea for a new challenge?
-    You can use the form below to save your suggestion on this device.
+    Have ideas, problems, or new challenge suggestions?
+    Tell us and help improve Gen Z Eye Challenge.
   </p>
 
-  <p>
-    For questions that require a response, please use our
-    <a href="contact.html" style="color: cyan;">Contact page</a>.
-  </p>
+  <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:15px;">
+
+    <input
+      type="text"
+      id="suggestion"
+      placeholder="Write your suggestion..."
+      maxlength="500"
+      style="flex:1; min-width:200px;"
+    >
+
+    <button
+      type="button"
+      class="btn btn-primary"
+      id="suggestionBtn">
+      📩 Submit
+    </button>
 
   </div>
+
+  <div
+    id="suggestionMessage"
+    style="
+      margin-top:15px;
+      padding:12px;
+      border-radius:12px;
+      display:none;
+      text-align:center;
+    ">
+  </div>
+
+</section>
 
   <!-- ============================================
   FOOTER
