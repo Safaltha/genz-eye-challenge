@@ -1934,14 +1934,69 @@ const questions = [{
   playTap();
 }
     // ============================================
-    // LOAD SUGGESTIONS (Optional)
-    // ============================================
-    function loadSuggestions() {
-      const suggestions = JSON.parse(localStorage.getItem('suggestions') || '[]');
-      if (suggestions.length > 0) {
-        console.log(`📋 ${suggestions.length} suggestions saved:`, suggestions);
-      }
-    }
+// SUGGESTION / HELP PORTAL
+// ============================================
+function sendSuggestion() {
+
+  const input = document.getElementById('suggestion');
+  const message = document.getElementById('suggestionMessage');
+
+  if (!input || !message) return;
+
+  const suggestion = input.value.trim();
+
+  // Empty message
+  if (suggestion === '') {
+    message.style.display = 'block';
+    message.style.background = 'rgba(255, 107, 107, 0.15)';
+    message.style.color = '#ff6b6b';
+    message.innerHTML = '⚠️ Please write a suggestion first.';
+    return;
+  }
+
+  // Get old suggestions
+  let suggestions = JSON.parse(
+    localStorage.getItem('suggestions') || '[]'
+  );
+
+  // Save new suggestion
+  suggestions.push({
+    text: suggestion,
+    date: new Date().toLocaleString()
+  });
+
+  localStorage.setItem(
+    'suggestions',
+    JSON.stringify(suggestions)
+  );
+
+  // Success message
+  message.style.display = 'block';
+  message.style.background = 'rgba(78, 205, 196, 0.15)';
+  message.style.color = '#4ecdc4';
+  message.innerHTML =
+    '✅ Thank you! Your suggestion has been saved.';
+
+  // Clear input
+  input.value = '';
+
+  playTap();
+
+  console.log('💡 New suggestion:', suggestion);
+}
+
+
+// Load saved suggestions
+function loadSuggestions() {
+
+  const suggestions = JSON.parse(
+    localStorage.getItem('suggestions') || '[]'
+  );
+
+  console.log(
+    `📋 ${suggestions.length} suggestion(s) saved on this device.`
+  );
+}
 
     // ============================================
     // PAGE LOAD
@@ -1949,7 +2004,13 @@ const questions = [{
     window.addEventListener('DOMContentLoaded', function() {
       loadSavedStats();
       loadSuggestions();
+      
+  // Suggestion button
+  const suggestionBtn = document.getElementById('suggestionBtn');
 
+  if (suggestionBtn) {
+    suggestionBtn.addEventListener('click', sendSuggestion);
+  }
       document.querySelectorAll('.game-card, .featured-card, .play-button').forEach(el => {
         el.addEventListener('click', function(e) {
           // Don't play tap twice if already handled
