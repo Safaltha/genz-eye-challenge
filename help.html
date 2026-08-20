@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,39 +8,125 @@
 
 <title>Help Portal | Gen Z Eye Challenge</title>
 
+<meta name="description"
+content="Get help with Gen Z Eye Challenge games, find answers to common questions, and send suggestions.">
+
 <style>
 
+*{
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
 body{
-font-family:Arial;
-background:#050014;
-color:white;
-padding:20px;
+    margin:0;
+    min-height:100vh;
+    background:radial-gradient(circle at top,#4b0082,#050014 50%,#000);
+    color:white;
+    padding:20px;
 }
 
 .card{
-max-width:700px;
-margin:auto;
-background:rgba(255,255,255,0.1);
-padding:30px;
-border-radius:25px;
+    max-width:700px;
+    margin:40px auto;
+    background:rgba(255,255,255,0.07);
+    padding:30px;
+    border-radius:25px;
+    border:1px solid rgba(255,255,255,0.1);
+    box-shadow:0 0 40px rgba(0,255,255,0.08);
 }
 
 h1{
-color:cyan;
+    text-align:center;
+    color:cyan;
+    margin-bottom:20px;
 }
 
-button{
-padding:12px 25px;
-border-radius:30px;
-border:none;
-background:linear-gradient(45deg,cyan,magenta);
+h2{
+    color:cyan;
+    margin-top:30px;
+}
+
+p{
+    color:#a0a5bd;
+    line-height:1.7;
+}
+
+.faq{
+    padding:15px;
+    margin:12px 0;
+    border-radius:15px;
+    background:rgba(255,255,255,0.05);
+}
+
+.faq b{
+    color:white;
 }
 
 textarea{
-width:100%;
-height:100px;
-border-radius:15px;
-padding:10px;
+    width:100%;
+    height:120px;
+    border-radius:15px;
+    padding:15px;
+    margin-top:10px;
+    border:1px solid rgba(255,255,255,0.1);
+    background:rgba(255,255,255,0.06);
+    color:white;
+    font-size:16px;
+    outline:none;
+    resize:vertical;
+}
+
+textarea:focus{
+    border-color:cyan;
+}
+
+textarea::placeholder{
+    color:#777b91;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:15px;
+    border-radius:30px;
+    border:none;
+    background:linear-gradient(45deg,cyan,magenta);
+    color:#000;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.02);
+    box-shadow:0 0 25px cyan;
+}
+
+button:active{
+    transform:scale(0.98);
+}
+
+#suggestionMessage{
+    display:none;
+    margin-top:15px;
+    padding:15px;
+    border-radius:15px;
+    text-align:center;
+    line-height:1.5;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    margin-top:25px;
+    color:cyan;
+    text-decoration:none;
+}
+
+.back:hover{
+    text-decoration:underline;
 }
 
 </style>
@@ -55,51 +140,180 @@ padding:10px;
 
 <h1>🆘 Help Portal</h1>
 
-<p>
-Welcome to Gen Z Eye Challenge Help Center.
+<p style="text-align:center;">
+Welcome to the Gen Z Eye Challenge Help Center.
+Find answers to common questions or send us a suggestion.
 </p>
 
 
 <h2>❓ Frequently Asked Questions</h2>
 
 
+<div class="faq">
+
 <p>
 👁️ <b>How do I play?</b><br>
-Click Start Challenge and find the hidden answer.
+Choose a game from the homepage and follow the instructions
+shown on the game page.
 </p>
 
+</div>
+
+
+<div class="faq">
 
 <p>
 🏆 <b>How is my score calculated?</b><br>
-Complete challenges to earn points.
+Each game has its own scoring system. Complete the challenge
+according to the instructions to receive your result.
 </p>
 
+</div>
+
+
+<div class="faq">
 
 <p>
 🤖 <b>How does AI Eye Coach work?</b><br>
-Ask for hints during the challenge.
+Ask the AI Eye Coach about hints, gameplay tips, game information,
+or other available features.
 </p>
+
+</div>
+
+
+<div class="faq">
+
+<p>
+📱 <b>Can I play on my phone?</b><br>
+Yes. The website is designed to work on phones, tablets,
+and desktop computers.
+</p>
+
+</div>
+
+
+<div class="faq">
+
+<p>
+🆘 <b>I found a problem. What should I do?</b><br>
+You can describe the problem in the Suggestions Box below.
+</p>
+
+</div>
 
 
 <h2>💡 Suggestions Box</h2>
 
-<textarea placeholder="Write your suggestion..."></textarea>
+<p>
+Have an idea for a new game or found something that isn't working?
+Tell us below.
+</p>
 
-<br><br>
 
-<button>
-Send Suggestion
+<textarea
+    id="suggestion"
+    maxlength="500"
+    placeholder="Write your suggestion..."
+></textarea>
+
+
+<button
+    type="button"
+    id="suggestionBtn">
+    📩 Send Suggestion
 </button>
 
 
-<br><br>
+<div id="suggestionMessage"></div>
 
-<a href="index.html" style="color:cyan;">
+
+<a class="back" href="index.html">
 ⬅ Back to Game
 </a>
 
 
 </div>
+
+
+<script>
+
+document
+.getElementById("suggestionBtn")
+.addEventListener("click", function(){
+
+    const input =
+        document.getElementById("suggestion");
+
+    const message =
+        document.getElementById("suggestionMessage");
+
+    const suggestion =
+        input.value.trim();
+
+
+    // Empty suggestion
+    if(suggestion === ""){
+
+        message.style.display = "block";
+
+        message.style.background =
+            "rgba(255,107,107,0.15)";
+
+        message.style.color =
+            "#ff6b6b";
+
+        message.innerHTML =
+            "⚠️ Please write a suggestion first.";
+
+        return;
+    }
+
+
+    // Get previous suggestions
+    let suggestions =
+        JSON.parse(
+            localStorage.getItem("suggestions") || "[]"
+        );
+
+
+    // Save suggestion
+    suggestions.push({
+
+        text:suggestion,
+
+        date:new Date().toLocaleString()
+
+    });
+
+
+    localStorage.setItem(
+        "suggestions",
+        JSON.stringify(suggestions)
+    );
+
+
+    // Show success message
+    message.style.display = "block";
+
+    message.style.background =
+        "rgba(78,205,196,0.15)";
+
+    message.style.color =
+        "#4ecdc4";
+
+    message.innerHTML =
+        "✅ Thank you! Your suggestion has been saved.";
+
+
+    // Clear box
+    input.value = "";
+
+});
+
+
+</script>
+
 
 </body>
 
