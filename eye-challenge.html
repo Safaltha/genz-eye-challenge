@@ -1,38 +1,313 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eye Challenge</title>
+
+    <title>Sharp Eye Count Challenge – Find Hidden Numbers | Gen Z Eye Challenge</title>
+
+    <meta name="description"
+        content="Play the Sharp Eye Count Challenge and test your observation skills. Find and count the different numbers hidden in the grid, submit your answer, and try to pass more rounds.">
+
     <link rel="stylesheet" href="eye-challenge.css">
 </head>
+
 <body>
 
-    <div class="header">
-        <h1>🔍 How many different numbers can you see?</h1>
-    </div>
-    
-    <div class="stats">
-        <span>🏆 Rounds Passed: <span id="scoreDisplay">0</span></span>
-    </div>
+    <!-- ============================================
+         HEADER
+    ============================================ -->
+    <header class="header">
+        <h1>🔍 Sharp Eye Count Challenge</h1>
 
-    <!-- 20x20 Grid Container -->
-    <div id="game-container">
-        <div id="game-board"></div>
-    </div>
+        <p>
+            Can you find and count the different numbers hidden in the grid?
+            Look carefully, count what you see, and submit your answer.
+        </p>
+    </header>
 
-    <!-- Player Controls -->
-    <div class="controls">
-        <div class="input-group">
-            <!-- UPDATED: Min 0, Max 10, and placeholder (0-10) -->
-            <input type="number" id="answerInput" placeholder="Count (0-10)" min="0" max="10">
-            <button id="submitBtn">Submit Answer</button>
+
+    <!-- ============================================
+         GAME INFORMATION
+    ============================================ -->
+    <main>
+
+        <section class="game-intro">
+
+            <h2>👁️ What Is the Sharp Eye Count Challenge?</h2>
+
+            <p>
+                Sharp Eye Count is a visual observation game where you need
+                to examine a grid and identify the numbers that are different
+                from the surrounding pattern.
+            </p>
+
+            <p>
+                Each round gives you a new visual pattern to inspect.
+                Your goal is to count the different numbers as accurately
+                as possible and submit your answer before moving to the
+                next round.
+            </p>
+
+        </section>
+
+
+        <!-- ============================================
+             HOW TO PLAY
+        ============================================ -->
+        <section class="game-info">
+
+            <h2>🎮 How to Play</h2>
+
+            <ol>
+                <li>Look carefully at the entire number grid.</li>
+                <li>Compare the numbers and look for differences.</li>
+                <li>Count how many different numbers you can find.</li>
+                <li>Enter your answer in the box below the grid.</li>
+                <li>Press <strong>Submit Answer</strong> to check your result.</li>
+                <li>Continue to the next round and try to pass more rounds.</li>
+            </ol>
+
+        </section>
+
+
+        <!-- ============================================
+             GAME STATS
+        ============================================ -->
+        <div class="stats">
+            <span>
+                🏆 Rounds Passed:
+                <span id="scoreDisplay">0</span>
+            </span>
         </div>
-        <div id="messageBox"></div>
-        <button id="giveUpBtn">💡 Give Up / Next Round</button>
-    </div>
 
+
+        <!-- ============================================
+             GAME BOARD
+        ============================================ -->
+        <section class="game-area">
+
+            <h2>🔢 Find the Different Numbers</h2>
+
+            <p>
+                Examine the grid carefully and count the numbers that are
+                different from the main pattern.
+            </p>
+
+            <!-- 20x20 Grid Container -->
+            <div id="game-container">
+                <div id="game-board"></div>
+            </div>
+
+            <!-- Player Controls -->
+            <div class="controls">
+
+                <div class="input-group">
+
+                    <label for="answerInput">
+                        Enter your answer:
+                    </label>
+
+                    <input
+                        type="number"
+                        id="answerInput"
+                        placeholder="Count (0-10)"
+                        min="0"
+                        max="10"
+                        inputmode="numeric"
+                        aria-label="Enter the number of different numbers you found"
+                    >
+
+                    <button id="submitBtn">
+                        Submit Answer
+                    </button>
+
+                </div>
+
+                <div id="messageBox" aria-live="polite"></div>
+
+                <button id="giveUpBtn">
+                    💡 Give Up / Next Round
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================================
+             PLAYING TIPS
+        ============================================ -->
+        <section class="game-info">
+
+            <h2>💡 Tips for This Challenge</h2>
+
+            <ul>
+                <li>🔍 Scan the grid from left to right instead of looking randomly.</li>
+                <li>👀 Compare nearby numbers when something looks unusual.</li>
+                <li>🧠 Take your time when the pattern becomes difficult.</li>
+                <li>📱 On a small screen, make sure the grid is clearly visible.</li>
+                <li>🔄 If you miss a round, try again and compare your previous result.</li>
+            </ul>
+
+        </section>
+
+
+        <!-- ============================================
+             DIFFICULTY
+        ============================================ -->
+        <section class="game-info">
+
+            <h2>📈 Challenge Difficulty</h2>
+
+            <p>
+                The challenge can become harder as you continue playing.
+                More difficult patterns may require closer observation
+                and careful counting.
+            </p>
+
+            <p>
+                Your result depends on how quickly and accurately you can
+                identify the different numbers in each round.
+            </p>
+
+        </section>
+
+
+        <!-- ============================================
+             WHAT THIS GAME TESTS
+        ============================================ -->
+        <section class="game-info">
+
+            <h2>🎯 What Does This Game Challenge?</h2>
+
+            <p>
+                This game focuses on visual observation and pattern
+                comparison. It asks you to inspect many similar elements
+                and identify the ones that do not match.
+            </p>
+
+            <p>
+                It is designed as a casual entertainment challenge.
+                Results are not a medical eye test and should not be used
+                to evaluate eyesight or vision health.
+            </p>
+
+        </section>
+
+
+        <!-- ============================================
+             FAQ
+        ============================================ -->
+        <section class="game-info">
+
+            <h2>❓ Sharp Eye Count FAQ</h2>
+
+            <h3>What do I need to find?</h3>
+
+            <p>
+                Look through the grid and count the numbers that are
+                different from the surrounding pattern.
+            </p>
+
+            <h3>How do I submit my answer?</h3>
+
+            <p>
+                Enter the number you found in the answer box and press
+                the Submit Answer button.
+            </p>
+
+            <h3>What happens if I cannot find the answer?</h3>
+
+            <p>
+                You can use the Give Up / Next Round button to move on
+                to another round.
+            </p>
+
+            <h3>Can I play this game on a phone?</h3>
+
+            <p>
+                Yes. The page is designed to work in a web browser on
+                phones, tablets, and computers.
+            </p>
+
+            <h3>Is this a medical eye test?</h3>
+
+            <p>
+                No. This is an entertainment game based on visual
+                observation. It is not intended to diagnose or measure
+                eyesight or any medical condition.
+            </p>
+
+        </section>
+
+
+        <!-- ============================================
+             NAVIGATION
+        ============================================ -->
+        <section class="game-navigation">
+
+            <h2>🎮 Explore More Challenges</h2>
+
+            <p>
+                Finished this challenge? Try another game from
+                Gen Z Eye Challenge.
+            </p>
+
+            <a href="index.html">🏠 Back to Home</a>
+
+            <a href="eagle-radar.html">🦅 Eagle Radar</a>
+
+            <a href="camouflage-hunter.html">🟦 Camouflage Hunter</a>
+
+            <a href="reaction-game.html">⚡ Reaction Speed Test</a>
+
+        </section>
+
+    </main>
+
+
+    <!-- ============================================
+         FOOTER
+    ============================================ -->
+    <footer class="footer">
+
+        <h2>👁️ Gen Z Eye Challenge</h2>
+
+        <p>
+            Free visual puzzles, observation games, memory challenges,
+            and reaction tests.
+        </p>
+
+        <nav aria-label="Footer navigation">
+
+            <a href="index.html">🏠 Home</a>
+
+            <a href="about.html">ℹ️ About</a>
+
+            <a href="help.html">❓ Help</a>
+
+            <a href="contact.html">📩 Contact</a>
+
+            <a href="privacy.html">🔒 Privacy</a>
+
+            <a href="terms.html">📜 Terms</a>
+
+        </nav>
+
+        <p>
+            © 2026 Gen Z Eye Challenge. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- ============================================
+         GAME JAVASCRIPT
+    ============================================ -->
     <script src="eye-challenge.js"></script>
+
 </body>
+
 </html>
