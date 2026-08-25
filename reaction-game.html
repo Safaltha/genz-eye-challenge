@@ -10,35 +10,170 @@
 <link rel="stylesheet" href="reaction-game.css">
 
 </head>
-
 <body>
 
 <div class="game-container">
 
-<h1>⚡ Reaction Speed Test</h1>
+  <h1>⚡ Reaction Speed Test</h1>
 
-<p>
-Wait for the color change and click as fast as you can!
-</p>
+  <p class="intro">
+    Test how quickly you can react when the screen changes.
+    Wait for the signal, then click the reaction area as fast as you can.
+  </p>
+
+  <div class="game-info">
+
+    <div class="info-box">
+      <span>🏆 Best Time</span>
+      <strong id="bestTime">-- ms</strong>
+    </div>
+
+    <div class="info-box">
+      <span>🎯 Attempts</span>
+      <strong id="attempts">0</strong>
+    </div>
+
+    <div class="info-box">
+      <span>⚡ Last Result</span>
+      <strong id="lastResult">-- ms</strong>
+    </div>
+
+  </div>
+
+  <div id="reactionBox">
+    Click "Start Test" to begin
+  </div>
+
+  <button onclick="startReaction()">
+    ⚡ Start Test
+  </button>
+
+  <h2 id="result"></h2>
 
 
-<div id="reactionBox">
-Click Start First
+  <!-- ABOUT THE GAME -->
+
+  <section class="info-section">
+
+    <h2>⚡ About the Reaction Speed Test</h2>
+
+    <p>
+      Reaction Speed Test is a simple browser-based challenge that
+      measures how quickly you respond to a visual signal. The goal is
+      to wait for the correct signal and react as quickly as possible.
+    </p>
+
+    <p>
+      Each attempt gives you a reaction-time result measured in
+      milliseconds. You can repeat the test and try to improve your
+      previous result.
+    </p>
+
+  </section>
+
+
+  <!-- HOW TO PLAY -->
+
+  <section class="info-section">
+
+    <h2>🎮 How to Play</h2>
+
+    <ol>
+      <li>Press the <strong>Start Test</strong> button.</li>
+      <li>Wait for the reaction area to change.</li>
+      <li>Click the reaction area as quickly as you can.</li>
+      <li>Check your reaction-time result.</li>
+      <li>Try again and compare your new result with your previous attempt.</li>
+    </ol>
+
+  </section>
+
+
+  <!-- UNDERSTANDING RESULTS -->
+
+  <section class="info-section">
+
+    <h2>📊 Understanding Your Result</h2>
+
+    <p>
+      Your result is displayed in milliseconds (ms). A lower number
+      means that the recorded response took less time during that
+      particular attempt.
+    </p>
+
+    <p>
+      Reaction results can vary from one attempt to another because of
+      factors such as timing, device performance, browser performance,
+      screen interaction, and the conditions in which you play.
+    </p>
+
+  </section>
+
+
+  <!-- TIPS -->
+
+  <section class="info-section">
+
+    <h2>💡 Reaction Test Tips</h2>
+
+    <ul>
+      <li>Read the instructions before starting.</li>
+      <li>Make sure you can clearly see the reaction area.</li>
+      <li>Use a comfortable screen and playing position.</li>
+      <li>Focus on the visual signal instead of guessing when it will appear.</li>
+      <li>Try several attempts instead of judging your performance from one result.</li>
+    </ul>
+
+  </section>
+
+
+  <!-- FAQ -->
+
+  <section class="info-section">
+
+    <h2>❓ Frequently Asked Questions</h2>
+
+    <h3>What does this game measure?</h3>
+
+    <p>
+      It records the time between the game's visual signal and your
+      interaction with the reaction area.
+    </p>
+
+    <h3>Is the test free?</h3>
+
+    <p>
+      Yes. You can play the Reaction Speed Test directly in your browser.
+    </p>
+
+    <h3>Can I play on a phone?</h3>
+
+    <p>
+      Yes. The game is designed for browser-based play on supported
+      mobile devices and computers.
+    </p>
+
+    <h3>Why are my results different each time?</h3>
+
+    <p>
+      Reaction results naturally vary between attempts. Device,
+      browser, screen interaction, timing, and playing conditions can
+      all affect the recorded result.
+    </p>
+
+    <h3>Can I try the test multiple times?</h3>
+
+    <p>
+      Yes. Repeating the challenge lets you compare your results across
+      different attempts.
+    </p>
+
+  </section>
+
 </div>
-
-
-<button onclick="startReaction()">
-Start Test
-</button>
-
-
-<h2 id="result"></h2>
-
-
-</div>
-
 
 <script src="reaction-game.js"></script>
 
 </body>
+
 </html>
