@@ -1,12 +1,17 @@
+
 // =====================================
 // 🎯 CYBER SNIPER CHALLENGE
-// PART 1: CORE ENGINE
+// CLEAN COMPLETE GAME ENGINE
 // =====================================
 
+"use strict";
+
+// =====================================
+// ELEMENTS
+// =====================================
 
 const arena = document.getElementById("arena");
 const target = document.getElementById("target");
-
 
 const scoreText = document.getElementById("score");
 const levelText = document.getElementById("level");
@@ -30,1226 +35,1179 @@ const resultTitle = document.getElementById("resultTitle");
 const resultText = document.getElementById("resultText");
 
 
+// =====================================
+// GAME SETTINGS
+// =====================================
+
+const STARTING_LIVES = 3;
+const STARTING_TIME = 30;
+
+const NORMAL_TARGET_SIZE = 70;
+const MIN_TARGET_SIZE = 35;
+
+const NORMAL_TARGET_SPEED = 1500;
+const MIN_TARGET_SPEED = 400;
+
+const MOVE_INTERVAL = 700;
+
+
+// =====================================
+// GAME STATE
+// =====================================
 
 let score = 0;
-
 let level = 1;
-
-let lives = 3;
-
+let lives = STARTING_LIVES;
 let combo = 0;
-
 let coins = 0;
 
 let hits = 0;
-
 let shots = 0;
 
-
-let time = 30;
-
+let time = STARTING_TIME;
 
 let playing = false;
-
 let paused = false;
 
+let targetSpeed = NORMAL_TARGET_SPEED;
+let targetSize = NORMAL_TARGET_SIZE;
 
-let gameTimer;
+let currentTargetType = "normal";
 
-let targetTimer;
+let gameTimer = null;
+let targetTimer = null;
+let moveTimer = null;
 
-let moveTimer;
+let levelRewardGiven = 0;
 
-
-
-// Difficulty
-
-let targetSpeed = 1500;
-
-let targetSize = 70;
-
+let audioEnabled = true;
 
 
 // =====================================
-// UPDATE SCREEN
+// RANDOM HELPERS
 // =====================================
 
-
-function updateUI(){
-
-
-scoreText.innerHTML = score;
-
-levelText.innerHTML = level;
-
-livesText.innerHTML = lives;
-
-comboText.innerHTML = combo;
-
-coinsText.innerHTML = coins;
+function randomNumber(min, max) {
+    return Math.random() * (max - min) + min;
+}
 
 
-let accuracy = shots === 0 ? 100 :
-Math.floor((hits/shots)*100);
+// =====================================
+// ACCURACY
+// =====================================
+
+function getAccuracy() {
+
+    if (shots === 0) {
+        return 100;
+    }
+
+    return Math.floor((hits / shots) * 100);
+}
 
 
-accuracyText.innerHTML = accuracy+"%";
+// =====================================
+// UPDATE UI
+// =====================================
 
+function updateUI() {
 
-progress.style.width =
-(level%100)+"%";
+    scoreText.textContent = score;
 
+    levelText.textContent = level;
+
+    livesText.textContent = lives;
+
+    comboText.textContent = combo;
+
+    coinsText.textContent = coins;
+
+    accuracyText.textContent =
+        getAccuracy() + "%";
+
+    timeText.textContent =
+        Math.max(0, time);
+
+    // Progress toward next level.
+    const levelScore =
+        score % 100;
+
+    progress.style.width =
+        levelScore + "%";
 
 }
 
 
-
-
 // =====================================
-// RESET GAME
+// RESET CURRENT GAME
 // =====================================
 
+function resetGame() {
 
-function resetGame(){
+    clearAllTimers();
 
+    score = 0;
+    level = 1;
+    lives = STARTING_LIVES;
+    combo = 0;
+    coins = 0;
 
-score = 0;
+    hits = 0;
+    shots = 0;
 
-level = 1;
+    time = STARTING_TIME;
 
-lives = 3;
+    targetSpeed =
+        NORMAL_TARGET_SPEED;
 
-combo = 0;
+    targetSize =
+        NORMAL_TARGET_SIZE;
 
-coins = 0;
+    levelRewardGiven = 0;
 
-hits = 0;
+    currentTargetType =
+        "normal";
 
-shots = 0;
+    target.style.display =
+        "none";
 
+    resultBox.style.display =
+        "none";
 
-time = 30;
+    pauseBtn.textContent =
+        "⏸ Pause";
 
-
-targetSpeed = 1500;
-
-targetSize = 70;
-
-
-resultBox.style.display="none";
-
-
-target.style.display="none";
-
-
-updateUI();
-
+    updateUI();
 
 }
-
-
-
 
 
 // =====================================
 // START GAME
 // =====================================
 
+function startGame() {
 
-function startGame(){
+    resetGame();
 
+    playing = true;
+    paused = false;
 
-resetGame();
+    message.textContent =
+        "🎯 Mission Started! Hit the targets!";
 
+    modeText.textContent =
+        "🎮 Normal Mode";
 
-playing = true;
+    startBtn.disabled = true;
 
-paused = false;
+    pauseBtn.disabled = false;
 
+    restartBtn.disabled = false;
 
-message.innerHTML =
-"🎯 Mission Started! Hit the targets!";
+    startTimer();
 
+    startMoving();
 
-startTimer();
-
-
-spawnTarget();
-
+    spawnTarget();
 
 }
-
-
-
 
 
 // =====================================
-// PAUSE
+// PAUSE / RESUME
 // =====================================
 
+pauseBtn.onclick = function () {
 
-pauseBtn.onclick=function(){
+    if (!playing) {
+        return;
+    }
 
+    paused = !paused;
 
-paused = !paused;
+    if (paused) {
 
+        message.textContent =
+            "⏸ Game Paused";
 
-if(paused){
+        pauseBtn.textContent =
+            "▶ Resume";
 
-message.innerHTML="⏸ Game Paused";
+        clearTimeout(targetTimer);
 
-target.style.display="none";
+        clearInterval(moveTimer);
 
-}
+        target.style.display =
+            "none";
 
-else{
+    } else {
 
-message.innerHTML="🔥 Continue Mission";
+        message.textContent =
+            "🔥 Mission Resumed!";
 
-spawnTarget();
+        pauseBtn.textContent =
+            "⏸ Pause";
 
-}
+        spawnTarget();
 
+        startMoving();
+
+    }
 
 };
-
-
 
 
 // =====================================
 // RESTART
 // =====================================
 
+restartBtn.onclick = function () {
 
-restartBtn.onclick=function(){
+    clearAllTimers();
 
-clearAll();
+    playing = false;
+    paused = false;
 
-startGame();
-
-};
-
-// =====================================
-// PART 2: TARGET SYSTEM
-// =====================================
-
-
-function spawnTarget(){
-
-
-if(!playing || paused) return;
-
-
-clearTimeout(targetTimer);
-
-
-target.style.display="block";
-
-
-// Random position
-
-let maxX = arena.clientWidth - targetSize;
-
-let maxY = arena.clientHeight - targetSize;
-
-
-let x = Math.random()*maxX;
-
-let y = Math.random()*maxY;
-
-
-
-target.style.left = x+"px";
-
-target.style.top = y+"px";
-
-target.style.width = targetSize+"px";
-
-target.style.height = targetSize+"px";
-
-
-
-// Target type
-
-let chance = Math.random();
-
-
-if(chance < 0.15){
-
-// Bonus target
-
-target.dataset.type="bonus";
-
-target.style.background=
-"radial-gradient(circle,yellow,cyan)";
-
-}
-
-else if(chance < 0.25){
-
-// Trap target
-
-target.dataset.type="trap";
-
-target.style.background=
-"radial-gradient(circle,black,red)";
-
-}
-
-else{
-
-// Normal target
-
-target.dataset.type="normal";
-
-target.style.background=
-"radial-gradient(circle,white,yellow,red)";
-
-}
-
-
-
-
-// Auto disappear
-
-targetTimer=setTimeout(()=>{
-
-
-if(target.style.display==="block"){
-
-
-missTarget();
-
-
-}
-
-
-},targetSpeed);
-
-
-
-}
-
-
-
-
-// =====================================
-// SHOOT TARGET
-// =====================================
-
-
-target.onclick=function(){
-
-
-if(!playing || paused)
-return;
-
-
-shots++;
-
-
-let type = target.dataset.type;
-
-
-
-if(type==="trap"){
-
-
-lives--;
-
-combo=0;
-
-
-message.innerHTML=
-"💣 Trap hit! Life lost";
-
-
-}
-
-else{
-
-
-hits++;
-
-combo++;
-
-
-
-if(type==="bonus"){
-
-
-score += 30;
-
-coins += 5;
-
-
-message.innerHTML=
-"💎 Bonus Target! +30";
-
-
-}
-
-else{
-
-
-let points = 10 + (combo*2);
-
-
-score += points;
-
-
-coins +=1;
-
-
-message.innerHTML=
-"🎯 Perfect Shot! +"+points;
-
-
-}
-
-
-
-}
-
-
-
-target.classList.add("hit");
-
-
-setTimeout(()=>{
-
-target.classList.remove("hit");
-
-},300);
-
-
-
-target.style.display="none";
-
-
-checkLevel();
-
-
-updateUI();
-
-
-
-if(lives<=0){
-
-
-gameOver();
-
-
-return;
-
-}
-
-
-
-spawnTarget();
-
+    startGame();
 
 };
 
 
+// =====================================
+// SPAWN TARGET
+// =====================================
+
+function spawnTarget() {
+
+    if (!playing || paused) {
+        return;
+    }
+
+    clearTimeout(targetTimer);
+
+    target.style.display =
+        "block";
+
+    // Make sure target fits inside arena.
+    const maxX =
+        Math.max(
+            0,
+            arena.clientWidth - targetSize
+        );
+
+    const maxY =
+        Math.max(
+            0,
+            arena.clientHeight - targetSize
+        );
+
+    const x =
+        randomNumber(0, maxX);
+
+    const y =
+        randomNumber(0, maxY);
+
+    target.style.left =
+        x + "px";
+
+    target.style.top =
+        y + "px";
+
+    target.style.width =
+        targetSize + "px";
+
+    target.style.height =
+        targetSize + "px";
+
+
+    // =================================
+    // TARGET TYPE
+    // =================================
+
+    const chance =
+        Math.random();
+
+    if (level % 10 === 0) {
+
+        currentTargetType =
+            "boss";
+
+        target.style.background =
+            "radial-gradient(circle, gold, orange, red)";
+
+        target.classList.add("boss-target");
+
+    }
+
+    else if (chance < 0.12) {
+
+        currentTargetType =
+            "bonus";
+
+        target.style.background =
+            "radial-gradient(circle, yellow, cyan)";
+
+        target.classList.remove(
+            "boss-target"
+        );
+
+    }
+
+    else if (chance < 0.22) {
+
+        currentTargetType =
+            "trap";
+
+        target.style.background =
+            "radial-gradient(circle, black, red)";
+
+        target.classList.remove(
+            "boss-target"
+        );
+
+    }
+
+    else {
+
+        currentTargetType =
+            "normal";
+
+        target.style.background =
+            "radial-gradient(circle, white, yellow, red)";
+
+        target.classList.remove(
+            "boss-target"
+        );
+
+    }
+
+    target.dataset.type =
+        currentTargetType;
+
+
+    // =================================
+    // AUTO MISS
+    // =================================
+
+    targetTimer =
+        setTimeout(
+            () => {
+
+                if (
+                    playing &&
+                    !paused &&
+                    target.style.display === "block"
+                ) {
+
+                    missTarget();
+
+                }
+
+            },
+            targetSpeed
+        );
+
+}
+
+
+// =====================================
+// TARGET CLICK
+// =====================================
+
+target.onclick = function () {
+
+    if (!playing || paused) {
+        return;
+    }
+
+    shots++;
+
+    clearTimeout(targetTimer);
+
+    const type =
+        currentTargetType;
+
+
+    // =================================
+    // TRAP
+    // =================================
+
+    if (type === "trap") {
+
+        lives--;
+
+        combo = 0;
+
+        message.textContent =
+            "💣 Trap Target! You lost a life!";
+
+        playSound("wrong");
+
+    }
+
+
+    // =================================
+    // BONUS
+    // =================================
+
+    else if (type === "bonus") {
+
+        hits++;
+
+        combo++;
+
+        score += 30;
+
+        coins += 5;
+
+        message.textContent =
+            "💎 BONUS TARGET! +30 POINTS +5 COINS";
+
+        playSound("bonus");
+
+    }
+
+
+    // =================================
+    // BOSS
+    // =================================
+
+    else if (type === "boss") {
+
+        hits++;
+
+        combo++;
+
+        score += 100;
+
+        coins += 10;
+
+        message.textContent =
+            "👑 BOSS DESTROYED! +100 POINTS +10 COINS";
+
+        playSound("boss");
+
+    }
+
+
+    // =================================
+    // NORMAL TARGET
+    // =================================
+
+    else {
+
+        hits++;
+
+        combo++;
+
+        const points =
+            10 + (combo * 2);
+
+        score += points;
+
+        coins++;
+
+        message.textContent =
+            "🎯 PERFECT SHOT! +" +
+            points +
+            " POINTS";
+
+        playSound("hit");
+
+    }
+
+
+    // =================================
+    // COMBO REWARD
+    // =================================
+
+    if (
+        combo > 0 &&
+        combo % 5 === 0
+    ) {
+
+        score += 50;
+
+        coins += 5;
+
+        message.textContent =
+            "🔥 COMBO BONUS! +50 POINTS +5 COINS";
+
+        playSound("combo");
+
+    }
+
+
+    // =================================
+    // HIT EFFECT
+    // =================================
+
+    target.classList.add("hit");
+
+    setTimeout(
+        () => {
+
+            target.classList.remove(
+                "hit"
+            );
+
+        },
+        250
+    );
+
+    target.style.display =
+        "none";
+
+
+    // =================================
+    // LEVEL CHECK
+    // =================================
+
+    checkLevel();
+
+    updateUI();
+
+
+    // =================================
+    // GAME OVER
+    // =================================
+
+    if (lives <= 0) {
+
+        gameOver(
+            "💔 You ran out of lives!"
+        );
+
+        return;
+
+    }
+
+
+    // =================================
+    // NEXT TARGET
+    // =================================
+
+    spawnTarget();
+
+};
 
 
 // =====================================
 // MISSED TARGET
 // =====================================
 
+function missTarget() {
 
-function missTarget(){
+    if (!playing || paused) {
+        return;
+    }
 
+    target.style.display =
+        "none";
 
-target.style.display="none";
+    shots++;
 
+    lives--;
 
-shots++;
+    combo = 0;
 
+    message.textContent =
+        "❌ Missed! Focus your aim!";
 
-combo=0;
+    playSound("wrong");
 
-
-lives--;
-
-
-message.innerHTML=
-"❌ Missed! Focus your aim";
-
-
-updateUI();
-
-
-
-if(lives<=0){
+    updateUI();
 
 
-gameOver();
+    if (lives <= 0) {
 
-}
+        gameOver(
+            "💔 You missed too many targets!"
+        );
 
-else{
+        return;
 
+    }
 
-spawnTarget();
-
-}
-
+    spawnTarget();
 
 }
-
-
-
 
 
 // =====================================
 // LEVEL SYSTEM
 // =====================================
 
+function checkLevel() {
 
-function checkLevel(){
-
-
-let newLevel =
-Math.floor(score/100)+1;
+    const newLevel =
+        Math.floor(score / 100) + 1;
 
 
+    if (newLevel > level) {
 
-if(newLevel > level){
+        level =
+            newLevel;
 
-
-level = newLevel;
-
-
-message.innerHTML =
-"🔥 Level "+level+" Unlocked!";
-
-
-
-// Increase difficulty
+        message.textContent =
+            "🔥 LEVEL " +
+            level +
+            " UNLOCKED!";
 
 
-targetSpeed = Math.max(
-400,
-targetSpeed-80
-);
+        // Increase difficulty.
+        targetSpeed =
+            Math.max(
+                MIN_TARGET_SPEED,
+                NORMAL_TARGET_SPEED -
+                ((level - 1) * 80)
+            );
 
 
-targetSize = Math.max(
-35,
-targetSize-2
-);
+        targetSize =
+            Math.max(
+                MIN_TARGET_SIZE,
+                NORMAL_TARGET_SIZE -
+                ((level - 1) * 2)
+            );
 
 
+        // Level reward.
+        if (
+            level % 5 === 0 &&
+            levelRewardGiven !== level
+        ) {
+
+            coins += 10;
+
+            levelRewardGiven =
+                level;
+
+            message.textContent =
+                "🎁 LEVEL REWARD! +10 COINS";
+
+        }
+
+
+        // Boss round.
+        if (level % 10 === 0) {
+
+            bossRound();
+
+        } else {
+
+            modeText.textContent =
+                "🎮 Normal Mode";
+
+        }
+
+    }
+
+
+    // Update progress bar.
+    const progressValue =
+        score % 100;
+
+    progress.style.width =
+        progressValue + "%";
 
 }
-
-
-modeText.innerHTML =
-level%10===0
-?
-"👑 BOSS ROUND"
-:
-"🎮 Normal Mode";
-
-
-
-}
-
-
-
 
 
 // =====================================
-// CLEAR TIMERS
+// BOSS ROUND
 // =====================================
 
+function bossRound() {
 
-function clearAll(){
+    modeText.textContent =
+        "👑 BOSS ROUND";
 
+    message.textContent =
+        "⚠️ BOSS INCOMING! HIT THE GIANT TARGET!";
 
-clearInterval(gameTimer);
+    targetSize = 100;
 
-clearTimeout(targetTimer);
-
-clearInterval(moveTimer);
-
+    targetSpeed = 700;
 
 }
 
 
 // =====================================
-// PART 3: TIMER SYSTEM
+// MOVING TARGET
 // =====================================
 
+function startMoving() {
 
-function startTimer(){
+    clearInterval(moveTimer);
 
+    moveTimer =
+        setInterval(
+            () => {
 
-clearInterval(gameTimer);
+                if (
+                    !playing ||
+                    paused ||
+                    target.style.display !== "block"
+                ) {
 
+                    return;
 
-time = 30;
+                }
 
-timeText.innerHTML=time;
+                const maxX =
+                    Math.max(
+                        0,
+                        arena.clientWidth -
+                        targetSize
+                    );
 
+                const maxY =
+                    Math.max(
+                        0,
+                        arena.clientHeight -
+                        targetSize
+                    );
 
+                const x =
+                    randomNumber(
+                        0,
+                        maxX
+                    );
 
-gameTimer=setInterval(()=>{
+                const y =
+                    randomNumber(
+                        0,
+                        maxY
+                    );
 
+                target.style.left =
+                    x + "px";
 
-if(!playing || paused) return;
+                target.style.top =
+                    y + "px";
 
-
-time--;
-
-
-timeText.innerHTML=time;
-
-
-
-if(time<=0){
-
-
-gameOver();
-
+            },
+            MOVE_INTERVAL
+        );
 
 }
 
 
-},1000);
+// =====================================
+// TIMER
+// =====================================
+
+function startTimer() {
+
+    clearInterval(gameTimer);
+
+    time =
+        STARTING_TIME;
+
+    updateUI();
 
 
+    gameTimer =
+        setInterval(
+            () => {
+
+                if (
+                    !playing ||
+                    paused
+                ) {
+
+                    return;
+
+                }
+
+                time--;
+
+                updateUI();
+
+
+                if (time <= 0) {
+
+                    gameOver(
+                        "⏰ TIME RAN OUT!"
+                    );
+
+                }
+
+            },
+            1000
+        );
 
 }
-
-
 
 
 // =====================================
 // GAME OVER
 // =====================================
 
+function gameOver(reason) {
 
-function gameOver(){
+    if (!playing) {
+        return;
+    }
 
+    playing = false;
 
-playing=false;
+    paused = false;
 
+    clearAllTimers();
 
-clearAll();
+    target.style.display =
+        "none";
 
+    startBtn.disabled = false;
 
-target.style.display="none";
+    pauseBtn.disabled = true;
 
-
-resultBox.style.display="block";
-
-
-
-let accuracy =
-shots===0 ? 0 :
-Math.floor((hits/shots)*100);
-
-
-
-resultTitle.innerHTML=
-"🎮 Mission Complete";
+    resultBox.style.display =
+        "block";
 
 
-resultText.innerHTML=
-`
-⭐ Score: ${score}<br>
-🎯 Accuracy: ${accuracy}%<br>
-🪙 Coins: ${coins}<br>
-🏆 Level: ${level}
-`;
+    const accuracy =
+        getAccuracy();
 
 
+    resultTitle.textContent =
+        "🎮 Mission Complete";
 
-saveData();
 
+    resultText.innerHTML =
+        `
+        ${reason}<br><br>
+        ⭐ Score: ${score}<br>
+        🎯 Accuracy: ${accuracy}%<br>
+        🪙 Coins: ${coins}<br>
+        🏆 Level: ${level}<br>
+        🔥 Best Combo: ${combo}<br>
+        🏅 Rank: ${getRank()}
+        `;
+
+
+    const newRecord =
+        saveHighScore();
+
+
+    if (newRecord) {
+
+        resultText.innerHTML +=
+            "<br>🎉 NEW HIGH SCORE!";
+
+    }
+
+
+    saveData();
 
 }
 
 
+// =====================================
+// RANK SYSTEM
+// =====================================
 
+function getRank() {
+
+    if (score >= 1000) {
+
+        return "🏆 Cyber Legend";
+
+    }
+
+    if (score >= 500) {
+
+        return "🔥 Elite Sniper";
+
+    }
+
+    if (score >= 200) {
+
+        return "🎯 Expert Shooter";
+
+    }
+
+    if (score >= 100) {
+
+        return "⭐ Skilled Sniper";
+
+    }
+
+    return "🌱 Rookie Sniper";
+
+}
+
+
+// =====================================
+// CLEAR TIMERS
+// =====================================
+
+function clearAllTimers() {
+
+    clearInterval(gameTimer);
+
+    clearTimeout(targetTimer);
+
+    clearInterval(moveTimer);
+
+    gameTimer = null;
+
+    targetTimer = null;
+
+    moveTimer = null;
+
+}
 
 
 // =====================================
 // SAVE PROGRESS
 // =====================================
 
+function saveData() {
 
-function saveData(){
+    localStorage.setItem(
+        "cyberScore",
+        score
+    );
 
+    localStorage.setItem(
+        "cyberLevel",
+        level
+    );
 
-localStorage.setItem(
-"cyberScore",
-score
-);
-
-
-localStorage.setItem(
-"cyberLevel",
-level
-);
-
-
-localStorage.setItem(
-"cyberCoins",
-coins
-);
-
+    localStorage.setItem(
+        "cyberCoins",
+        coins
+    );
 
 }
-
-
 
 
 // =====================================
 // LOAD PROGRESS
 // =====================================
 
+function loadData() {
 
-function loadData(){
+    const oldScore =
+        localStorage.getItem(
+            "cyberScore"
+        );
 
+    const oldLevel =
+        localStorage.getItem(
+            "cyberLevel"
+        );
 
-let oldScore =
-localStorage.getItem("cyberScore");
-
-
-let oldLevel =
-localStorage.getItem("cyberLevel");
-
-
-let oldCoins =
-localStorage.getItem("cyberCoins");
-
-
-
-if(oldScore){
-
-score = Number(oldScore);
-
-}
+    const oldCoins =
+        localStorage.getItem(
+            "cyberCoins"
+        );
 
 
+    if (oldScore !== null) {
 
-if(oldLevel){
+        score =
+            Number(oldScore);
 
-level = Number(oldLevel);
+    }
 
-}
+    if (oldLevel !== null) {
+
+        level =
+            Number(oldLevel);
+
+    }
+
+    if (oldCoins !== null) {
+
+        coins =
+            Number(oldCoins);
+
+    }
 
 
-
-if(oldCoins){
-
-coins = Number(oldCoins);
-
-}
-
-
-
-updateUI();
-
+    updateUI();
 
 }
-
-
-
-loadData();
-
-
 
 
 // =====================================
-// BUTTON EVENTS
+// HIGH SCORE
 // =====================================
 
+function saveHighScore() {
 
-startBtn.onclick=function(){
-
-startGame();
-
-};
-
-// =====================================
-// PART 4: ADVANCED GAME FEATURES
-// =====================================
+    const best =
+        Number(
+            localStorage.getItem(
+                "cyberBest"
+            )
+        ) || 0;
 
 
+    if (score > best) {
 
-// =====================================
-// BOSS ROUND SYSTEM
-// =====================================
+        localStorage.setItem(
+            "cyberBest",
+            score
+        );
 
+        return true;
 
-function bossRound(){
+    }
 
-
-if(level % 10 !== 0) return;
-
-
-
-modeText.innerHTML =
-"👑 BOSS TARGET";
-
-
-
-targetSize = 100;
-
-targetSpeed = 700;
-
-
-
-message.innerHTML =
-"⚠️ BOSS INCOMING! HIT THE GIANT TARGET!";
-
-
+    return false;
 
 }
 
 
-
-
 // =====================================
-// MOVING TARGET SYSTEM
+// SHOW HIGH SCORE
 // =====================================
 
+function showHighScore() {
 
-function startMoving(){
-
-
-clearInterval(moveTimer);
-
-
-
-moveTimer=setInterval(()=>{
-
-
-if(
-playing &&
-!paused &&
-target.style.display==="block"
-){
+    const best =
+        Number(
+            localStorage.getItem(
+                "cyberBest"
+            )
+        ) || 0;
 
 
-let x =
-Math.random() *
-(arena.clientWidth-targetSize);
-
-
-
-let y =
-Math.random() *
-(arena.clientHeight-targetSize);
-
-
-
-target.style.left=x+"px";
-
-target.style.top=y+"px";
-
+    message.innerHTML =
+        "🏆 Best Score: " +
+        best;
 
 }
-
-
-
-},700);
-
-
-
-}
-
-
-
-
-
-// =====================================
-// LEVEL REWARD
-// =====================================
-
-
-function levelReward(){
-
-
-if(level % 5 === 0){
-
-
-coins += 10;
-
-
-message.innerHTML =
-"🎁 Level Reward +10 Coins";
-
-
-}
-
-
-}
-
-
-
-
-// =====================================
-// ACHIEVEMENT SYSTEM
-// =====================================
-
-
-function achievement(){
-
-
-if(score>=1000){
-
-return "🏆 Cyber Legend";
-
-}
-
-
-if(score>=500){
-
-return "🔥 Elite Sniper";
-
-}
-
-
-if(score>=200){
-
-return "🎯 Expert Shooter";
-
-}
-
-
-return "🌱 Beginner";
-
-
-
-}
-
-
-
 
 
 // =====================================
 // SOUND SYSTEM
 // =====================================
 
+function playSound(type) {
 
-let audioEnabled=true;
-
-
-
-function playShotSound(){
-
-
-if(!audioEnabled)
-return;
+    if (!audioEnabled) {
+        return;
+    }
 
 
-// Small browser beep
+    try {
 
-let sound =
-new Audio(
-"data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEAIlYAAESsAAACABAAZGF0YRAAAAAA"
-);
-
-
-sound.play();
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
 
 
-
-}
-
-
-
+        if (!AudioContext) {
+            return;
+        }
 
 
-target.addEventListener(
-"click",
-playShotSound
-);
+        const context =
+            new AudioContext();
 
 
+        const oscillator =
+            context.createOscillator();
 
 
-
-// =====================================
-// EXTRA START CHECK
-// =====================================
+        const gain =
+            context.createGain();
 
 
-startBtn.addEventListener(
-"click",
-()=>{
+        const frequencies = {
+
+            hit: 600,
+
+            bonus: 900,
+
+            boss: 1100,
+
+            combo: 750,
+
+            wrong: 180
+
+        };
 
 
-startMoving();
-
-bossRound();
-
-levelReward();
+        oscillator.type =
+            "sine";
 
 
-}
-);
-
-// =====================================
-// PART 5: FINAL POLISH
-// =====================================
+        oscillator.frequency.value =
+            frequencies[type] || 500;
 
 
+        oscillator.connect(gain);
 
-// =====================================
-// HIGH SCORE SYSTEM
-// =====================================
-
-
-function saveHighScore(){
+        gain.connect(
+            context.destination
+        );
 
 
-let best =
-Number(localStorage.getItem("cyberBest")) || 0;
+        gain.gain.setValueAtTime(
+            0.08,
+            context.currentTime
+        );
 
 
-
-if(score > best){
-
-
-localStorage.setItem(
-"cyberBest",
-score
-);
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            context.currentTime + 0.15
+        );
 
 
-return true;
+        oscillator.start();
 
+
+        oscillator.stop(
+            context.currentTime + 0.15
+        );
+
+    }
+
+    catch (error) {
+
+        // Audio is optional.
+
+    }
 
 }
 
 
-return false;
-
-
-}
-
-
-
-
-
-function showHighScore(){
-
-
-let best =
-localStorage.getItem("cyberBest") || 0;
-
-
-
-message.innerHTML +=
-"<br>🏆 Best Score: "+best;
-
-
-}
-
-
-
-
-
 // =====================================
-// COMBO BONUS
+// START BUTTON
 // =====================================
 
+startBtn.onclick = function () {
 
-function comboBonus(){
-
-
-if(combo>=5){
-
-
-score += 50;
-
-coins +=5;
-
-
-message.innerHTML =
-"🔥 Combo Bonus +50";
-
-
-combo=0;
-
-
-}
-
-
-}
-
-
-
-
-
-// =====================================
-// FINAL GAME RESULT UPDATE
-// =====================================
-
-
-const oldGameOver = gameOver;
-
-
-gameOver = function(){
-
-
-oldGameOver();
-
-
-let newRecord =
-saveHighScore();
-
-
-
-if(newRecord){
-
-
-resultText.innerHTML +=
-"<br>🎉 NEW HIGH SCORE!";
-
-
-}
-
-
-resultText.innerHTML +=
-"<br>🏅 Rank: "+achievement();
-
-
-showHighScore();
-
+    startGame();
 
 };
 
 
-
-
-
 // =====================================
-// BETTER TARGET HIT EFFECT
+// INITIAL STATE
 // =====================================
 
+pauseBtn.disabled = true;
 
-target.onclick = function(){
+restartBtn.disabled = false;
 
+resultBox.style.display =
+    "none";
 
-if(!playing || paused)
-return;
+message.textContent =
+    "🎯 Cyber Sniper Ready. Press Start!";
 
+loadData();
 
-
-shots++;
-
-
-let type =
-target.dataset.type;
-
-
-
-if(type==="trap"){
-
-
-lives--;
-
-combo=0;
-
-
-message.innerHTML =
-"💣 Trap Target!";
-
-
-}
-
-
-else{
-
-
-hits++;
-
-combo++;
-
-
-let points =
-10 + combo*2;
-
-
-
-if(type==="bonus"){
-
-
-points +=30;
-
-coins +=5;
-
-
-}
-
-
-
-score += points;
-
-coins++;
-
-
-comboBonus();
-
-
-
-}
-
-
-
-target.style.display="none";
-
-
-checkLevel();
-
-
-updateUI();
-
-
-
-if(level % 10===0){
-
-bossRound();
-
-}
-
-
-
-if(lives<=0){
-
-gameOver();
-
-}
-
-else{
-
-spawnTarget();
-
-}
-
-
-
-};
-
-
-
-
-
-// =====================================
-// INITIAL MESSAGE
-// =====================================
-
-
-message.innerHTML =
-"🎯 Cyber Sniper Ready. Press Start!";
-
-
-updateUI();
+console.log(
+    "🎯 Cyber Sniper Clean Engine Loaded!"
+);
