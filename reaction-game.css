@@ -1,98 +1,262 @@
-*{
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    padding: 30px 15px;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+
+    background: white;
+    color: #222;
+
+    padding: 30px;
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .3);
+}
+
+h1 {
+    color: #2575fc;
+    margin-bottom: 10px;
+}
+
+.intro {
+    color: #555;
+    line-height: 1.7;
+    max-width: 650px;
+    margin: 0 auto 25px;
 }
 
 
-body{
+/* ==============================
+   GAME STATISTICS
+============================== */
 
-    margin:0;
-    min-height:100vh;
+.game-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 25px 0;
+}
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+.info-box {
+    background: #f4f7ff;
+    border-radius: 15px;
+    padding: 15px 10px;
+    border: 1px solid #e3e8ff;
+}
 
-    background:linear-gradient(135deg,#6a11cb,#2575fc);
+.info-box span {
+    display: block;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 7px;
+}
 
-    color:white;
+.info-box strong {
+    display: block;
+    font-size: 20px;
+    color: #2575fc;
 }
 
 
-.game-container{
+/* ==============================
+   REACTION GAME
+============================== */
 
-    width:90%;
-    max-width:600px;
+#reactionBox {
+    height: 250px;
 
-    background:white;
-    color:#222;
+    margin: 25px 0;
 
-    padding:30px;
+    border-radius: 20px;
 
-    border-radius:25px;
+    background: #333;
 
-    text-align:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    box-shadow:0 10px 30px rgba(0,0,0,.3);
+    color: white;
 
+    font-size: 25px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    user-select: none;
+
+    transition: background .2s ease,
+                transform .1s ease;
+}
+
+#reactionBox:active {
+    transform: scale(.98);
 }
 
 
-h1{
+/* ==============================
+   BUTTON
+============================== */
 
-    color:#2575fc;
+button {
+    padding: 15px 35px;
 
+    border: none;
+    border-radius: 50px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background: linear-gradient(45deg, cyan, magenta);
+
+    color: #111;
+
+    transition: transform .2s ease,
+                box-shadow .2s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .2);
 }
 
 
-#reactionBox{
+/* ==============================
+   RESULT
+============================== */
 
-    height:250px;
+#result {
+    min-height: 35px;
+    margin: 20px 0;
 
-    margin:25px 0;
+    color: #2575fc;
 
-    border-radius:20px;
-
-    background:#333;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    color:white;
-
-    font-size:25px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
+    font-size: 22px;
 }
 
 
-button{
+/* ==============================
+   INFORMATION SECTIONS
+============================== */
 
-    padding:15px 35px;
+.info-section {
+    margin-top: 35px;
 
-    border:none;
+    padding: 25px;
 
-    border-radius:50px;
+    background: #f8f9ff;
 
-    font-size:18px;
+    border-radius: 18px;
 
-    font-weight:bold;
+    text-align: left;
 
-    cursor:pointer;
+    border: 1px solid #e5e9ff;
+}
 
-    background:linear-gradient(45deg,cyan,magenta);
+.info-section h2 {
+    color: #2575fc;
 
+    margin-top: 0;
+    margin-bottom: 15px;
+
+    font-size: 22px;
+}
+
+.info-section h3 {
+    color: #333;
+
+    margin-top: 22px;
+    margin-bottom: 8px;
+
+    font-size: 18px;
+}
+
+.info-section p {
+    color: #555;
+
+    line-height: 1.8;
+
+    margin-bottom: 12px;
+}
+
+.info-section ol,
+.info-section ul {
+    color: #555;
+
+    line-height: 1.9;
+
+    padding-left: 25px;
+}
+
+.info-section li {
+    margin-bottom: 6px;
 }
 
 
-button:hover{
+/* ==============================
+   MOBILE
+============================== */
 
-    transform:scale(1.05);
+@media (max-width: 600px) {
 
+    body {
+        padding: 15px 10px;
+    }
+
+    .game-container {
+        padding: 20px 15px;
+        border-radius: 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .intro {
+        font-size: 15px;
+    }
+
+    .game-info {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .info-box {
+        padding: 12px;
+    }
+
+    #reactionBox {
+        height: 200px;
+        font-size: 21px;
+        margin: 20px 0;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+    }
+
+    .info-section {
+        padding: 20px 17px;
+        margin-top: 25px;
+    }
+
+    .info-section h2 {
+        font-size: 20px;
+    }
 }
