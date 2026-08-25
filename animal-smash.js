@@ -1272,48 +1272,74 @@
 
 
     /* =====================================================
-       SPECIAL
-    ===================================================== */
+   WRONG ANIMAL
+===================================================== */
 
-    if (
-      object.type ===
-      "special"
-    ) {
+if (
+  object.type ===
+  "wrong"
+) {
 
-      const bonus =
-        object.points +
-        combo * 5;
+  combo = 0;
 
-      score +=
-        bonus;
+  lives--;
 
-      combo++;
+  hole.classList.add(
+    "miss"
+  );
 
-      addTime(
-        3
-      );
+  playSound(
+    "wrong"
+  );
 
-      hole.classList.add(
-        "target-hit"
-      );
+  removeTime(
+    settings().wrongPenalty
+  );
 
-      playSound(
-        "special"
-      );
+  updateUI();
 
-      message(
-        `🌟 ${specialAnimal.name}! +${bonus} POINTS • +3 SEC!`
-      );
+  if (lives <= 0) {
 
-      updateUI();
+    message(
+      "💔 No lives left!"
+    );
 
-      removeObject(
-        index
-      );
+    endGame(
+      "💔 GAME OVER! No lives left!"
+    );
 
-      return;
+    return;
 
-    }
+  }
+
+  message(
+    `❌ Wrong! ${lives} ❤️ left. Find ${targetAnimal.emoji} ${targetAnimal.name}!`
+  );
+
+  activeObjects.delete(
+    index
+  );
+
+  hole.classList.remove(
+    "active"
+  );
+
+  const animal =
+    animals[index];
+
+  if (animal) {
+
+    animal.textContent = "";
+
+    animal.removeAttribute(
+      "data-type"
+    );
+
+  }
+
+  return;
+
+}
 
 
     /* =====================================================
