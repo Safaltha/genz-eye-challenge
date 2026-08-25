@@ -94,3 +94,42 @@ font-size:30px;
 }
 
 }
+
+
+/* ============================================
+   INFORMATION SECTIONS
+============================================ */
+
+.info-section {
+  max-width: 900px;
+  margin: 35px auto;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  text-align: left;
+}
+
+.info-section h2 {
+  margin-bottom: 15px;
+}
+
+.info-section h3 {
+  margin-top: 22px;
+  margin-bottom: 8px;
+}
+
+.info-section p {
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+.info-section ul,
+.info-section ol {
+  padding-left: 25px;
+}
+
+.info-section li {
+  margin: 8px 0;
+  line-height: 1.6;
+}
