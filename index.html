@@ -1006,6 +1006,53 @@
       border-color: #dfe6e9;
       box-shadow: 0 0 40px #dfe6e933;
     }
+
+    /* ============================================
+   INFORMATION CONTENT
+============================================ */
+.info-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 30px;
+  margin: 25px 0;
+}
+
+.info-card h2 {
+  color: cyan;
+  font-size: 25px;
+  margin-bottom: 15px;
+}
+
+.info-card h3 {
+  color: white;
+  font-size: 18px;
+  margin: 20px 0 8px;
+}
+
+.info-card p {
+  color: #8892b0;
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+.info-card ul {
+  padding-left: 22px;
+  color: #8892b0;
+}
+
+.info-card li {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+.game-description {
+  color: #8892b0;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 4px;
+}
   </style>
 </head>
 
@@ -1109,11 +1156,12 @@ LATEST GAMES
     <span class="game-name">Camouflage Hunter</span>
     <span class="badge badge-new">✨ New</span>
   </a>
-  <a href="reaction-game.html" class="game-card game-card-3" onclick="playTap()">
-    <span class="game-icon">⚡</span>
-    <span class="game-name">Reaction Speed Test</span>
-    <span class="badge badge-hot">🚀 Hot</span>
-  </a>
+<a href="reaction-game.html" class="game-card game-card-3" onclick="playTap()">
+  <span class="game-icon">⚡</span>
+  <span class="game-name">Reaction Speed Test</span>
+  <span class="game-description">React when the target appears and see how quickly you respond.</span>
+  <span class="badge badge-hot">🚀 Hot</span>
+</a>
 
 </div> 
 
@@ -1129,15 +1177,17 @@ LATEST GAMES
         <span class="game-tag">🎯 Concentration</span>
       </a>
       <a href="camouflage-hunter.html" class="game-card game-card-2" onclick="playTap()">
-        <span class="game-icon">🟦</span>
-        <span class="game-name">Camouflage Hunter</span>
-        <span class="game-tag">🔍 Find It</span>
-      </a>
+  <span class="game-icon">🟦</span>
+  <span class="game-name">Camouflage Hunter</span>
+  <span class="game-description">Look carefully and find the hidden target among similar shapes.</span>
+  <span class="badge badge-new">✨ New</span>
+</a>
       <a href="eagle-radar.html" class="game-card game-card-1" onclick="playTap()">
-        <span class="game-icon">🦅</span>
-        <span class="game-name">Eagle Radar</span>
-        <span class="game-tag">👀 Vision</span>
-      </a>
+  <span class="game-icon">🦅</span>
+  <span class="game-name">Eagle Radar</span>
+  <span class="game-description">Find the target quickly and test your visual observation.</span>
+  <span class="badge badge-popular">🔥 Popular</span>
+</a>
       <a href="spot.html" class="game-card game-card-5" onclick="playTap()">
         <span class="game-icon">👀</span>
         <span class="game-name">Spot the Difference</span>
@@ -1235,6 +1285,55 @@ LATEST GAMES
         <span class="game-tag">🤖 AI + Friend</span>
       </a>
     </div>
+    <!-- ============================================
+HOW THESE CHALLENGES WORK
+============================================ -->
+<section class="info-card">
+
+  <h2>🎯 How Gen Z Eye Challenges Work</h2>
+
+  <p>
+    Each challenge on Gen Z Eye Challenge has a specific objective.
+    Some games ask you to find a visual target, while others test
+    memory, reaction speed, pattern recognition, or concentration.
+  </p>
+
+  <h3>👁️ Observation Challenges</h3>
+  <p>
+    Look carefully at the complete game area and search for the target
+    described in the instructions. Small details can be easy to overlook,
+    so take a moment to examine the screen before selecting your answer.
+  </p>
+
+  <h3>🧠 Memory Challenges</h3>
+  <p>
+    Memory games ask you to remember information such as numbers,
+    positions, or patterns. Pay attention during the memorization stage
+    and then use what you remember to complete the challenge.
+  </p>
+
+  <h3>⚡ Reaction Challenges</h3>
+  <p>
+    Reaction games require you to respond to something that appears on
+    the screen. Your measured result can be affected by your device,
+    browser, display, and input method.
+  </p>
+
+  <h3>🔍 Visual Puzzle Challenges</h3>
+  <p>
+    Visual puzzles may ask you to identify differences, hidden objects,
+    unusual patterns, or other details. Carefully comparing different
+    parts of the screen can help you solve them.
+  </p>
+
+  <h3>📊 Understanding Your Results</h3>
+  <p>
+    Scores and results are designed for gameplay and personal comparison.
+    They should not be considered professional tests of eyesight,
+    intelligence, reaction ability, or medical performance.
+  </p>
+
+</section>
 
     <!-- ============================================
     STATS
