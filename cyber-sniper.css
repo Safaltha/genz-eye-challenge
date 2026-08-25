@@ -435,6 +435,127 @@ button{
 width:100%;
 
 }
+/* =========================================
+   GAME CONTENT SECTION
+========================================= */
+
+.game-content {
+  width: 100%;
+  max-width: 950px;
+  margin: 50px auto 20px;
+  text-align: left;
+}
+
+.content-section {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 25px;
+  padding: 30px;
+  margin-bottom: 25px;
+  box-shadow: 0 0 25px rgba(0,255,255,.08);
+}
+
+.content-section h2 {
+  color: cyan;
+  margin-bottom: 18px;
+  font-size: 28px;
+}
+
+.content-section h3 {
+  margin-top: 18px;
+  margin-bottom: 8px;
+}
+
+.content-section p,
+.content-section li {
+  line-height: 1.8;
+  color: rgba(255,255,255,.85);
+}
+
+.content-section ol,
+.content-section ul {
+  padding-left: 25px;
+}
+
+.skill-grid,
+.target-guide {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.skill-card,
+.target-guide article {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.skill-card h3,
+.target-guide h3 {
+  color: white;
+  margin-top: 0;
+}
+
+.game-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.game-table th,
+.game-table td {
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,.15);
+  text-align: left;
+}
+
+.game-table th {
+  color: cyan;
+  background: rgba(0,255,255,.08);
+}
+
+.game-table td {
+  color: rgba(255,255,255,.85);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .game-content {
+    margin-top: 30px;
+  }
+
+  .content-section {
+    padding: 20px;
+  }
+
+  .content-section h2 {
+    font-size: 23px;
+  }
+
+  .skill-grid,
+  .target-guide {
+    grid-template-columns: 1fr;
+  }
+
+  .game-table {
+    font-size: 14px;
+  }
+
+  .game-table th,
+  .game-table td {
+    padding: 10px;
+  }
+
 
 
 }
+
+
