@@ -1222,53 +1222,7 @@
     }
 
 
-    /* =====================================================
-       WRONG ANIMAL
-    ===================================================== */
-
-    if (
-      object.type ===
-      "wrong"
-    ) {
-
-      combo = 0;
-
-      hole.classList.add(
-        "miss"
-      );
-
-      playSound(
-        "wrong"
-      );
-
-      removeTime(
-        settings().wrongPenalty
-      );
-
-      message(
-        `❌ Wrong! Find ${targetAnimal.emoji} ${targetAnimal.name}!`
-      );
-
-      activeObjects.delete(
-        index
-      );
-
-      hole.classList.remove(
-        "active"
-      );
-
-      const animal =
-        animals[index];
-
-      if (animal) {
-
-        animal.textContent = "";
-
-      }
-
-      return;
-
-    }
+    
 
 
     /* =====================================================
