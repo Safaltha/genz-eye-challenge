@@ -1,443 +1,953 @@
-/* ===========================
-   GEN Z TIC TAC TOE CSS
-   PART 1
-=========================== */
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
+/* =========================================================
+   GEN Z TIC-TAC-TOE
+   COMPLETE RESPONSIVE CSS
+========================================================= */
+
+
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
-background:linear-gradient(135deg,#0f172a,#1e293b,#111827);
-color:#fff;
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-padding:20px;
+html {
+    width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
-.container{
-width:100%;
-max-width:520px;
-text-align:center;
-background:#1f2937;
-padding:25px;
-border-radius:20px;
-box-shadow:0 0 30px rgba(0,255,255,.25);
+
+/* =========================================================
+   BODY
+========================================================= */
+
+body {
+    width: 100%;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(circle at top, #172554 0%, transparent 45%),
+        linear-gradient(135deg, #0f172a, #1e293b, #111827);
+
+    color: #ffffff;
+
+    /* IMPORTANT FIX */
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: flex-start;
+
+    padding: 30px 20px 50px;
+
+    overflow-x: hidden;
 }
 
-h1{
-font-size:34px;
-margin-bottom:20px;
-color:#00e5ff;
-text-shadow:0 0 15px #00e5ff;
+
+/* =========================================================
+   MAIN GAME CONTAINER
+========================================================= */
+
+.container {
+    width: 100%;
+    max-width: 650px;
+
+    margin: 0 auto;
+
+    text-align: center;
+
+    background: #1f2937;
+
+    padding: 30px;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 0 30px rgba(0, 255, 255, 0.18);
+
+    border: 1px solid rgba(0, 229, 255, 0.12);
 }
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+h1 {
+    font-size: clamp(30px, 5vw, 42px);
+
+    line-height: 1.2;
+
+    margin-bottom: 22px;
+
+    color: #00e5ff;
+
+    text-shadow:
+        0 0 10px rgba(0, 229, 255, 0.6),
+        0 0 25px rgba(0, 229, 255, 0.25);
+}
+
+
+/* =========================================================
+   MODE / DIFFICULTY
+========================================================= */
 
 .mode-box,
-.difficulty{
-margin-bottom:20px;
+.difficulty {
+    width: 100%;
+
+    margin-bottom: 20px;
 }
 
-.hidden{
-display:none;
+
+/* =========================================================
+   HIDDEN
+========================================================= */
+
+.hidden {
+    display: none !important;
 }
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
 
 .mode-btn,
 .level,
 #restartBtn,
 #resetBtn,
-#playAgain{
-width:100%;
-padding:14px;
-margin:8px 0;
-border:none;
-border-radius:12px;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
-background:#00bcd4;
-color:#fff;
-transition:.3s;
+#playAgain {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    margin: 8px 0;
+
+    border: none;
+
+    border-radius: 12px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background: #00bcd4;
+
+    color: #ffffff;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.mode-btn:hover,
-.level:hover,
-#restartBtn:hover,
-#resetBtn:hover,
-#playAgain:hover{
-transform:scale(1.05);
-background:#00e5ff;
+
+@media (hover: hover) {
+
+    .mode-btn:hover,
+    .level:hover,
+    #restartBtn:hover,
+    #resetBtn:hover,
+    #playAgain:hover {
+
+        transform: translateY(-2px) scale(1.02);
+
+        background: #00e5ff;
+
+        box-shadow:
+            0 5px 18px rgba(0, 229, 255, 0.25);
+    }
+
 }
 
-.scoreboard{
-display:flex;
-justify-content:space-between;
-margin:20px 0;
-gap:10px;
-}
-
-.scoreboard div{
-flex:1;
-background:#111827;
-padding:15px;
-border-radius:15px;
-box-shadow:0 0 10px rgba(0,255,255,.25);
-}
-
-.scoreboard h3{
-font-size:22px;
-margin-bottom:8px;
-color:#00e5ff;
-}
-
-.scoreboard p{
-font-size:26px;
-font-weight:bold;
-}
-
-.status{
-font-size:22px;
-font-weight:bold;
-margin:20px 0;
-color:#4ade80;
-min-height:30px;
-}
-
-.board{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-margin:20px auto;
-max-width:360px;
-}
-
-.cell{
-aspect-ratio:1/1;
-background:#0f172a;
-border:3px solid #00e5ff;
-border-radius:16px;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:64px;
-font-weight:bold;
-cursor:pointer;
-transition:.3s;
-box-shadow:0 0 15px rgba(0,229,255,.25);
-}
-
-.cell:hover{
-background:#172554;
-transform:scale(1.05);
-}
-
-.cell.x{
-color:#22c55e;
-text-shadow:0 0 15px #22c55e;
-}
-
-.cell.o{
-color:#f43f5e;
-text-shadow:0 0 15px #f43f5e;
-}
-
-.buttons{
-display:flex;
-gap:12px;
-margin-top:20px;
-}
-
-.buttons button{
-flex:1;
-}
-
-.popup{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:#111827;
-padding:30px;
-border-radius:20px;
-text-align:center;
-box-shadow:0 0 30px rgba(0,255,255,.5);
-z-index:1000;
-width:90%;
-max-width:350px;
-}
-
-.popup h2{
-color:#00e5ff;
-margin-bottom:10px;
-}
-
-.popup p{
-font-size:22px;
-margin-bottom:20px;
-}
-
-#confetti{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-overflow:hidden;
-z-index:999;
-}
-/* ===========================
-   GEN Z TIC TAC TOE CSS
-   PART 2
-=========================== */
-
-@keyframes popupShow{
-0%{
-transform:translate(-50%,-50%) scale(.5);
-opacity:0;
-}
-100%{
-transform:translate(-50%,-50%) scale(1);
-opacity:1;
-}
-}
-
-.popup{
-animation:popupShow .4s ease;
-}
-
-@keyframes glow{
-0%{
-box-shadow:0 0 10px #00e5ff;
-}
-50%{
-box-shadow:0 0 30px #00e5ff;
-}
-100%{
-box-shadow:0 0 10px #00e5ff;
-}
-}
-
-.cell.win{
-animation:glow .8s infinite;
-background:#14532d;
-}
-
-@keyframes bounce{
-0%{transform:scale(1);}
-50%{transform:scale(1.12);}
-100%{transform:scale(1);}
-}
 
 .mode-btn:active,
 .level:active,
 #restartBtn:active,
 #resetBtn:active,
-#playAgain:active{
-animation:bounce .25s;
+#playAgain:active {
+    transform: scale(0.97);
 }
 
-.confetti-piece{
-position:absolute;
-width:10px;
-height:20px;
-border-radius:4px;
-animation:fall 3s linear forwards;
+
+/* =========================================================
+   SCOREBOARD
+========================================================= */
+
+.scoreboard {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: stretch;
+
+    gap: 12px;
+
+    margin: 22px 0;
 }
 
-@keyframes fall{
 
-0%{
-transform:translateY(-100vh) rotate(0deg);
-opacity:1;
+.scoreboard div {
+    flex: 1;
+
+    min-width: 0;
+
+    background: #111827;
+
+    padding: 15px 10px;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 0 10px rgba(0, 255, 255, 0.18);
+
+    border: 1px solid rgba(0, 229, 255, 0.08);
 }
 
-100%{
-transform:translateY(100vh) rotate(720deg);
-opacity:0;
+
+.scoreboard h3 {
+    font-size: 20px;
+
+    margin-bottom: 8px;
+
+    color: #00e5ff;
 }
 
+
+.scoreboard p {
+    font-size: 26px;
+
+    font-weight: bold;
+
+    margin: 0;
 }
 
-.status.win{
-color:#22c55e;
-font-size:26px;
-animation:glow 1s infinite;
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status {
+    width: 100%;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    margin: 20px 0;
+
+    color: #4ade80;
+
+    min-height: 30px;
+
+    line-height: 1.4;
 }
 
-.status.draw{
-color:#facc15;
+
+/* =========================================================
+   TIC-TAC-TOE BOARD
+========================================================= */
+
+.board {
+    width: min(100%, 420px);
+
+    aspect-ratio: 1 / 1;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin: 20px auto;
+
+    padding: 8px;
 }
 
-button{
-outline:none;
+
+/* =========================================================
+   CELLS
+========================================================= */
+
+.cell {
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    background: #0f172a;
+
+    border: 3px solid #00e5ff;
+
+    border-radius: 16px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: clamp(45px, 9vw, 72px);
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-button:disabled{
-opacity:.5;
-cursor:not-allowed;
-}
 
-@media(max-width:600px){
+@media (hover: hover) {
 
-.container{
-padding:18px;
-}
+    .cell:hover {
+        background: #172554;
 
-h1{
-font-size:28px;
-}
+        transform: scale(1.04);
 
-.board{
-max-width:300px;
-gap:10px;
-}
-
-.cell{
-font-size:50px;
-border-radius:12px;
-}
-
-.scoreboard h3{
-font-size:18px;
-}
-
-.scoreboard p{
-font-size:22px;
-}
-
-.status{
-font-size:18px;
-}
-
-.mode-btn,
-.level,
-#restartBtn,
-#resetBtn,
-#playAgain{
-font-size:16px;
-padding:12px;
-}
-
-.popup{
-padding:20px;
-}
-
-.popup h2{
-font-size:24px;
-}
-
-.popup p{
-font-size:18px;
-}
-
-}
-
-@media(min-width:900px){
-
-.container{
-max-width:650px;
-}
-
-.board{
-max-width:420px;
-}
-
-.cell{
-font-size:72px;
-}
+        box-shadow:
+            0 0 20px rgba(0, 229, 255, 0.25);
+    }
 
 }
 
-::-webkit-scrollbar{
-width:8px;
+
+.cell:active {
+    transform: scale(0.96);
 }
 
-::-webkit-scrollbar-thumb{
-background:#00e5ff;
-border-radius:10px;
+
+/* =========================================================
+   X
+========================================================= */
+
+.cell.x {
+    color: #22c55e;
+
+    text-shadow:
+        0 0 15px rgba(34, 197, 94, 0.8);
 }
 
-::-webkit-scrollbar-track{
-background:#111827;
-}
-/* ===========================
-   GAME INFORMATION CONTENT
-=========================== */
 
-.game-content{
-width:100%;
-max-width:850px;
-margin:40px auto 0;
-text-align:left;
+/* =========================================================
+   O
+========================================================= */
+
+.cell.o {
+    color: #f43f5e;
+
+    text-shadow:
+        0 0 15px rgba(244, 63, 94, 0.8);
 }
 
-.content-section{
-background:#111827;
-border:1px solid rgba(0,229,255,.18);
-border-radius:18px;
-padding:25px;
-margin-bottom:20px;
-box-shadow:0 0 18px rgba(0,229,255,.08);
+
+/* =========================================================
+   BUTTON GROUP
+========================================================= */
+
+.buttons {
+    width: 100%;
+
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 20px;
 }
 
-.content-section h2{
-color:#00e5ff;
-font-size:26px;
-margin-bottom:16px;
+
+.buttons button {
+    flex: 1;
 }
 
-.content-section h3{
-color:#facc15;
-font-size:20px;
-margin-top:18px;
-margin-bottom:8px;
+
+/* =========================================================
+   POPUP
+========================================================= */
+
+.popup {
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: #111827;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    box-shadow:
+        0 0 30px rgba(0, 255, 255, 0.5);
+
+    border: 1px solid rgba(0, 229, 255, 0.2);
+
+    z-index: 1000;
+
+    width: min(90%, 350px);
+
+    animation: popupShow 0.4s ease;
 }
 
-.content-section p{
-color:#d1d5db;
-font-size:16px;
-line-height:1.7;
-margin-bottom:14px;
+
+.popup h2 {
+    color: #00e5ff;
+
+    margin-bottom: 10px;
 }
+
+
+.popup p {
+    font-size: 22px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   CONFETTI
+========================================================= */
+
+#confetti {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    z-index: 999;
+}
+
+
+.confetti-piece {
+    position: absolute;
+
+    width: 10px;
+    height: 20px;
+
+    border-radius: 4px;
+
+    animation:
+        fall 3s linear forwards;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes popupShow {
+
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes glow {
+
+    0% {
+        box-shadow: 0 0 10px #00e5ff;
+    }
+
+    50% {
+        box-shadow: 0 0 30px #00e5ff;
+    }
+
+    100% {
+        box-shadow: 0 0 10px #00e5ff;
+    }
+
+}
+
+
+@keyframes bounce {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+
+@keyframes fall {
+
+    0% {
+        transform:
+            translateY(-100vh)
+            rotate(0deg);
+
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateY(100vh)
+            rotate(720deg);
+
+        opacity: 0;
+    }
+
+}
+
+
+/* =========================================================
+   WINNING CELL
+========================================================= */
+
+.cell.win {
+    animation: glow 0.8s infinite;
+
+    background: #14532d;
+}
+
+
+/* =========================================================
+   STATUS STATES
+========================================================= */
+
+.status.win {
+    color: #22c55e;
+
+    font-size: 26px;
+
+    animation: glow 1s infinite;
+}
+
+
+.status.draw {
+    color: #facc15;
+}
+
+
+/* =========================================================
+   DISABLED BUTTON
+========================================================= */
+
+button {
+    outline: none;
+}
+
+
+button:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   GAME INFORMATION
+========================================================= */
+
+.game-content {
+    width: 100%;
+
+    max-width: 900px;
+
+    margin: 50px auto 0;
+
+    text-align: left;
+}
+
+
+.content-section {
+    width: 100%;
+
+    background: #111827;
+
+    border: 1px solid rgba(0, 229, 255, 0.18);
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 0 18px rgba(0, 229, 255, 0.08);
+}
+
+
+/* =========================================================
+   INFORMATION HEADINGS
+========================================================= */
+
+.content-section h2 {
+    color: #00e5ff;
+
+    font-size: 26px;
+
+    line-height: 1.3;
+
+    margin-bottom: 16px;
+}
+
+
+.content-section h3 {
+    color: #facc15;
+
+    font-size: 20px;
+
+    margin-top: 20px;
+
+    margin-bottom: 8px;
+}
+
+
+/* =========================================================
+   INFORMATION TEXT
+========================================================= */
+
+.content-section p {
+    color: #d1d5db;
+
+    font-size: 16px;
+
+    line-height: 1.75;
+
+    margin-bottom: 14px;
+}
+
 
 .content-section ol,
-.content-section ul{
-padding-left:25px;
-color:#d1d5db;
-line-height:1.8;
+.content-section ul {
+    padding-left: 26px;
+
+    color: #d1d5db;
+
+    line-height: 1.8;
 }
 
-.content-section li{
-margin-bottom:8px;
+
+.content-section li {
+    margin-bottom: 8px;
 }
 
-@media(max-width:600px){
 
-.game-content{
-margin-top:30px;
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+
+    body {
+        padding: 25px 15px 40px;
+    }
+
+    .container {
+        max-width: 600px;
+    }
+
+    .game-content {
+        max-width: 700px;
+    }
+
 }
 
-.content-section{
-padding:18px;
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 18px 10px 35px;
+    }
+
+
+    .container {
+        width: 100%;
+
+        padding: 20px 15px;
+
+        border-radius: 18px;
+    }
+
+
+    h1 {
+        font-size: 28px;
+
+        margin-bottom: 18px;
+    }
+
+
+    /* Scoreboard */
+
+    .scoreboard {
+        gap: 7px;
+
+        margin: 18px 0;
+    }
+
+
+    .scoreboard div {
+        padding: 11px 5px;
+
+        border-radius: 12px;
+    }
+
+
+    .scoreboard h3 {
+        font-size: 16px;
+    }
+
+
+    .scoreboard p {
+        font-size: 21px;
+    }
+
+
+    /* Status */
+
+    .status {
+        font-size: 18px;
+
+        margin: 15px 0;
+    }
+
+
+    /* Board */
+
+    .board {
+        width: min(100%, 340px);
+
+        gap: 8px;
+
+        padding: 5px;
+
+        margin: 18px auto;
+    }
+
+
+    .cell {
+        border-width: 2px;
+
+        border-radius: 12px;
+
+        font-size: 50px;
+    }
+
+
+    /* Buttons */
+
+    .buttons {
+        flex-direction: column;
+
+        gap: 5px;
+    }
+
+
+    .mode-btn,
+    .level,
+    #restartBtn,
+    #resetBtn,
+    #playAgain {
+        font-size: 16px;
+
+        padding: 12px;
+    }
+
+
+    /* Information */
+
+    .game-content {
+        width: 100%;
+
+        margin-top: 35px;
+    }
+
+
+    .content-section {
+        padding: 20px 17px;
+
+        border-radius: 17px;
+    }
+
+
+    .content-section h2 {
+        font-size: 22px;
+    }
+
+
+    .content-section h3 {
+        font-size: 18px;
+    }
+
+
+    .content-section p,
+    .content-section li {
+        font-size: 15px;
+
+        line-height: 1.65;
+    }
+
+
+    /* Popup */
+
+    .popup {
+        padding: 22px;
+    }
+
+
+    .popup h2 {
+        font-size: 24px;
+    }
+
+
+    .popup p {
+        font-size: 18px;
+    }
+
 }
 
-.content-section h2{
-font-size:22px;
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    body {
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+
+
+    .container {
+        padding: 17px 12px;
+    }
+
+
+    h1 {
+        font-size: 25px;
+    }
+
+
+    .scoreboard {
+        gap: 5px;
+    }
+
+
+    .scoreboard h3 {
+        font-size: 14px;
+    }
+
+
+    .scoreboard p {
+        font-size: 19px;
+    }
+
+
+    .board {
+        width: min(100%, 300px);
+
+        gap: 6px;
+    }
+
+
+    .cell {
+        border-radius: 9px;
+
+        font-size: 43px;
+    }
+
+
+    .content-section {
+        padding: 17px 14px;
+    }
+
+
+    .content-section h2 {
+        font-size: 20px;
+    }
+
+
+    .content-section p,
+    .content-section li {
+        font-size: 14px;
+    }
+
 }
 
-.content-section h3{
-font-size:18px;
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+    width: 8px;
 }
 
+
+::-webkit-scrollbar-thumb {
+    background: #00e5ff;
+
+    border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-track {
+    background: #111827;
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+button:focus-visible,
+.cell:focus-visible {
+    outline: 3px solid #ffffff;
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   PREVENT OVERFLOW
+========================================================= */
+
+.content-section,
 .content-section p,
-.content-section li{
-font-size:15px;
-line-height:1.65;
-}
-
+.content-section li {
+    overflow-wrap: break-word;
 }
