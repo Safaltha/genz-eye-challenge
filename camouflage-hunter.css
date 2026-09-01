@@ -5,7 +5,7 @@
 
 
 /* =========================================================
-   GLOBAL RESET
+   RESET
 ========================================================= */
 
 * {
@@ -20,27 +20,42 @@ html {
     scroll-behavior: smooth;
 }
 
+
+/* =========================================================
+   BODY
+========================================================= */
+
 body {
     width: 100%;
     min-height: 100vh;
 
     background:
-        radial-gradient(circle at top, #260052 0%, transparent 40%),
-        linear-gradient(135deg, #050014, #120025, #000000);
+        radial-gradient(
+            circle at top,
+            rgba(80, 0, 130, 0.35),
+            transparent 45%
+        ),
+        linear-gradient(
+            135deg,
+            #050014,
+            #1a0033,
+            #000000
+        );
 
     color: #ffffff;
 
     font-family: Arial, Helvetica, sans-serif;
 
     /* IMPORTANT:
-       Keeps game and information section
-       vertically arranged */
+       Game and information section must be
+       one below another. */
     display: flex;
     flex-direction: column;
+
     align-items: center;
     justify-content: flex-start;
 
-    padding: 30px 20px 50px;
+    padding: 30px 20px 60px;
 
     overflow-x: hidden;
 }
@@ -52,15 +67,11 @@ body {
 
 .container {
     width: 100%;
-    max-width: 850px;
+    max-width: 700px;
 
     margin: 0 auto;
 
     text-align: center;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 
@@ -68,19 +79,19 @@ body {
    GAME TITLE
 ========================================================= */
 
-h1 {
+.container h1 {
     width: 100%;
-
-    font-size: clamp(30px, 5vw, 48px);
-    line-height: 1.2;
-
-    margin-bottom: 12px;
 
     color: #00ffff;
 
+    font-size: 40px;
+    line-height: 1.2;
+
+    margin-bottom: 10px;
+
     text-shadow:
-        0 0 10px rgba(0, 255, 255, 0.5),
-        0 0 25px rgba(0, 255, 255, 0.25);
+        0 0 10px rgba(0, 255, 255, 0.45),
+        0 0 25px rgba(0, 255, 255, 0.2);
 }
 
 
@@ -91,73 +102,64 @@ h1 {
 .container > p {
     width: 100%;
 
-    font-size: clamp(16px, 2.5vw, 19px);
-    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
 
-    color: rgba(255, 255, 255, 0.85);
+    font-size: 18px;
+    line-height: 1.5;
 
     margin-bottom: 25px;
 }
 
 
 /* =========================================================
-   SCORE / LEVEL / TIME BAR
+   SCORE / LEVEL / TIME
 ========================================================= */
 
 .top-bar {
     width: 100%;
 
     display: flex;
+
     justify-content: center;
     align-items: stretch;
 
     flex-wrap: wrap;
 
-    gap: 15px;
+    gap: 12px;
 
     margin-bottom: 25px;
 }
 
 
 /* =========================================================
-   SCORE / LEVEL / TIME BOX
+   INFORMATION BOXES
 ========================================================= */
 
 .info {
     flex: 1 1 150px;
 
+    min-width: 140px;
     max-width: 220px;
 
-    min-width: 140px;
+    padding: 12px 18px;
 
-    padding: 14px 18px;
+    border-radius: 15px;
 
-    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.09);
 
-    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.25);
-
-    backdrop-filter: blur(10px);
+    color: #ffffff;
 
     font-size: 16px;
-
     font-weight: bold;
 
     text-align: center;
 
-    transition:
-        transform 0.2s ease,
-        background 0.2s ease;
-}
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.2);
 
-.info:hover {
-    transform: translateY(-3px);
-
-    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
 }
 
 
@@ -166,34 +168,32 @@ h1 {
 ========================================================= */
 
 .board {
-    width: min(100%, 560px);
+    width: 100%;
+    max-width: 500px;
 
-    margin: 10px auto 25px;
+    margin: 25px auto 30px;
 
     display: grid;
 
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(
+        5,
+        minmax(0, 1fr)
+    );
 
-    gap: 12px;
+    gap: 10px;
 
-    padding: 10px;
+    padding: 0;
 
-    border-radius: 20px;
-
-    background: rgba(255, 255, 255, 0.035);
-
-    border: 1px solid rgba(255, 255, 255, 0.08);
-
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.35);
-
-    /* Prevent board from becoming too wide */
-    aspect-ratio: 1 / 1;
+    /* IMPORTANT:
+       No aspect-ratio here.
+       The board must be allowed to become
+       taller when the JavaScript adds rows. */
+    height: auto;
 }
 
 
 /* =========================================================
-   GAME SQUARE
+   INDIVIDUAL GAME SQUARE
 ========================================================= */
 
 .square {
@@ -201,41 +201,43 @@ h1 {
 
     aspect-ratio: 1 / 1;
 
-    border-radius: 12px;
+    min-width: 0;
+
+    border-radius: 10px;
 
     cursor: pointer;
 
-    border: none;
-
-    outline: none;
-
     transition:
-        transform 0.15s ease,
-        filter 0.15s ease,
-        box-shadow 0.15s ease;
+        transform 0.18s ease,
+        filter 0.18s ease,
+        box-shadow 0.18s ease;
 }
 
 
-/* Hover effect only on devices that support hover */
+/* =========================================================
+   SQUARE HOVER
+========================================================= */
 
 @media (hover: hover) {
 
     .square:hover {
-        transform: scale(1.05);
+        transform: scale(1.04);
 
-        filter: brightness(1.12);
+        filter: brightness(1.08);
 
         box-shadow:
-            0 0 12px rgba(255, 255, 255, 0.15);
+            0 0 12px rgba(255, 255, 255, 0.12);
     }
 
 }
 
 
-/* Click effect */
+/* =========================================================
+   SQUARE CLICK
+========================================================= */
 
 .square:active {
-    transform: scale(0.96);
+    transform: scale(0.97);
 }
 
 
@@ -243,27 +245,26 @@ h1 {
    NEXT LEVEL BUTTON
 ========================================================= */
 
-button {
+.container button {
     display: inline-flex;
 
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    min-width: 190px;
+    min-width: 180px;
 
     padding: 15px 35px;
 
-    margin-top: 5px;
+    margin: 0 auto;
 
     border: none;
 
-    border-radius: 50px;
-
-    font-size: 18px;
-
-    font-weight: bold;
+    border-radius: 40px;
 
     font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 18px;
+    font-weight: bold;
 
     cursor: pointer;
 
@@ -274,33 +275,41 @@ button {
             #ff00ff
         );
 
-    color: #050014;
+    color: #000000;
 
     box-shadow:
-        0 8px 25px rgba(0, 255, 255, 0.18);
+        0 8px 25px rgba(0, 255, 255, 0.15);
 
     transition:
         transform 0.2s ease,
-        box-shadow 0.2s ease,
-        filter 0.2s ease;
+        filter 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 
+/* =========================================================
+   BUTTON HOVER
+========================================================= */
+
 @media (hover: hover) {
 
-    button:hover {
-        transform: translateY(-3px) scale(1.03);
+    .container button:hover {
+        transform: translateY(-2px) scale(1.03);
 
-        filter: brightness(1.1);
+        filter: brightness(1.08);
 
         box-shadow:
-            0 12px 30px rgba(255, 0, 255, 0.25);
+            0 10px 30px rgba(255, 0, 255, 0.2);
     }
 
 }
 
 
-button:active {
+/* =========================================================
+   BUTTON CLICK
+========================================================= */
+
+.container button:active {
     transform: scale(0.97);
 }
 
@@ -311,26 +320,25 @@ button:active {
 
 .info-section {
     width: 100%;
-
     max-width: 900px;
 
-    margin: 50px auto 0;
+    margin: 45px auto 0;
 
-    padding: 35px;
+    padding: 30px;
 
     background:
-        rgba(255, 255, 255, 0.055);
+        rgba(255, 255, 255, 0.06);
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 
-    border-radius: 24px;
+    border-radius: 20px;
 
     text-align: left;
 
     box-shadow:
-        0 15px 45px rgba(0, 0, 0, 0.3);
+        0 15px 40px rgba(0, 0, 0, 0.3);
 
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(10px);
 }
 
 
@@ -341,32 +349,36 @@ button:active {
 .info-section h2 {
     color: #00ffff;
 
-    font-size: clamp(22px, 3vw, 28px);
-
+    font-size: 26px;
     line-height: 1.3;
 
-    margin-bottom: 18px;
+    margin-top: 0;
+    margin-bottom: 15px;
 
     text-shadow:
-        0 0 10px rgba(0, 255, 255, 0.2);
+        0 0 8px rgba(0, 255, 255, 0.2);
 }
 
+
+/* Space between information topics */
 
 .info-section h2:not(:first-child) {
-    margin-top: 35px;
+    margin-top: 30px;
 }
 
+
+/* =========================================================
+   INFORMATION SUBHEADINGS
+========================================================= */
 
 .info-section h3 {
     color: #ffffff;
 
-    font-size: 20px;
-
+    font-size: 19px;
     line-height: 1.4;
 
-    margin-top: 25px;
-
-    margin-bottom: 10px;
+    margin-top: 22px;
+    margin-bottom: 8px;
 }
 
 
@@ -375,13 +387,15 @@ button:active {
 ========================================================= */
 
 .info-section p {
-    color: rgba(255, 255, 255, 0.82);
+    color: rgba(255, 255, 255, 0.85);
 
     font-size: 16px;
 
-    line-height: 1.8;
+    line-height: 1.75;
 
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+
+    overflow-wrap: break-word;
 }
 
 
@@ -391,9 +405,9 @@ button:active {
 
 .info-section ul,
 .info-section ol {
-    padding-left: 28px;
+    padding-left: 25px;
 
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 
@@ -402,9 +416,11 @@ button:active {
 
     font-size: 16px;
 
-    line-height: 1.7;
+    line-height: 1.65;
 
     margin: 8px 0;
+
+    overflow-wrap: break-word;
 }
 
 
@@ -415,27 +431,21 @@ button:active {
 @media (max-width: 800px) {
 
     body {
-        padding: 25px 15px 40px;
+        padding: 25px 15px 50px;
     }
 
     .container {
-        max-width: 700px;
+        max-width: 650px;
     }
 
     .board {
-        width: min(100%, 520px);
-
-        gap: 10px;
-
-        padding: 9px;
+        max-width: 520px;
     }
 
     .info-section {
         max-width: 700px;
 
         padding: 28px;
-
-        margin-top: 45px;
     }
 
 }
@@ -448,20 +458,24 @@ button:active {
 @media (max-width: 600px) {
 
     body {
-        padding: 20px 12px 35px;
+        padding: 20px 12px 40px;
     }
 
 
-    /* Game title */
+    /* -------------------------
+       TITLE
+    ------------------------- */
 
-    h1 {
+    .container h1 {
         font-size: 30px;
 
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
 
 
-    /* Description */
+    /* -------------------------
+       DESCRIPTION
+    ------------------------- */
 
     .container > p {
         font-size: 16px;
@@ -472,7 +486,9 @@ button:active {
     }
 
 
-    /* Top information */
+    /* -------------------------
+       SCORE BAR
+    ------------------------- */
 
     .top-bar {
         gap: 8px;
@@ -482,49 +498,58 @@ button:active {
 
 
     .info {
-        flex: 1 1 calc(33.333% - 8px);
+        flex: 1 1 0;
 
         min-width: 0;
-
         max-width: none;
 
         padding: 11px 7px;
 
-        font-size: 14px;
-
         border-radius: 12px;
+
+        font-size: 14px;
     }
 
 
-    /* Game board */
+    /* -------------------------
+       GAME BOARD
+    ------------------------- */
 
     .board {
         width: 100%;
-
         max-width: 430px;
 
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns:
+            repeat(
+                4,
+                minmax(0, 1fr)
+            );
 
         gap: 8px;
 
-        padding: 8px;
+        margin: 15px auto 30px;
 
-        border-radius: 16px;
+        padding: 0;
 
-        margin: 5px auto 20px;
+        height: auto;
     }
 
+
+    /* -------------------------
+       SQUARE
+    ------------------------- */
 
     .square {
         border-radius: 9px;
     }
 
 
-    /* Button */
+    /* -------------------------
+       BUTTON
+    ------------------------- */
 
-    button {
+    .container button {
         width: 90%;
-
         max-width: 260px;
 
         min-width: 0;
@@ -535,7 +560,9 @@ button:active {
     }
 
 
-    /* Information */
+    /* -------------------------
+       INFORMATION
+    ------------------------- */
 
     .info-section {
         width: 100%;
@@ -551,23 +578,24 @@ button:active {
     .info-section h2 {
         font-size: 23px;
 
-        margin-bottom: 15px;
+        margin-bottom: 14px;
     }
 
 
     .info-section h2:not(:first-child) {
-        margin-top: 30px;
+        margin-top: 28px;
     }
 
 
     .info-section h3 {
         font-size: 18px;
 
-        margin-top: 22px;
+        margin-top: 20px;
     }
 
 
-    .info-section p {
+    .info-section p,
+    .info-section li {
         font-size: 15px;
 
         line-height: 1.7;
@@ -577,13 +605,6 @@ button:active {
     .info-section ul,
     .info-section ol {
         padding-left: 22px;
-    }
-
-
-    .info-section li {
-        font-size: 15px;
-
-        line-height: 1.65;
     }
 
 }
@@ -601,7 +622,7 @@ button:active {
     }
 
 
-    h1 {
+    .container h1 {
         font-size: 27px;
     }
 
@@ -612,7 +633,7 @@ button:active {
 
 
     .top-bar {
-        gap: 6px;
+        gap: 5px;
     }
 
 
@@ -620,15 +641,13 @@ button:active {
         padding: 10px 5px;
 
         font-size: 12px;
-
-        border-radius: 10px;
     }
 
 
     .board {
         gap: 6px;
 
-        padding: 6px;
+        max-width: 350px;
     }
 
 
@@ -647,9 +666,16 @@ button:active {
     }
 
 
+    .info-section h3 {
+        font-size: 17px;
+    }
+
+
     .info-section p,
     .info-section li {
         font-size: 14px;
+
+        line-height: 1.65;
     }
 
 }
@@ -659,7 +685,7 @@ button:active {
    ACCESSIBILITY
 ========================================================= */
 
-button:focus-visible,
+.container button:focus-visible,
 .square:focus-visible {
     outline: 3px solid #ffffff;
 
@@ -668,11 +694,11 @@ button:focus-visible,
 
 
 /* =========================================================
-   PREVENT LONG TEXT FROM BREAKING THE PAGE
+   PREVENT HORIZONTAL OVERFLOW
 ========================================================= */
 
+.container,
 .info-section,
-.info-section p,
-.info-section li {
-    overflow-wrap: break-word;
+.board {
+    max-width: 100%;
 }
